@@ -1,0 +1,93 @@
+﻿<Window x:Class="PresentationLayer.User_Interface.Registry"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PresentationLayer.User_Interface"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        mc:Ignorable="d"
+        Title="Registry" Height="580" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="0" Grid.Row="0">
+            <Image Source="./images/OnTheWaySideLogo.png" Stretch="Fill" ></Image>
+        </StackPanel>
+        
+        <Grid Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="40"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    ToolTip="Volver">
+                <materialDesign:PackIcon Kind="ArrowLeftCircle" Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="40"/>
+            </Button>
+            <TextBlock Grid.Column="1" Grid.Row="2" Text="Registro" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="25"/>
+
+            <Grid Grid.Column="1" Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBox Grid.Row="0" Grid.Column="0" Height="30"
+                     materialDesign:HintAssist.Hint="Nombre(s)"
+                     materialDesign:HintAssist.HelperText="Máximo 30 caracteres"/>
+
+                <TextBox Grid.Row="0" Grid.Column="2" Height="30"
+                     materialDesign:HintAssist.Hint="Apellido(s)"
+                     materialDesign:HintAssist.HelperText="Máximo 60 caracteres"/>
+
+                <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"  Height="30"
+                     materialDesign:HintAssist.Hint="Teléfono"
+                     materialDesign:HintAssist.HelperText="10 dígitos"/>
+
+                <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Height="30"
+                     materialDesign:HintAssist.Hint="Dirección de correo electrónico"
+                     materialDesign:HintAssist.HelperText="10 dígitos"/>
+
+                <PasswordBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Height="30"
+                     materialDesign:HintAssist.Hint="Contraseña"
+                     materialDesign:HintAssist.HelperText="10 dígitos"/>
+
+                <Button Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4"
+                    Width="120"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    Content="Enviar" Foreground="#FFF"></Button>
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,109 @@
+﻿<Window x:Class="PresentationLayer.User_Interface.ServiceRequest"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PresentationLayer.User_Interface"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        mc:Ignorable="d"
+        Title="ServiceRequest" Height="630" Width="600">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                   FontSize="25" FontWeight="SemiBold" Text="Solicitar servicio"/>
+
+        <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
+            x:Name="ComboBoxKindOfService"
+            Style="{StaticResource MaterialDesignFilledComboBox}"
+            IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
+            materialDesign:HintAssist.Hint="Tipo de servicio" Height="50" Width="200">
+                <ComboBoxItem
+                    Content="Compra de víveres" />
+                <ComboBoxItem
+                    Content="Compra de fármacos"/>
+                <ComboBoxItem
+                    Content="Entrega"/>
+        </ComboBox>
+
+        <ComboBox Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2"
+            x:Name="ComboBoxRegion"
+            Style="{StaticResource MaterialDesignFilledComboBox}"
+            IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
+            materialDesign:HintAssist.Hint="Región" Height="50" Width="200">
+            <ComboBoxItem
+                    Content="Xalapa" />
+            <ComboBoxItem
+                    Content="Veracruz"/>
+            <ComboBoxItem
+                    Content="Xico"/>
+        </ComboBox>
+
+        <TextBlock Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4"
+                   HorizontalAlignment="Left" VerticalAlignment="Center"
+                   FontSize="20" FontWeight="SemiBold" Text="Dirección de entrega"/>
+
+        <ComboBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="4"
+            x:Name="ComboBoxAddress"
+            Style="{StaticResource MaterialDesignFilledComboBox}"
+            IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
+            materialDesign:HintAssist.Hint="Dirección" Height="50">
+            <ComboBoxItem
+                    Content="Retorno Insurgentes #5, Col. Primaveras; Coatepec, Veracruz" />
+        </ComboBox>
+
+        <TextBlock Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="4"
+                   HorizontalAlignment="Left" VerticalAlignment="Center"
+                   FontSize="20" FontWeight="SemiBold" Text="Detalles adicionales"/>
+
+        <TextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="4"
+            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+            Height="100"
+            VerticalAlignment="Top"
+            AcceptsReturn="True"
+            TextWrapping="Wrap"
+            VerticalScrollBarVisibility="Auto"
+            materialDesign:HintAssist.Hint="Detalles..."/>
+
+        <TextBlock Grid.Row="7" Grid.Column="2"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                   FontSize="25" FontWeight="SemiBold" Text="Total:"/>
+
+        <TextBlock Grid.Row="7" Grid.Column="3"
+                   HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2"
+                   FontSize="30" FontWeight="SemiBold" Text="50.00 MXN"/>
+
+        <Button Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="8"
+                    Width="120"
+                    HorizontalAlignment="Center"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    Content="Enviar" Foreground="#FFF"></Button>
+    </Grid>
+</Window>
