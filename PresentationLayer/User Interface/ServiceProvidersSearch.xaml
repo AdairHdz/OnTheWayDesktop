@@ -13,7 +13,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="ServiceProvidersSearch" Height="450" Width="1000">
+        Title="ServiceProvidersSearch" Height="550" Width="1000">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
@@ -24,6 +24,8 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="30"/>
             <RowDefinition/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Background="#166EE5">
@@ -117,7 +119,7 @@
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     Content="Buscar" Foreground="#FFF"></Button>
         </Grid>
-        <ListView Grid.Column="1" Grid.Row="2">
+        <ListView x:Name="ServiceProvidersListView" Grid.Column="1" Grid.Row="2" SelectionChanged="ServiceProvidersListViewSelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Estado" Width="auto"/>
@@ -128,5 +130,14 @@
                 </GridView>
             </ListView.View>
         </ListView>
+
+        <Button Grid.Column="1" Grid.Row="3"
+                    x:Name="SeeDetailsButton"
+                    Width="120"
+                    HorizontalAlignment="Center"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    IsEnabled="False"
+                    Content="Ver detalles" Foreground="#FFF" Click="SeeDetailsButtonClicked"></Button>
+
     </Grid>
 </Window>

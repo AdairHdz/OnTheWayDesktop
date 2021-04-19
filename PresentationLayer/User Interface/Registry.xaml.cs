@@ -11,5 +11,12 @@ namespace PresentationLayer.User_Interface
         {
             InitializeComponent();
         }
+
+        private void BackButtonClicked(object sender, RoutedEventArgs e)
+        {
+            Login loginView = new Login();
+            loginView.Show();
+            Close();
+        }
     }
 }

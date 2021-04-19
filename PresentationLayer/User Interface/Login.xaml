@@ -1,4 +1,4 @@
-﻿<Window x:Class="PresentationLayer.User_Interface.Registry"
+﻿<Window x:Class="PresentationLayer.User_Interface.Login"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -13,7 +13,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="Registry" Height="590" ResizeMode="NoResize" Width="800">
+        Title="Login" Height="590" ResizeMode="NoResize" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -24,9 +24,9 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="0" Grid.Row="0">
-            <Image Source="./images/OnTheWaySideLogo.png" Stretch="Fill" ></Image>
+            <Image Source="./images/OnTheWaySideLogo.png" Stretch="Uniform"></Image>
         </StackPanel>
-        
+
         <Grid Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20"/>
@@ -40,13 +40,8 @@
                 <RowDefinition/>
                 <RowDefinition Height="20"/>
             </Grid.RowDefinitions>
-
-            <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="40"
-                    Style="{StaticResource MaterialDesignFloatingActionButton}"
-                    ToolTip="Volver" Click="BackButtonClicked">
-                <materialDesign:PackIcon Kind="ArrowLeftCircle" Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="40"/>
-            </Button>
-            <TextBlock Grid.Column="1" Grid.Row="2" Text="Registro" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="25"/>
+            
+            <TextBlock Grid.Column="1" Grid.Row="2" Text="Iniciar sesión" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="25"/>
 
             <Grid Grid.Column="1" Grid.Row="3">
                 <Grid.ColumnDefinitions>
@@ -62,30 +57,25 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <TextBox Grid.Row="0" Grid.Column="0" Height="30"
-                     materialDesign:HintAssist.Hint="Nombre(s)"
-                     materialDesign:HintAssist.HelperText="Máximo 30 caracteres"/>
-
-                <TextBox Grid.Row="0" Grid.Column="2" Height="30"
-                     materialDesign:HintAssist.Hint="Apellido(s)"
-                     materialDesign:HintAssist.HelperText="Máximo 60 caracteres"/>
-
-                <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"  Height="30"
-                     materialDesign:HintAssist.Hint="Teléfono"
-                     materialDesign:HintAssist.HelperText="10 dígitos"/>
-
-                <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Height="30"
+                <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Height="30"
                      materialDesign:HintAssist.Hint="Dirección de correo electrónico"
                      materialDesign:HintAssist.HelperText="10 dígitos"/>
 
-                <PasswordBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Height="30"
+                <PasswordBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Height="30"
                      materialDesign:HintAssist.Hint="Contraseña"
                      materialDesign:HintAssist.HelperText="10 dígitos"/>
-
-                <Button Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4"
+                                                
+                <Button Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3"
                     Width="120"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                    Content="Enviar" Foreground="#FFF"></Button>
+                    Content="Enviar" Foreground="#FFF" Click="SendButtonClicked"></Button>
+
+                <Button Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4"  
+                    HorizontalAlignment="Center"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Click="CreateAccountButtonClicked"
+                    ToolTip="MaterialDesignFlatButton"
+                    Content="Crear una cuenta" />
             </Grid>
 
         </Grid>
