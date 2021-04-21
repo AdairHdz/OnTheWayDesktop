@@ -1,0 +1,61 @@
+﻿<Window x:Class="PresentationLayer.User_Interface.Orders"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PresentationLayer.User_Interface"
+        xmlns:smtx="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        mc:Ignorable="d"
+        Title="Login" Height="590" ResizeMode="NoResize" Width="800">
+
+    <Grid RenderTransformOrigin="0.504,0.357">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="65*"/>
+            <RowDefinition Height="140*"/>
+            <RowDefinition Height="132*"/>
+            <RowDefinition Height="112*"/>
+            <RowDefinition Height="112*"/>
+
+        </Grid.RowDefinitions>
+        <Rectangle Fill="#166EE5" HorizontalAlignment="Left" Height="110" Grid.RowSpan="2" Stroke="Black" VerticalAlignment="Top" Width="794"/>
+        <Button HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="40"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    ToolTip="Volver" Click="BackButtonClicked" Margin="50,30,0,135" RenderTransformOrigin="0.5,0.075" Grid.RowSpan="2">
+            <materialDesign:PackIcon Kind="ArrowLeftCircle" Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="40"/>
+        </Button>
+        <TextBlock Grid.Row="1" Text="Pedidos" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="25" Margin="338,0,319,110" Height="30" Width="137" Foreground="#DDFFFFFF"/>
+        <ListView HorizontalAlignment="Center" Height="215" Margin="20,10,19,0" Grid.Row="2" Grid.RowSpan="2" VerticalAlignment="Top" Width="755">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Fecha" Width="auto"/>
+                    <GridViewColumn Header="Hora" Width="auto"/>
+                    <GridViewColumn Header="Servicio" Width="auto"/>
+                    <GridViewColumn Header="Estatus" Width="auto"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ComboBox  Background="#DDD"
+                x:Name="ComboBoxCity"
+                Style="{StaticResource MaterialDesignFilledComboBox}"
+                IsEnabled="{Binding IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
+                materialDesign:HintAssist.Hint="Estatus" SelectionChanged="ComboBoxStatus_SelectionChanged" Margin="616,104,19,10" Grid.Row="1">
+            <ComboBoxItem
+                    Content="En proceso" />
+            <ComboBoxItem
+                    Content="Cancelado" />
+            <ComboBoxItem
+                    Content="Completado" />
+        </ComboBox>
+    </Grid>
+</Window>

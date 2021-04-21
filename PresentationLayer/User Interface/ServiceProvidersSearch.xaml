@@ -81,7 +81,7 @@
                 x:Name="ComboBoxCity"
                 Style="{StaticResource MaterialDesignFilledComboBox}"
                 IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
-                materialDesign:HintAssist.Hint="Ciudad" Height="50">
+                materialDesign:HintAssist.Hint="Ciudad" Height="50" SelectionChanged="ComboBoxCity_SelectionChanged">
                 <ComboBoxItem
                     Content="Xalapa" />
                 <ComboBoxItem

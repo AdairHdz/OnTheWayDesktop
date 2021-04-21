@@ -32,5 +32,10 @@ namespace PresentationLayer.User_Interface
             ServiceRequest serviceRequest = new ServiceRequest();
             serviceRequest.Show();
         }
+
+        private void ComboBoxCity_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

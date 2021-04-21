@@ -40,14 +40,14 @@
                 <RowDefinition/>
                 <RowDefinition Height="20"/>
             </Grid.RowDefinitions>
-            
+
             <TextBlock Grid.Column="1" Grid.Row="2" Text="Iniciar sesión" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="25"/>
 
             <Grid Grid.Column="1" Grid.Row="3">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="10"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="174*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="173*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -64,7 +64,7 @@
                 <PasswordBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Height="30"
                      materialDesign:HintAssist.Hint="Contraseña"
                      materialDesign:HintAssist.HelperText="10 dígitos"/>
-                                                
+
                 <Button Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3"
                     Width="120"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
