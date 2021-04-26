@@ -43,7 +43,7 @@
         <Label x:Name="LabelDate" HorizontalAlignment="Left" Margin="505,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="165" Height="24"/>
         <Label x:Name="LabelTime" HorizontalAlignment="Left" Margin="495,39,0,0" Grid.Row="2" VerticalAlignment="Top" Width="165" Height="24"/>
         <Label Content="Comentarios" HorizontalAlignment="Left" Margin="70,15,0,0" Grid.Row="3" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Height="25" Width="121"/>
-        <TextBox HorizontalAlignment="Left" Height="212" Margin="70,43,0,0" Grid.Row="3" TextWrapping="Wrap" Text="Introduzcan sus comentarios" VerticalAlignment="Top" Width="425" Foreground="#DD5D5D5D"/>
+        <TextBox AcceptsReturn="True" VerticalScrollBarVisibility="Visible" HorizontalAlignment="Left" Height="212" Margin="70,43,0,0" Grid.Row="3" TextWrapping="Wrap" Text="Introduzcan sus comentarios" VerticalAlignment="Top" Width="425" Foreground="#DD5D5D5D"/>
         <Button x:Name="SearchFile" Content="Buscar" HorizontalAlignment="Left" Margin="535,90,0,0" Grid.Row="3" VerticalAlignment="Top" Width="125" Height="25" Click="Button_Click" Foreground="White" BorderBrush="#FFFF6D00" Background="#FFFF6D00"/>
         <Label Content="Adjuntar evidencias" HorizontalAlignment="Left" Margin="535,45,0,0" Grid.Row="3" VerticalAlignment="Top" FontWeight="Bold" Width="125" Height="24" RenderTransformOrigin="0.545,0.833"/>
         <Image HorizontalAlignment="Left" Height="100" Margin="545,135,0,0" Grid.Row="3" VerticalAlignment="Top" Width="100"/>
