@@ -38,8 +38,8 @@
         <materialDesign:RatingBar Grid.Column="1" Grid.Row="2"            
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            x:Name="BasicRatingBar"
-            Value="3"
+            x:Name="BasicRatingBarServiceScore"
+            Value="1"            
             ValueChanged="BasicRatingBarValueChanged" />
 
         <TextBox Grid.Column="1" Grid.Row="3"

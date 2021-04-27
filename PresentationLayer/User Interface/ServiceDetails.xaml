@@ -78,10 +78,11 @@
                 Text="Fecha:"
                 />
 
-            <TextBlock Grid.Column="1" Grid.Row="2"                
+            <TextBlock Grid.Column="1" Grid.Row="2"
+                Text="{Binding Date}"
+                x:Name="TextBlockServiceRequestDate"
                 VerticalAlignment="Center"
-                FontSize="18"                
-                Text="20/08/2021"
+                FontSize="18"                                
                 />
 
             <TextBlock Grid.Column="1" Grid.Row="3"                
@@ -91,10 +92,11 @@
                 Text="Dirección de entrega:"
                 />
 
-            <TextBlock Grid.Column="1" Grid.Row="4"                
+            <TextBlock Grid.Column="1" Grid.Row="4"  
+                Text="{Binding DeliveryAddress}"
                 VerticalAlignment="Center"
                 FontSize="18"                
-                Text="Retorno Insurgentes #5, col. Primaveras"
+                x:Name="TextBlockServiceRequestDeliveryAddress"
                 />
 
             <TextBlock Grid.Column="1" Grid.Row="5"                
@@ -105,12 +107,15 @@
                 />
 
             <TextBox Grid.Column="1" Grid.Row="6"
+            Text="{Binding Description}"
+            IsReadOnly="True"
             Style="{StaticResource MaterialDesignOutlinedTextBox}"
             Height="100"
             VerticalAlignment="Top"
             AcceptsReturn="True"
             TextWrapping="Wrap"
-            VerticalScrollBarVisibility="Auto"/>
+            VerticalScrollBarVisibility="Auto"
+            x:Name="TextBoxServiceRequestDescription"/>
 
             <DockPanel Grid.Column="1" Grid.Row="8">
                 <TextBlock                
@@ -121,7 +126,7 @@
                 />
                 <Separator Width="50"/>
 
-                <materialDesign:Chip Content="Concretado" Background="LightGreen"/>
+                <materialDesign:Chip Content="{Binding ServiceStatus}" x:Name="ChipServiceRequestStatus"/>
             </DockPanel>
 
             <DockPanel Grid.Column="1" Grid.Row="9">
@@ -133,19 +138,30 @@
                 />
                 <Separator Width="50"/>
 
-                <TextBlock                
+                <TextBlock        
+                Text="{Binding Cost}"
                 VerticalAlignment="Center"
                 FontSize="18"                
-                Text="$80.00 MXN"
+                x:Name="TextBlockServiceRequestCost"
                 />
             </DockPanel>
         </Grid>
 
-        <Button Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="3"
-                    Width="120"
+        <DockPanel Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center">
+            <Button Width="120"
+                    x:Name="ButtonReview"
+                    Margin="10, 0, 10, 0"
                     HorizontalAlignment="Center"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     Content="Calificar" Foreground="#FFF" Click="ReviewButtonClicked"></Button>
+            <Button Width="120"
+                    x:Name="ButtonCancel"
+                    Margin="10, 0, 10, 0"
+                    HorizontalAlignment="Center"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    Content="Cancelar" Foreground="#FFF" Click="CancelButtonClicked"></Button>
+        </DockPanel>
+        
 
     </Grid>
 </Window>

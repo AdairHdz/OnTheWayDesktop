@@ -52,6 +52,7 @@
             </Button>
 
             <DatePicker
+                x:Name="DatePickerServiceDate"
                 Grid.Column="1" Grid.Row="2"
                 Width="200"                
                 HorizontalAlignment="Right"
@@ -65,13 +66,13 @@
                     Content="Buscar" Foreground="#FFF" Click="SearchButtonClicked"></Button>
 
         </Grid>
-        <ListView Grid.Column="1" Grid.Row="2">
+        <ListView x:Name="ListViewServices" Grid.Column="1" Grid.Row="2" ItemsSource="{Binding _serviceRequests}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Tipo de servicio" Width="auto"/>
-                    <GridViewColumn Header="Costo" Width="300"/>
-                    <GridViewColumn Header="Estado" Width="auto"/>
-                    <GridViewColumn Header="Proveedor de servicios" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding KindOfService}" Header="Tipo de servicio" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Cost}" Header="Costo" Width="300"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding ServiceStatus}" Header="Estado" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding ServiceProvider.Names}" Header="Proveedor de servicios" Width="auto"/>
                 </GridView>
             </ListView.View>
         </ListView>
