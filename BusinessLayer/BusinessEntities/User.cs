@@ -7,5 +7,6 @@
         public string EmailAddress { get; set; }
         public string Password { get; set; }
         public bool Verified { get; set; }
+        public UserType UserType { get; set; }
     }
 }
