@@ -51,7 +51,7 @@
 
             <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="40"
                     Style="{StaticResource MaterialDesignFloatingActionButton}"
-                    ToolTip="Volver">
+                    ToolTip="Volver" Click="BackButtonClicked">
                 <materialDesign:PackIcon Kind="ArrowLeftCircle" Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="40"/>
             </Button>
 

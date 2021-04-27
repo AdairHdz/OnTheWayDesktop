@@ -55,15 +55,16 @@
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
 
                 <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Height="30"
                      materialDesign:HintAssist.Hint="Dirección de correo electrónico"
-                     materialDesign:HintAssist.HelperText="10 dígitos"/>
+                     materialDesign:HintAssist.HelperText="Máximo 254 caracteres"/>
 
                 <PasswordBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Height="30"
                      materialDesign:HintAssist.Hint="Contraseña"
-                     materialDesign:HintAssist.HelperText="10 dígitos"/>
+                     materialDesign:HintAssist.HelperText="Máximo 50 caracteres"/>
                                                 
                 <Button Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3"
                     Width="120"
@@ -74,8 +75,15 @@
                     HorizontalAlignment="Center"
                     Style="{StaticResource MaterialDesignFlatButton}"
                     Click="CreateAccountButtonClicked"
-                    ToolTip="MaterialDesignFlatButton"
+                    ToolTip="Crear una cuenta"
                     Content="Crear una cuenta" />
+
+                <Button Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5"  
+                    HorizontalAlignment="Center"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Click="ForgotPasswordButtonClicked"
+                    ToolTip="Recuperar contraseña"
+                    Content="Olvidé mi contraseña" />
             </Grid>
 
         </Grid>

@@ -21,8 +21,15 @@ namespace PresentationLayer.User_Interface
 
         private void SendButtonClicked(object sender, RoutedEventArgs e)
         {
-            ServiceProvidersSearch serviceProvidersSearch = new ServiceProvidersSearch();
-            serviceProvidersSearch.Show();
+            AccountActivation accountActivation = new AccountActivation();
+            accountActivation.Show();
+            Close();
+        }
+
+        private void ForgotPasswordButtonClicked(object sender, RoutedEventArgs e)
+        {
+            PasswordRecovery passwordRecovery = new PasswordRecovery();
+            passwordRecovery.Show();
             Close();
         }
     }

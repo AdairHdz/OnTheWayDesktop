@@ -63,17 +63,38 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="User Interface\AccountActivation.xaml.cs">
+      <DependentUpon>AccountActivation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="User Interface\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
+    <Compile Include="User Interface\ServiceHistory.xaml.cs">
+      <DependentUpon>ServiceHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="User Interface\PasswordRecovery.xaml.cs">
+      <DependentUpon>PasswordRecovery.xaml</DependentUpon>
+    </Compile>
     <Compile Include="User Interface\Registry.xaml.cs">
       <DependentUpon>Registry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="User Interface\ServiceDetails.xaml.cs">
+      <DependentUpon>ServiceDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="User Interface\ServiceProviderDetails.xaml.cs">
+      <DependentUpon>ServiceProviderDetails.xaml</DependentUpon>
     </Compile>
     <Compile Include="User Interface\ServiceProvidersSearch.xaml.cs">
       <DependentUpon>ServiceProvidersSearch.xaml</DependentUpon>
     </Compile>
     <Compile Include="User Interface\ServiceRequest.xaml.cs">
       <DependentUpon>ServiceRequest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="User Interface\ServiceRequesterMenu.xaml.cs">
+      <DependentUpon>ServiceRequesterMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="User Interface\ServiceReview.xaml.cs">
+      <DependentUpon>ServiceReview.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -87,11 +108,31 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="User Interface\AccountActivation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="User Interface\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="User Interface\ServiceHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User Interface\PasswordRecovery.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="User Interface\Registry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User Interface\ServiceDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User Interface\ServiceProviderDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -100,6 +141,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="User Interface\ServiceRequest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User Interface\ServiceRequesterMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User Interface\ServiceReview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

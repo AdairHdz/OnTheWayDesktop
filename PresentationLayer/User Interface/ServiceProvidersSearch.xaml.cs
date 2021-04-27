@@ -29,8 +29,16 @@ namespace PresentationLayer.User_Interface
 
         private void SeeDetailsButtonClicked(object sender, RoutedEventArgs e)
         {
-            ServiceRequest serviceRequest = new ServiceRequest();
-            serviceRequest.Show();
+            ServiceProviderDetails serviceProviderDetails = new ServiceProviderDetails();
+            serviceProviderDetails.Show();
+            Close();
+        }
+
+        private void BackButtonClicked(object sender, RoutedEventArgs e)
+        {
+            ServiceRequesterMenu serviceRequesterMenu = new ServiceRequesterMenu();
+            serviceRequesterMenu.Show();
+            Close();
         }
     }
 }

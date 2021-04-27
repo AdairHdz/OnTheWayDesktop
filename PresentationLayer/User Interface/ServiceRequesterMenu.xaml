@@ -1,0 +1,98 @@
+﻿<Window x:Class="PresentationLayer.User_Interface.ServiceRequesterMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PresentationLayer.User_Interface"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        mc:Ignorable="d"
+        Title="ServiceRequesterMenu" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Rectangle Grid.Row="0" Fill="#166EE5"/>
+        <TextBlock Grid.Row="0" Text="Menú Coordinador" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Foreground="White"
+                   VerticalAlignment="Center" HorizontalAlignment="Center"  FontWeight="Bold"/>
+        <Grid Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,30,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="135"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" FontSize="16" Foreground="#FFF"  Style="{StaticResource MaterialDesignRaisedAccentButton}" HorizontalAlignment="Right"
+                VerticalAlignment="Center" Content="Cerrar Sesión" Click="LogOutButtonClicked">
+            </Button>
+        </Grid>
+
+        <Grid Grid.Row="1" HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition ></ColumnDefinition>
+                <ColumnDefinition ></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="230"></RowDefinition>
+                <RowDefinition Height="240"></RowDefinition>
+            </Grid.RowDefinitions>
+            <GroupBox Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" >
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Motorbike" Height="32" Width="32" VerticalAlignment="Center" />
+                            <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Text="Proveedores de servicio" />
+                        </StackPanel>
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+                <Grid HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Button Margin="0,0,0,10" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Style="{StaticResource MaterialDesignRaisedAccentButton}" Click="SeeServiceProvidersButtonClicked">
+                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="230"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <materialDesign:PackIcon Kind="TextBoxCheck" Height="35" Width="35" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Label Height="35" VerticalContentAlignment="Center" Content="Ver proveedores de servicio" Grid.Column="0" FontSize="16" Foreground="White" FontFamily="Arial" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                        </Grid>
+                    </Button>
+                </Grid>
+            </GroupBox>
+
+            
+
+            <GroupBox Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" Margin="50,65,-46,65">
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="FileChart" Height="32" Width="32" VerticalAlignment="Center" />
+                            <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Text="Servicios" />
+                        </StackPanel>
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+                <Button Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="SeeServiceHistoryButtonClicked" >
+                    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="250">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <materialDesign:PackIcon Kind="AlignVerticalBottom" Height="35" Width="35" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Content="Ver historial de servicios" Grid.Column="0" FontSize="16" Foreground="White" FontFamily="Arial" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    </Grid>
+                </Button>
+            </GroupBox>
+        </Grid>
+
+
+    </Grid>
+</Window>

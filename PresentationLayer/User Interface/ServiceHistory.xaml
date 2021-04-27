@@ -1,0 +1,87 @@
+﻿<Window x:Class="PresentationLayer.User_Interface.ServiceHistory"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PresentationLayer.User_Interface"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        mc:Ignorable="d"
+        Title="Historial de servicios" Height="650" Width="950">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Background="#166EE5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="10"/>
+                
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="40"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    ToolTip="Volver" Click="BackButtonClicked">
+                <materialDesign:PackIcon Kind="ArrowLeftCircle" Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="40"/>
+            </Button>
+
+            <DatePicker
+                Grid.Column="1" Grid.Row="2"
+                Width="200"                
+                HorizontalAlignment="Right"
+                materialDesign:HintAssist.Hint="Seleccione una fecha"
+                Style="{StaticResource MaterialDesignFilledDatePicker}" />
+
+            <Button Grid.Column="3" Grid.Row="2"
+                    Width="120"
+                    HorizontalAlignment="Left"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}"                   
+                    Content="Buscar" Foreground="#FFF" Click="SearchButtonClicked"></Button>
+
+        </Grid>
+        <ListView Grid.Column="1" Grid.Row="2">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Tipo de servicio" Width="auto"/>
+                    <GridViewColumn Header="Costo" Width="300"/>
+                    <GridViewColumn Header="Estado" Width="auto"/>
+                    <GridViewColumn Header="Proveedor de servicios" Width="auto"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Button Grid.Column="1" Grid.Row="3"
+                    x:Name="SeeDetailsButton"
+                    Width="120"
+                    HorizontalAlignment="Center"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    Content="Ver detalles" Foreground="#FFF" Click="SeeDetailsButtonClicked"></Button>
+
+    </Grid>
+</Window>
