@@ -100,6 +100,7 @@
       <DependentUpon>ServiceReview.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValidationModules\ReviewValidator.cs" />
+    <Compile Include="ValidationModules\ServiceRequestValidator.cs" />
     <Compile Include="ValidationModules\UserLoginValidator.cs" />
     <Compile Include="ValidationModules\UserValidator.cs" />
     <Page Include="MainWindow.xaml">
