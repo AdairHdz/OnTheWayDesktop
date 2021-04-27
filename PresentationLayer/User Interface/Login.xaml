@@ -13,6 +13,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
+        Icon="./images/OnTheWayIcon.png"
         Title="Login" Height="590" ResizeMode="NoResize" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>

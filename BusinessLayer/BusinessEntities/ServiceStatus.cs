@@ -4,6 +4,7 @@
     {
         Active,
         Concretized,
-        Canceled
+        Canceled,
+        PendingOfAcceptance
     }
 }
