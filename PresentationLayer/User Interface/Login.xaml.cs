@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using BusinessLayer.BusinessEntities;
+using System.Windows;
 
 namespace PresentationLayer.User_Interface
 {
@@ -7,9 +8,11 @@ namespace PresentationLayer.User_Interface
     /// </summary>
     public partial class Login : Window
     {
+        private User _user = new User();
         public Login()
         {
             InitializeComponent();
+            this.DataContext = _user;
         }
 
         private void CreateAccountButtonClicked(object sender, RoutedEventArgs e)
@@ -21,6 +24,7 @@ namespace PresentationLayer.User_Interface
 
         private void SendButtonClicked(object sender, RoutedEventArgs e)
         {
+            _user.Password = PasswordBoxPassword.Password;                                    
             AccountActivation accountActivation = new AccountActivation();
             accountActivation.Show();
             Close();

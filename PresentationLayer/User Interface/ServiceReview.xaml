@@ -43,15 +43,17 @@
             ValueChanged="BasicRatingBarValueChanged" />
 
         <TextBox Grid.Column="1" Grid.Row="3"
+                 Text="{Binding Title, Mode=TwoWay}"
                      materialDesign:HintAssist.Hint="Título"
                      materialDesign:HintAssist.HelperText="Máximo 30 caracteres"/>
 
         <TextBox Grid.Column="1" Grid.Row="4"
+                 Text="{Binding Details, Mode=TwoWay}"
             Style="{StaticResource MaterialDesignOutlinedTextBox}"
             Height="150"
             VerticalAlignment="Center"
             AcceptsReturn="True"
-                 materialDesign:HintAssist.Hint="Descripción"
+                 materialDesign:HintAssist.Hint="Detalles"
             TextWrapping="Wrap"
             VerticalScrollBarVisibility="Auto"/>
 

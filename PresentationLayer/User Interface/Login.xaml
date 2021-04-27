@@ -59,10 +59,12 @@
                 </Grid.RowDefinitions>
 
                 <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Height="30"
+                     Text="{Binding EmailAddress, Mode=TwoWay}"
                      materialDesign:HintAssist.Hint="Dirección de correo electrónico"
                      materialDesign:HintAssist.HelperText="Máximo 254 caracteres"/>
 
                 <PasswordBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Height="30"
+                     x:Name="PasswordBoxPassword"
                      materialDesign:HintAssist.Hint="Contraseña"
                      materialDesign:HintAssist.HelperText="Máximo 50 caracteres"/>
                                                 

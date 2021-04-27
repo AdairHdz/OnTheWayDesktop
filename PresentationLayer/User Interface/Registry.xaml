@@ -64,25 +64,29 @@
 
                 <TextBox Grid.Row="0" Grid.Column="0" Height="30"
                      materialDesign:HintAssist.Hint="Nombre(s)"
+                     Text="{Binding Names, Mode=TwoWay}"
                      materialDesign:HintAssist.HelperText="Máximo 30 caracteres"/>
 
                 <TextBox Grid.Row="0" Grid.Column="2" Height="30"
                      materialDesign:HintAssist.Hint="Apellido(s)"
+                     Text="{Binding Lastname, Mode=TwoWay}"
                      materialDesign:HintAssist.HelperText="Máximo 60 caracteres"/>
 
 
                 <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Height="30"
                      materialDesign:HintAssist.Hint="Dirección de correo electrónico"
+                     Text="{Binding EmailAddress, Mode=TwoWay}"
                      materialDesign:HintAssist.HelperText="Máximo 254 caracteres"/>
 
                 <PasswordBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Height="30"
+                     x:Name="PasswordBoxPassword"
                      materialDesign:HintAssist.Hint="Contraseña"
                      materialDesign:HintAssist.HelperText="Máximo 50 caracteres"/>
 
                 <Button Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3"
                     Width="120"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                    Content="Enviar" Foreground="#FFF"></Button>
+                    Content="Enviar" Foreground="#FFF" Click="SendButtonClicked"></Button>
             </Grid>
 
         </Grid>
