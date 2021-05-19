@@ -13,6 +13,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
+        Loaded="WindowLoaded"
         Title="Registry" Height="590" ResizeMode="NoResize" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -83,7 +84,15 @@
                      materialDesign:HintAssist.Hint="Contraseña"
                      materialDesign:HintAssist.HelperText="Máximo 50 caracteres"/>
 
-                <Button Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3"
+                <ComboBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Background="#DDD"
+                x:Name="ComboBoxState"
+                Style="{StaticResource MaterialDesignFilledComboBox}"                
+                DisplayMemberPath="Name"
+                SelectedIndex="0"
+                materialDesign:HintAssist.Hint="Estado" Height="50">
+                </ComboBox>
+
+                <Button Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4"
                     Width="120"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     Content="Enviar" Foreground="#FFF" Click="SendButtonClicked"></Button>

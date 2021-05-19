@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using BusinessLayer.BusinessEntities;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace PresentationLayer.User_Interface
 {
@@ -39,6 +41,19 @@ namespace PresentationLayer.User_Interface
             ServiceRequesterMenu serviceRequesterMenu = new ServiceRequesterMenu();
             serviceRequesterMenu.Show();
             Close();
+        }
+
+        private void SearchButtonClicked(object sender, RoutedEventArgs e)
+        {
+            ServiceProvidersListView.Items.Clear();
+            double maxPriceRate = MaxPriceSlider.Value;
+            string cityName = ComboBoxCity.Text;
+            var kindOfService = ((ComboBoxItem)ComboBoxKindOfService.SelectedItem).Tag;
+
+            ServiceProvider serviceProvider = new ServiceProvider();
+            serviceProvider.FindMatches(maxPriceRate, cityName, kindOfService);
+            
+            
         }
     }
 }
