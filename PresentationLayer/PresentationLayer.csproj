@@ -84,10 +84,14 @@
     </ApplicationDefinition>
     <Compile Include="Helpers\NotificationWindow.cs" />
     <Compile Include="Helpers\UserFeedback.cs" />
+    <Compile Include="Mappers\CityMapper.cs" />
+    <Compile Include="Mappers\ServiceProviderMapper.cs" />
     <Compile Include="Mappers\StateMapper.cs" />
     <Compile Include="Mappers\UserMapper.cs" />
+    <Compile Include="PresentationModels\CityPresentationModel.cs" />
     <Compile Include="PresentationModels\LoginPresentationModel.cs" />
     <Compile Include="PresentationModels\RegistryPresentationModel.cs" />
+    <Compile Include="PresentationModels\ServiceProviderOverviewItemPresentationModel.cs" />
     <Compile Include="PresentationModels\StatePresentationModel.cs" />
     <Compile Include="User Interface\AccountActivation.xaml.cs">
       <DependentUpon>AccountActivation.xaml</DependentUpon>

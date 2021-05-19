@@ -43,32 +43,56 @@ namespace DataLayer
         }
 
         public IRestResponse<T> Get(IRestRequest restRequest)
-        {            
+        {
+            //IRestRequest request = new RestRequest(endpoint, Method.GET);
+            //IRestResponse<List<T>> response = _restClient.Execute<List<T>>(request);
+            
+            
             throw new NotImplementedException();
         }
 
-        public IRestResponse<List<T>> GetAll(string endpoint)
+        public IRestResponse<List<T>> GetAll(string endpoint, IRestRequest restRequest = null)
         {
-            IRestRequest request = new RestRequest(endpoint, Method.GET);            
-            IRestResponse<List<T>> response = _restClient.Execute<List<T>>(request);
-            if (response.ResponseStatus == ResponseStatus.Error)
+            IRestRequest request = new RestRequest(endpoint, Method.GET);
+            if(restRequest != null)
             {
-                string exceptionMessage;
-                switch (response.StatusCode)
+                restRequest.Parameters.ForEach(param =>
                 {
-                    case System.Net.HttpStatusCode.BadRequest:
-                        exceptionMessage = "La petición no pudo ser procesada debido a que tiene una estructura no válida.";
-                        break;
-                    case System.Net.HttpStatusCode.InternalServerError:
-                        exceptionMessage = "La petición no puede ser procesada en este momento. Por favor, intente más tarde,";
-                        break;
-                    default:
-                        exceptionMessage = "Ha ocurrido un error desconocido. Por favor, intente más tarde.";
-                        break;
-                }
-                throw new NetworkRequestException(response.StatusCode, exceptionMessage);
+                    if(param.Type == ParameterType.QueryString)
+                    {                        
+                        request.AddQueryParameter(param.Name, param.Value.ToString());
+                    }                    
+                });
+                
             }
-            return response;
+            try
+            {
+                IRestResponse<List<T>> response = _restClient.Execute<List<T>>(request);
+                if (response.ResponseStatus == ResponseStatus.Error)
+                {
+                    string exceptionMessage;
+                    switch (response.StatusCode)
+                    {
+                        case System.Net.HttpStatusCode.BadRequest:
+                            exceptionMessage = "La petición no pudo ser procesada debido a que tiene una estructura no válida.";
+                            break;
+                        case System.Net.HttpStatusCode.InternalServerError:
+                            exceptionMessage = "La petición no puede ser procesada en este momento. Por favor, intente más tarde,";
+                            break;
+                        case System.Net.HttpStatusCode.OK:
+                            throw new EmptyCollectionException();
+                        default:
+                            exceptionMessage = "Ha ocurrido un error desconocido. Por favor, intente más tarde.";
+                            break;
+                    }
+                    throw new NetworkRequestException(response.StatusCode, exceptionMessage);
+                }
+                return response;
+            }
+            catch (NullReferenceException)
+            {
+                throw new EmptyCollectionException();
+            }
         }
 
         public T ReadCollection(Func<T, bool> filters)

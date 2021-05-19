@@ -13,6 +13,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
+        Loaded="WindowLoaded"
         Title="ServiceProvidersSearch" Height="550" Width="1000">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -57,6 +58,7 @@
 
             <ComboBox Grid.Row="2" Grid.Column="1" Background="#DDD"
                 x:Name="ComboBoxKindOfService"
+                SelectedIndex="0"
                 Style="{StaticResource MaterialDesignFilledComboBox}"
                 IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
                 materialDesign:HintAssist.Hint="Tipo de servicio" Height="50">
@@ -72,26 +74,14 @@
             </ComboBox>
 
             <ComboBox Grid.Row="2" Grid.Column="3" Background="#DDD"
-                x:Name="ComboBoxState"
-                Style="{StaticResource MaterialDesignFilledComboBox}"
-                IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
-                materialDesign:HintAssist.Hint="Estado" Height="50">
-                <ComboBoxItem
-                    Content="Veracruz" />
-            </ComboBox>
-
-            <ComboBox Grid.Row="2" Grid.Column="5" Background="#DDD"
                 x:Name="ComboBoxCity"
                 Style="{StaticResource MaterialDesignFilledComboBox}"
                 IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
+                DisplayMemberPath="Name"
                 materialDesign:HintAssist.Hint="Ciudad" Height="50">
-                <ComboBoxItem
-                    Content="Xalapa" />
-                <ComboBoxItem
-                    Content="Coatepec" />
             </ComboBox>
 
-            <Grid Grid.Column="7" Grid.Row="2">
+            <Grid Grid.Column="5" Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -113,7 +103,7 @@
                 VerticalAlignment="Top"
                 Foreground="White"
                 Minimum="1"
-                Maximum="500"
+                Maximum="100"
                 Value="1" ValueChanged="MaxPriceSliderValueChanged" />
             </Grid>
             <Button Grid.Column="9" Grid.Row="2"
@@ -123,12 +113,12 @@
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     Content="Buscar" Foreground="#FFF"></Button>
         </Grid>
-        <ListView x:Name="ServiceProvidersListView" Grid.Column="1" Grid.Row="2" SelectionChanged="ServiceProvidersListViewSelectionChanged">
+        <ListView x:Name="ServiceProvidersListView" Grid.Column="1" Grid.Row="2" SelectionChanged="ServiceProvidersListViewSelectionChanged"  ItemsSource="{Binding _serviceProviders}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Nombre" Width="300"/>
-                    <GridViewColumn Header="Calificación" Width="auto"/>
-                    <GridViewColumn Header="Tarifa" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Nombre" Width="300"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding AverageScore}" Header="Calificación" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding PriceRate}" Header="Tarifa" Width="auto"/>
                 </GridView>
             </ListView.View>
         </ListView>

@@ -68,7 +68,9 @@
     <Compile Include="BusinessEntities\PriceRate.cs" />
     <Compile Include="BusinessEntities\State.cs" />
     <Compile Include="BusinessEntities\UserType.cs" />
+    <Compile Include="Mappers\CityMapper.cs" />
     <Compile Include="Mappers\LoginMapper.cs" />
+    <Compile Include="Mappers\ServiceProviderMapper.cs" />
     <Compile Include="Mappers\StateMapper.cs" />
     <Compile Include="Mappers\UserMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

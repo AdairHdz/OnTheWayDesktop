@@ -7,7 +7,7 @@ namespace PresentationLayer.User_Interface
     /// </summary>
     public partial class ServiceProviderDetails : Window
     {
-        public ServiceProviderDetails()
+        public ServiceProviderDetails(string serviceProviderID)
         {
             InitializeComponent();
         }
