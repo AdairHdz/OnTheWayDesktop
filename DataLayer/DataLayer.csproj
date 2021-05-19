@@ -45,8 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataTransferObjects\CityDTO.cs" />
     <Compile Include="DataTransferObjects\LoginDTO.cs" />
     <Compile Include="DataTransferObjects\LoginResponseDTO.cs" />
+    <Compile Include="DataTransferObjects\ServiceProviderOverviewItemDTO.cs" />
     <Compile Include="DataTransferObjects\StateDTO.cs" />
     <Compile Include="DataTransferObjects\UserDTO.cs" />
     <Compile Include="DataTransferObjects\UserRegistryDTO.cs" />

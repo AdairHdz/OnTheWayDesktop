@@ -1,5 +1,10 @@
-﻿using RestSharp;
+﻿using BusinessLayer.Mappers;
+using DataLayer;
+using DataLayer.DataTransferObjects;
+using RestSharp;
+using System;
 using System.Collections.Generic;
+using Utils.CustomExceptions;
 
 namespace BusinessLayer.BusinessEntities
 {
@@ -7,21 +12,34 @@ namespace BusinessLayer.BusinessEntities
     {
         public string ID { get; set; }
         public double AverageScore { get; set; }
-        //public string IdentityPicture { get; set; }
         public List<Review> Reviews { get; set; }
         public List<PriceRate> PriceRates { get; set; }
         public List<City> Cities { get; set; }
         public List<ServiceRequest> ServiceRequests { get; set; }
 
-        public List<ServiceProvider> FindMatches(double maxPriceRate, string cityName, object kindOfService)
+        public List<ServiceProvider> FindMatches(Dictionary<string, string> queryParameters)
         {
-            //RestRequest<ServiceProvider> restRequest = new RestRequest<ServiceProvider>();
-            IRestRequest request = new RestRequest("providers", Method.POST);
-            request.AddQueryParameter("maxPriceRate", ""+maxPriceRate);
-            request.AddQueryParameter("city", cityName);
-            request.AddQueryParameter("kindOfService", ""+kindOfService);
+            
+            try
+            {
+                IRestRequest<ServiceProviderOverviewItemDTO> request = new RestRequest<ServiceProviderOverviewItemDTO>();
+                IRestRequest queryParams = new RestRequest();
 
-            return null;
+                queryParams.AddQueryParameter("maxPriceRate", queryParameters["maxPriceRate"]);
+                queryParams.AddQueryParameter("city", queryParameters["city"]);
+                queryParams.AddQueryParameter("kindOfService", queryParameters["kindOfService"]);
+                IRestResponse<List<ServiceProviderOverviewItemDTO>> response = request.GetAll("providers", queryParams);
+
+                List<ServiceProvider> serviceProviders =
+                    ServiceProviderMapper.CreateListOfServiceProviderFromServiceProviderOverviewItemDTO(response.Data);
+                return serviceProviders;
+            }
+            catch (EmptyCollectionException)
+            {
+                throw new EmptyCollectionException();
+            }
+            
+            
         }
     }
 }
