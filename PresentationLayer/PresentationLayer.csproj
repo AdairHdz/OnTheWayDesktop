@@ -84,8 +84,11 @@
     </ApplicationDefinition>
     <Compile Include="Helpers\NotificationWindow.cs" />
     <Compile Include="Helpers\UserFeedback.cs" />
+    <Compile Include="Mappers\StateMapper.cs" />
     <Compile Include="Mappers\UserMapper.cs" />
     <Compile Include="PresentationModels\LoginPresentationModel.cs" />
+    <Compile Include="PresentationModels\RegistryPresentationModel.cs" />
+    <Compile Include="PresentationModels\StatePresentationModel.cs" />
     <Compile Include="User Interface\AccountActivation.xaml.cs">
       <DependentUpon>AccountActivation.xaml</DependentUpon>
     </Compile>
@@ -120,6 +123,7 @@
       <DependentUpon>ServiceReview.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValidationModules\LoginPresentationModelValidator.cs" />
+    <Compile Include="ValidationModules\RegistryPresentationModelValidator.cs" />
     <Compile Include="ValidationModules\ReviewValidator.cs" />
     <Compile Include="ValidationModules\ServiceRequestValidator.cs" />
     <Compile Include="ValidationModules\UserLoginValidator.cs" />
