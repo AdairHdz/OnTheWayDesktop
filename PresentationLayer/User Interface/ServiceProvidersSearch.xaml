@@ -61,11 +61,14 @@
                 IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
                 materialDesign:HintAssist.Hint="Tipo de servicio" Height="50">
                 <ComboBoxItem
-                    Content="Compra de víveres" />
+                    Content="Compra de víveres"
+                    Tag="1"/>
                 <ComboBoxItem
-                    Content="Compra de fármacos"/>
+                    Content="Compra de fármacos"
+                    Tag="2"/>
                 <ComboBoxItem
-                    Content="Entrega"/>
+                    Content="Entrega"
+                    Tag="3"/>
             </ComboBox>
 
             <ComboBox Grid.Row="2" Grid.Column="3" Background="#DDD"
@@ -116,17 +119,16 @@
             <Button Grid.Column="9" Grid.Row="2"
                     Width="120"
                     HorizontalAlignment="Center"
+                    Click="SearchButtonClicked"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     Content="Buscar" Foreground="#FFF"></Button>
         </Grid>
         <ListView x:Name="ServiceProvidersListView" Grid.Column="1" Grid.Row="2" SelectionChanged="ServiceProvidersListViewSelectionChanged">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Estado" Width="auto"/>
                     <GridViewColumn Header="Nombre" Width="300"/>
                     <GridViewColumn Header="Calificación" Width="auto"/>
                     <GridViewColumn Header="Tarifa" Width="auto"/>
-                    <GridViewColumn Header="Tipo de servicio" Width="auto"/>
                 </GridView>
             </ListView.View>
         </ListView>

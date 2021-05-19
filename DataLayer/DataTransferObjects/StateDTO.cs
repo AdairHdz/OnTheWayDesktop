@@ -1,6 +1,6 @@
-﻿namespace BusinessLayer.BusinessEntities
+﻿namespace DataLayer.DataTransferObjects
 {
-    public class City
+    public class StateDTO
     {
         public string ID { get; set; }
         public string Name { get; set; }

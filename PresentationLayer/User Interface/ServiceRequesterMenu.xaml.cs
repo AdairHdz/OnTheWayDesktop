@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Utils;
 
 namespace PresentationLayer.User_Interface
 {
@@ -14,7 +15,10 @@ namespace PresentationLayer.User_Interface
 
         private void LogOutButtonClicked(object sender, RoutedEventArgs e)
         {
-
+            Session.DeleteSession();
+            Login login = new Login();
+            login.Show();
+            Close();
         }
 
         private void SeeServiceProvidersButtonClicked(object sender, RoutedEventArgs e)

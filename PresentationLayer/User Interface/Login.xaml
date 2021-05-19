@@ -44,7 +44,7 @@
             
             <TextBlock Grid.Column="1" Grid.Row="2" Text="Iniciar sesión" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="25"/>
 
-            <Grid Grid.Column="1" Grid.Row="3">
+            <Grid x:Name="FormGrid" Grid.Column="1" Grid.Row="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="10"/>
@@ -60,6 +60,7 @@
                 </Grid.RowDefinitions>
 
                 <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Height="30"
+                     x:Name="TextBoxEmailAddress"
                      Text="{Binding EmailAddress, Mode=TwoWay}"
                      materialDesign:HintAssist.Hint="Dirección de correo electrónico"
                      materialDesign:HintAssist.HelperText="Máximo 254 caracteres"/>
