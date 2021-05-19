@@ -60,7 +60,7 @@ namespace PresentationLayer.User_Interface
 
         private void LogUserIn()
         {
-            User user = UserMapper.CreateUserEntity(_loginPresentationModel);
+            User user = UserMapper.CreateUserEntityFromLogin(_loginPresentationModel);
             bool userCouldLogIn = user.Login();
 
             if (userCouldLogIn)

@@ -3,6 +3,7 @@ using DataLayer;
 using DataLayer.DataTransferObjects;
 using RestSharp;
 using Utils;
+using Utils.CustomExceptions;
 
 namespace BusinessLayer.BusinessEntities
 {
@@ -19,9 +20,13 @@ namespace BusinessLayer.BusinessEntities
         public void Register()
         {
             UserRegistryDTO userRegistryDTO = UserMapper.CreateUserRegistryDTO(this);            
-
             IRestRequest<UserRegistryDTO> request = new RestRequest<UserRegistryDTO>();
-            request.Create("register", userRegistryDTO);
+            var response = request.Create("register", userRegistryDTO);
+            if(response.StatusCode == System.Net.HttpStatusCode.Conflict)
+            {
+                throw new NetworkRequestException(System.Net.HttpStatusCode.Conflict, "La dirección de correo electrónico" +
+                    " ingresada ya se encuentra registrada en el sistema");
+            }
         }
 
         public bool Login()

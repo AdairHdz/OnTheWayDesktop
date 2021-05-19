@@ -49,7 +49,7 @@
             </Button>
             <TextBlock Grid.Column="1" Grid.Row="2" Text="Registro" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="25"/>
 
-            <Grid Grid.Column="1" Grid.Row="3">
+            <Grid x:Name="FormGrid" Grid.Column="1" Grid.Row="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="10"/>
@@ -62,19 +62,21 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-
                 <TextBox Grid.Row="0" Grid.Column="0" Height="30"
+                     x:Name="TextBoxNames"
                      materialDesign:HintAssist.Hint="Nombre(s)"
                      Text="{Binding Names, Mode=TwoWay}"
                      materialDesign:HintAssist.HelperText="Máximo 30 caracteres"/>
 
                 <TextBox Grid.Row="0" Grid.Column="2" Height="30"
+                     x:Name="TextBoxLastName"
                      materialDesign:HintAssist.Hint="Apellido(s)"
-                     Text="{Binding Lastname, Mode=TwoWay}"
+                     Text="{Binding LastName, Mode=TwoWay}"
                      materialDesign:HintAssist.HelperText="Máximo 60 caracteres"/>
 
 
                 <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Height="30"
+                     x:Name="TextBoxEmailAddress"
                      materialDesign:HintAssist.Hint="Dirección de correo electrónico"
                      Text="{Binding EmailAddress, Mode=TwoWay}"
                      materialDesign:HintAssist.HelperText="Máximo 254 caracteres"/>

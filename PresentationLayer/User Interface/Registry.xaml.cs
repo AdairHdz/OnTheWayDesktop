@@ -1,5 +1,10 @@
 ﻿using BusinessLayer.BusinessEntities;
+using FluentValidation.Results;
 using PresentationLayer.Helpers;
+using PresentationLayer.Mappers;
+using PresentationLayer.PresentationModels;
+using PresentationLayer.ValidationModules;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using Utils.CustomExceptions;
@@ -8,12 +13,12 @@ namespace PresentationLayer.User_Interface
 {
     public partial class Registry : Window
     {
-        private User _user = new User();
-        private List<State> _states = new List<State>();
+        private RegistryPresentationModel _registryPresentationModel = new RegistryPresentationModel();
+        private List<StatePresentationModel> _states = new List<StatePresentationModel>();
         public Registry()
         {
             InitializeComponent();
-            this.DataContext = _user;
+            this.DataContext = _registryPresentationModel;
         }
 
         private void BackButtonClicked(object sender, RoutedEventArgs e)
@@ -23,22 +28,44 @@ namespace PresentationLayer.User_Interface
 
         private void SendButtonClicked(object sender, RoutedEventArgs e)
         {
-            State selectedState = (State)ComboBoxState.SelectedItem;
-            _user.Password = PasswordBoxPassword.Password;
-            _user.State = selectedState;            
+            StatePresentationModel selectedState = (StatePresentationModel)ComboBoxState.SelectedItem;
+            _registryPresentationModel.Password = PasswordBoxPassword.Password;
+            _registryPresentationModel.State = selectedState;
 
-            try
+            RegistryPresentationModelValidator registryPresentationModelValidator = new RegistryPresentationModelValidator();
+            ValidationResult validationResult = registryPresentationModelValidator.Validate(_registryPresentationModel);
+            ShowFeedback(validationResult);
+
+            if (validationResult.IsValid)
             {
-                _user.Register();
-                NotificationWindow.ShowNotificationWindow("Usuario registrado",
-                    "Su cuenta se ha registrado exitosamente. Ahora podrá iniciar sesión");
-                NavigateToLoginView();
-            }
-            catch(NetworkRequestException networkRequestException)
-            {
-                NotificationWindow.ShowErrorWindow("Error", networkRequestException.Message);
-            }
+                try
+                {
+                    RegisterUser();
+                }
+                catch (NetworkRequestException networkRequestException)
+                {
+                    NotificationWindow.ShowErrorWindow("Error", networkRequestException.Message);
+                }
+            }        
         }
+
+        private void ShowFeedback(ValidationResult validationResult)
+        {
+            IList<ValidationFailure> validationFailures = validationResult.Errors;
+            UserFeedback userFeedback = new UserFeedback(FormGrid, validationFailures);
+            userFeedback.ShowFeedback();
+        }
+
+        private void RegisterUser()
+        {
+            User user = UserMapper.CreateUserEntityFromRegistry(_registryPresentationModel);
+            user.Register();
+            NotificationWindow.ShowNotificationWindow("Usuario registrado",
+                "Su cuenta se ha registrado exitosamente. Ahora podrá iniciar sesión");
+            NavigateToLoginView();
+
+        }
+
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
@@ -56,7 +83,7 @@ namespace PresentationLayer.User_Interface
         private void LoadStates()
         {
             State state = new State();
-            _states = state.GetStates();
+            _states = StateMapper.CreateListOfStatePrecentationModel(state.GetStates());
             _states.ForEach(retrievedState =>
             {
                 ComboBoxState.Items.Add(retrievedState);

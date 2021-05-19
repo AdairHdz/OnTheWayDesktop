@@ -5,7 +5,7 @@ namespace PresentationLayer.Mappers
 {
     public class UserMapper
     {
-        public static User CreateUserEntity(LoginPresentationModel loginPresentationModel)
+        public static User CreateUserEntityFromLogin(LoginPresentationModel loginPresentationModel)
         {
             User user = new User
             {
@@ -13,6 +13,19 @@ namespace PresentationLayer.Mappers
                 Password = loginPresentationModel.Password
             };
 
+            return user;
+        }
+
+        public static User CreateUserEntityFromRegistry(RegistryPresentationModel registryPresentationModel)
+        {
+            User user = new User
+            {
+                Names = registryPresentationModel.Names,
+                Lastname = registryPresentationModel.LastName,
+                EmailAddress = registryPresentationModel.EmailAddress,
+                Password = registryPresentationModel.Password,
+                State = StateMapper.CreateStateEntity(registryPresentationModel.State)
+            };
             return user;
         }
     }
