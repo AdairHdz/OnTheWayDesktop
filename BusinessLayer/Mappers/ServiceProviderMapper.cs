@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.BusinessEntities;
 using DataLayer.DataTransferObjects;
+using System;
 using System.Collections.Generic;
 
 namespace BusinessLayer.Mappers
@@ -10,27 +11,45 @@ namespace BusinessLayer.Mappers
         public static List<ServiceProvider> CreateListOfServiceProviderFromServiceProviderOverviewItemDTO(List<ServiceProviderOverviewItemDTO> serviceProviders)
         {
             List<ServiceProvider> serviceProviderEntities = new List<ServiceProvider>();
-            serviceProviders.ForEach(serviceProviderDTO =>
+            if(serviceProviders != null)
             {
-                ServiceProvider serviceProviderEntity = new ServiceProvider
+                serviceProviders.ForEach(serviceProviderDTO =>
                 {
-                    ID = serviceProviderDTO.ID,
-                    Names = serviceProviderDTO.Names,
-                    Lastname = serviceProviderDTO.LastName,
-                    AverageScore = serviceProviderDTO.AverageScore,
-                    PriceRates = new List<PriceRate>
+                    ServiceProvider serviceProviderEntity = new ServiceProvider
+                    {
+                        ID = serviceProviderDTO.ID,
+                        Names = serviceProviderDTO.Names,
+                        Lastname = serviceProviderDTO.LastName,
+                        AverageScore = serviceProviderDTO.AverageScore,
+                        PriceRates = new List<PriceRate>
                     {
                         new PriceRate
                         {
                             Price = serviceProviderDTO.PriceRate
                         }
                     }
-                };
+                    };
 
-                serviceProviderEntities.Add(serviceProviderEntity);
-            });
+                    serviceProviderEntities.Add(serviceProviderEntity);
+                });
+            }
+            
             
             return serviceProviderEntities;
+        }
+
+        public static ServiceProvider CreateServiceProviderFromServiceProviderDetailDTO(ServiceProviderDetailDTO serviceProviderDetailDTO)
+        {            
+            ServiceProvider serviceProvider = new ServiceProvider
+            {
+                ID = serviceProviderDetailDTO.ID,
+                Names = serviceProviderDetailDTO.Names,
+                Lastname = serviceProviderDetailDTO.LastName,
+                EmailAddress = serviceProviderDetailDTO.EmailAddress,
+                AverageScore = serviceProviderDetailDTO.AverageScore,
+                PriceRates = PriceRateMapper.CreateListOfPriceRatesFromListOfPriceRatesDTO(serviceProviderDetailDTO.PriceRates)
+            };
+            return serviceProvider;
         }
     }
 }

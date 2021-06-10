@@ -20,8 +20,8 @@ namespace BusinessLayer.BusinessEntities
         public void Register()
         {
             UserRegistryDTO userRegistryDTO = UserMapper.CreateUserRegistryDTO(this);            
-            IRestRequest<UserRegistryDTO> request = new RestRequest<UserRegistryDTO>();
-            var response = request.Create("register", userRegistryDTO);
+            IRestRequest<UserRegistryDTO> request = new RestRequest<UserRegistryDTO>(false);
+            var response = request.CreateAsync("register", userRegistryDTO);
             if(response.StatusCode == System.Net.HttpStatusCode.Conflict)
             {
                 throw new NetworkRequestException(System.Net.HttpStatusCode.Conflict, "La dirección de correo electrónico" +
@@ -32,8 +32,8 @@ namespace BusinessLayer.BusinessEntities
         public bool Login()
         {
             LoginDTO loginDTO = LoginMapper.CreateLoginDTO(this);            
-            IRestRequest<LoginResponseDTO> loginRequest = new RestRequest<LoginResponseDTO>();
-            IRestResponse<LoginResponseDTO> response = loginRequest.Create("login", loginDTO);
+            IRestRequest<LoginResponseDTO> loginRequest = new RestRequest<LoginResponseDTO>(false);
+            IRestResponse<LoginResponseDTO> response = loginRequest.CreateAsync("login", loginDTO);
 
             if(response.StatusCode == System.Net.HttpStatusCode.OK)
             {
@@ -44,6 +44,7 @@ namespace BusinessLayer.BusinessEntities
                 session.Verified = loginResponseDTO.Verified;
                 session.StateID = loginResponseDTO.StateID;
                 session.AuthorizationToken = loginResponseDTO.Token;
+                session.RefreshToken = loginResponseDTO.RefreshToken;
                 return true;
             }
 

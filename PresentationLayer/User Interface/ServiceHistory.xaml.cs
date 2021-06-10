@@ -27,9 +27,8 @@ namespace PresentationLayer.User_Interface
                     Description = "Necesito que entregue un pastel en 1ra de Morelos #22, Colonia Centro. Pase a recoger el pastel a mi dirección",
                     DeliveryAddress = new BusinessLayer.BusinessEntities.Address
                     {
-                        IndoorNumber = 0,
-                        OutdoorNumber = 5,
-                        PostalCode = "91569",
+                        IndoorNumber = "",
+                        OutdoorNumber = "",
                         Street = "Insurgentes",
                         Suburb = "Primaveras",
                     }
@@ -48,9 +47,8 @@ namespace PresentationLayer.User_Interface
                     Description = "1 caja de ibuprofeno y 2 curitas",
                     DeliveryAddress = new BusinessLayer.BusinessEntities.Address
                     {
-                        IndoorNumber = 0,
-                        OutdoorNumber = 5,
-                        PostalCode = "91569",
+                        IndoorNumber = "",
+                        OutdoorNumber = "",
                         Street = "Insurgentes",
                         Suburb = "Primaveras",
                     }
@@ -69,9 +67,8 @@ namespace PresentationLayer.User_Interface
                     Description = "Necesito que entregue una blusa y una bolsa en el crucero. Por favor recoja las prendas en mi dirección",
                     DeliveryAddress = new BusinessLayer.BusinessEntities.Address
                     {
-                        IndoorNumber = 0,
-                        OutdoorNumber = 5,
-                        PostalCode = "91569",
+                        IndoorNumber = "",
+                        OutdoorNumber = "",
                         Street = "Insurgentes",
                         Suburb = "Primaveras",
                     }
@@ -90,9 +87,8 @@ namespace PresentationLayer.User_Interface
                     Description = "6 cajas de leche Lala y 1kg de manzanas",
                     DeliveryAddress = new BusinessLayer.BusinessEntities.Address
                     {
-                        IndoorNumber = 0,
-                        OutdoorNumber = 5,
-                        PostalCode = "91569",
+                        IndoorNumber = "",
+                        OutdoorNumber = "",
                         Street = "Insurgentes",
                         Suburb = "Primaveras",
                     }

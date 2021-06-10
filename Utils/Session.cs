@@ -9,6 +9,7 @@
         public bool Verified { get; set; }
         public string StateID { get; set; }
         public string AuthorizationToken { get; set; }
+        public string RefreshToken { get; set; }
 
         private Session() { }
 

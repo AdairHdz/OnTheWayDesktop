@@ -40,24 +40,34 @@
                    HorizontalAlignment="Center" VerticalAlignment="Center"
                    FontSize="25" FontWeight="SemiBold" Text="Solicitar servicio"/>
 
-        <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
-            x:Name="ComboBoxKindOfService"
-            Style="{StaticResource MaterialDesignFilledComboBox}"
-            IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
-            materialDesign:HintAssist.Hint="Tipo de servicio" Height="50" Width="200">
-                <ComboBoxItem
-                    Content="Compra de víveres" />
-                <ComboBoxItem
-                    Content="Compra de fármacos"/>
-                <ComboBoxItem
-                    Content="Entrega"/>
+        <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Background="#DDD"
+                x:Name="ComboBoxKindOfService"
+                SelectedIndex="0"
+                Style="{StaticResource MaterialDesignFilledComboBox}"
+                IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
+                materialDesign:HintAssist.Hint="Tipo de servicio" Height="50"  Width="250">
+            <ComboBoxItem
+                    Content="Pago de servicios"
+                    Tag="0"/>
+            <ComboBoxItem
+                    Content="Compra de fármacos"
+                    Tag="1"/>
+            <ComboBoxItem
+                    Content="Compra de víveres"
+                    Tag="2"/>
+            <ComboBoxItem
+                    Content="Entrega"
+                    Tag="3"/>
+            <ComboBoxItem
+                    Content="Otro"
+                    Tag="4"/>
         </ComboBox>
 
         <ComboBox Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2"
             x:Name="ComboBoxRegion"
             Style="{StaticResource MaterialDesignFilledComboBox}"
             IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
-            materialDesign:HintAssist.Hint="Región" Height="50" Width="200">
+            materialDesign:HintAssist.Hint="Región" Height="50" Width="250">
             <ComboBoxItem
                     Content="Xalapa" />
             <ComboBoxItem
@@ -92,13 +102,10 @@
             VerticalScrollBarVisibility="Auto"
             materialDesign:HintAssist.Hint="Detalles..."/>
 
-        <TextBlock Grid.Row="7" Grid.Column="2"
+        <TextBlock Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2"
                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                   FontSize="25" FontWeight="SemiBold" Text="Total:"/>
+                   FontSize="25" FontWeight="SemiBold" Text="Total: $50.00 MXN"/>
 
-        <TextBlock Grid.Row="7" Grid.Column="3"
-                   HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2"
-                   FontSize="30" FontWeight="SemiBold" Text="50.00 MXN"/>
 
         <Button Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="8"
                     Width="120"

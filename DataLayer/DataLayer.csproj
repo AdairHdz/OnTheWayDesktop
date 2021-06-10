@@ -31,6 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Flurl, Version=3.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Flurl.3.0.2\lib\net472\Flurl.dll</HintPath>
+    </Reference>
+    <Reference Include="Flurl.Http, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Flurl.Http.3.2.0\lib\net472\Flurl.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="RestSharp, Version=106.11.7.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.106.11.7\lib\net452\RestSharp.dll</HintPath>
     </Reference>
@@ -45,12 +54,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataTransferObjects\AddressDTO.cs" />
     <Compile Include="DataTransferObjects\CityDTO.cs" />
+    <Compile Include="DataTransferObjects\AddressResponseDTO.cs" />
+    <Compile Include="DataTransferObjects\EvidenceDTO.cs" />
     <Compile Include="DataTransferObjects\LoginDTO.cs" />
     <Compile Include="DataTransferObjects\LoginResponseDTO.cs" />
+    <Compile Include="DataTransferObjects\PriceRateDTO.cs" />
+    <Compile Include="DataTransferObjects\ReviewDTO.cs" />
+    <Compile Include="DataTransferObjects\ServiceProviderDetailDTO.cs" />
     <Compile Include="DataTransferObjects\ServiceProviderOverviewItemDTO.cs" />
     <Compile Include="DataTransferObjects\StateDTO.cs" />
     <Compile Include="DataTransferObjects\UserDTO.cs" />
+    <Compile Include="DataTransferObjects\UserOverviewDTO.cs" />
     <Compile Include="DataTransferObjects\UserRegistryDTO.cs" />
     <Compile Include="IRestRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

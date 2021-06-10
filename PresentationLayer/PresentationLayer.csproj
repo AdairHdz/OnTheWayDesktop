@@ -84,17 +84,28 @@
     </ApplicationDefinition>
     <Compile Include="Helpers\NotificationWindow.cs" />
     <Compile Include="Helpers\UserFeedback.cs" />
+    <Compile Include="Mappers\AddressMapper.cs" />
     <Compile Include="Mappers\CityMapper.cs" />
+    <Compile Include="Mappers\PriceRateMapper.cs" />
     <Compile Include="Mappers\ServiceProviderMapper.cs" />
     <Compile Include="Mappers\StateMapper.cs" />
     <Compile Include="Mappers\UserMapper.cs" />
+    <Compile Include="PresentationModels\AddressPresentationModel.cs" />
     <Compile Include="PresentationModels\CityPresentationModel.cs" />
     <Compile Include="PresentationModels\LoginPresentationModel.cs" />
+    <Compile Include="PresentationModels\PriceRatePresentationModel.cs" />
     <Compile Include="PresentationModels\RegistryPresentationModel.cs" />
+    <Compile Include="PresentationModels\ServiceProviderDetailPresentationModel.cs" />
     <Compile Include="PresentationModels\ServiceProviderOverviewItemPresentationModel.cs" />
     <Compile Include="PresentationModels\StatePresentationModel.cs" />
     <Compile Include="User Interface\AccountActivation.xaml.cs">
       <DependentUpon>AccountActivation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="User Interface\AddressRegistry.xaml.cs">
+      <DependentUpon>AddressRegistry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="User Interface\EvidenceViewer.xaml.cs">
+      <DependentUpon>EvidenceViewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="User Interface\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -126,6 +137,7 @@
     <Compile Include="User Interface\ServiceReview.xaml.cs">
       <DependentUpon>ServiceReview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ValidationModules\AddressPresentationModelValidator.cs" />
     <Compile Include="ValidationModules\LoginPresentationModelValidator.cs" />
     <Compile Include="ValidationModules\RegistryPresentationModelValidator.cs" />
     <Compile Include="ValidationModules\ReviewValidator.cs" />
@@ -145,6 +157,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="User Interface\AccountActivation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User Interface\AddressRegistry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User Interface\EvidenceViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

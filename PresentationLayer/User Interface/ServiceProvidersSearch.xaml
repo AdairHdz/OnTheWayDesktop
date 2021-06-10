@@ -63,20 +63,27 @@
                 IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
                 materialDesign:HintAssist.Hint="Tipo de servicio" Height="50">
                 <ComboBoxItem
-                    Content="Compra de víveres"
-                    Tag="1"/>
+                    Content="Pago de servicios"
+                    Tag="0"/>
                 <ComboBoxItem
                     Content="Compra de fármacos"
+                    Tag="1"/>
+                <ComboBoxItem
+                    Content="Compra de víveres"
                     Tag="2"/>
                 <ComboBoxItem
                     Content="Entrega"
                     Tag="3"/>
+                <ComboBoxItem
+                    Content="Otro"
+                    Tag="4"/>
             </ComboBox>
 
             <ComboBox Grid.Row="2" Grid.Column="3" Background="#DDD"
                 x:Name="ComboBoxCity"
                 Style="{StaticResource MaterialDesignFilledComboBox}"
                 IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
+                SelectedIndex="0"
                 DisplayMemberPath="Name"
                 materialDesign:HintAssist.Hint="Ciudad" Height="50">
             </ComboBox>
