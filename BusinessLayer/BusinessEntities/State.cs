@@ -16,8 +16,8 @@ namespace BusinessLayer.BusinessEntities
         {
             List<State> retrievedStates;            
             RestRequest<StateDTO> restRequest = new RestRequest<StateDTO>();                        
-            IRestResponse<List<StateDTO>> response = restRequest.GetAll("/states");
-            retrievedStates = StateMapper.CreateStatesList(response.Data);
+            List<StateDTO> response = restRequest.GetAll("states");
+            retrievedStates = StateMapper.CreateStatesList(response);
             return retrievedStates;
         }
     }

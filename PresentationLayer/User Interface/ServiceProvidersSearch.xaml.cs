@@ -101,6 +101,8 @@ namespace PresentationLayer.User_Interface
             queryParameters["maxPriceRate"] = maxPriceRate;
             queryParameters["city"] = cityName;
             queryParameters["kindOfService"] = kindOfService;
+            queryParameters["page"] = "1";
+            queryParameters["pagesize"] = "10";
             try
             {
                 _serviceProviders = ServiceProviderMapper.CreateListOfServiceProviderOverviewItemDTO(serviceProvider.FindMatches(queryParameters));
@@ -111,12 +113,31 @@ namespace PresentationLayer.User_Interface
             }
             catch(NetworkRequestException networkRequestException)
             {
-                NotificationWindow.ShowErrorWindow("Error", networkRequestException.Message);
+                string exceptionMessage = "";
+                switch(networkRequestException.StatusCode)
+                {
+                    case 400:
+                        exceptionMessage = "Por favor asegúrese de haber proporcionado parámetros válidos de búsqueda.";
+                        break;
+                    case 401:
+                        exceptionMessage = "Lo sentimos, su sesión ha caducado de forma inesperada.";
+                        break;
+                    case 404:
+                        exceptionMessage = "No se encontraron proveedores de servicio para los parámetros de búsqueda especificados.";
+                        break;
+                    case 409:
+                        exceptionMessage = "Ocurrió un problema al intentar recuperar la información solicitada. Por favor, intente más tarde.";
+                        break;
+                    case 500:
+                        exceptionMessage = "Ha ocurrido un error en el servidor al momento de procesar la solicitud. Por favor, intente más tarde.";
+                        break;
+                    default:
+                        exceptionMessage = "Ocurrió un error desconocido. Por favor, intente más tarde.";
+                        break;
+                }
+                NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
             }
-            catch (EmptyCollectionException)
-            {
-                NotificationWindow.ShowNotificationWindow("Sin coincidencias", "No se encontraron registros que coincidan con los parámetros especificados");
-            }                        
+                      
         }
 
         private void WindowLoaded(object sender, RoutedEventArgs e)

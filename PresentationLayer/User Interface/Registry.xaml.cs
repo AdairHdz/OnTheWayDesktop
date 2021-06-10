@@ -43,7 +43,22 @@ namespace PresentationLayer.User_Interface
                 }
                 catch (NetworkRequestException networkRequestException)
                 {
-                    NotificationWindow.ShowErrorWindow("Error", networkRequestException.Message);
+
+                    string exceptionMessage;
+                    switch (networkRequestException.StatusCode)
+                    {
+                        case 400:
+                            exceptionMessage = "Los datos que ha ingresado tienen un formato no válido. Favor de verificar e intentar de nuevo.";
+                            break;
+                        case 409:
+                        case 500:
+                            exceptionMessage = "Ha ocurrido un error en el servidor al intentar procesar su solicitud. Por favor, intente más tarde.";
+                            break;
+                        default:
+                            exceptionMessage = "Ha ocurrido un error desconocido. Por favor, intente más tarde.";
+                            break;
+                    }
+                    NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
                 }
             }        
         }
