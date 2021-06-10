@@ -32,5 +32,19 @@ namespace BusinessLayer.Mappers
 
             return serviceProviderEntities;
         }
+
+        public static ServiceProvider CreateServiceProviderFromServiceProviderDetailDTO(ServiceProviderDetailDTO serviceProviderDetailDTO)
+        {
+            ServiceProvider serviceProvider = new ServiceProvider
+            {
+                ID = serviceProviderDetailDTO.ID,
+                Names = serviceProviderDetailDTO.Names,
+                Lastname = serviceProviderDetailDTO.LastName,
+                EmailAddress = serviceProviderDetailDTO.EmailAddress,
+                AverageScore = serviceProviderDetailDTO.AverageScore,
+                PriceRates = PriceRateMapper.CreateListOfPriceRatesFromListOfPriceRatesDTO(serviceProviderDetailDTO.PriceRates)
+            };
+            return serviceProvider;
+        }
     }
 }

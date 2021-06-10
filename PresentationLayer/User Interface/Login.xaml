@@ -12,8 +12,7 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        mc:Ignorable="d"
-        Icon="./images/OnTheWayIcon.png"
+        mc:Ignorable="d"       
         Title="Login" Height="590" ResizeMode="NoResize" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -25,7 +24,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="0" Grid.Row="0">
-            <Image Source="./images/OnTheWaySideLogo.png" Stretch="Uniform"></Image>
+            <Image Source="../Images/OnTheWaySideLogo.png" Stretch="Uniform"></Image>
         </StackPanel>
 
         <Grid Grid.Column="1">
