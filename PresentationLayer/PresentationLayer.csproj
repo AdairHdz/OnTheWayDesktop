@@ -88,8 +88,11 @@
     <Compile Include="Mappers\ServiceProviderMapper.cs" />
     <Compile Include="Mappers\StateMapper.cs" />
     <Compile Include="Mappers\UserMapper.cs" />
+    <Compile Include="PresentationModels\AccountVerificationCodePresentationModel.cs" />
     <Compile Include="PresentationModels\CityPresentationModel.cs" />
+    <Compile Include="PresentationModels\EmailAddressPresentationModel.cs" />
     <Compile Include="PresentationModels\LoginPresentationModel.cs" />
+    <Compile Include="PresentationModels\PasswordRecoveryCodePresentationModel.cs" />
     <Compile Include="PresentationModels\RegistryPresentationModel.cs" />
     <Compile Include="PresentationModels\ServiceProviderOverviewItemPresentationModel.cs" />
     <Compile Include="PresentationModels\StatePresentationModel.cs" />
@@ -126,7 +129,10 @@
     <Compile Include="User Interface\ServiceReview.xaml.cs">
       <DependentUpon>ServiceReview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ValidationModules\AccountVerificationCodeValidator.cs" />
+    <Compile Include="ValidationModules\EmailAddressValidator.cs" />
     <Compile Include="ValidationModules\LoginPresentationModelValidator.cs" />
+    <Compile Include="ValidationModules\PasswordRecoveryCodeValidator.cs" />
     <Compile Include="ValidationModules\RegistryPresentationModelValidator.cs" />
     <Compile Include="ValidationModules\ReviewValidator.cs" />
     <Compile Include="ValidationModules\ServiceRequestValidator.cs" />

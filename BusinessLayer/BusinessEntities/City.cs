@@ -15,8 +15,8 @@ namespace BusinessLayer.BusinessEntities
         {
             List<City> retrievedCities;
             RestRequest<CityDTO> restRequest = new RestRequest<CityDTO>();
-            IRestResponse<List<CityDTO>> response = restRequest.GetAll($"/states/{stateID}/cities");
-            retrievedCities = CityMapper.CreateListOfCityEntitiesFromListOfCityDTO(response.Data);
+            List<CityDTO> response = restRequest.GetAll($"states/{stateID}/cities", false);
+            retrievedCities = CityMapper.CreateListOfCityEntitiesFromListOfCityDTO(response);
             return retrievedCities;
         }
     }

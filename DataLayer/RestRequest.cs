@@ -1,48 +1,48 @@
-﻿using RestSharp;
+﻿using Flurl;
+using Flurl.Http;
 using System;
 using System.Collections.Generic;
+using Utils;
 using Utils.CustomExceptions;
 
 namespace DataLayer
 {
     public class RestRequest<T> : IRestRequest<T> where T : class
     {
-
-        private readonly IRestClient _restClient = new RestClient("http://localhost:8080/v1");                
-        public IRestResponse<T> Create(string endpoint, object dataToBeSent)
-        {
-            IRestRequest request = new RestRequest(endpoint, Method.POST);
-            request.AddJsonBody(dataToBeSent);
-            IRestResponse<T> response = _restClient.Execute<T>(request);
-            if (response.ResponseStatus == ResponseStatus.Error)
+        private readonly string _baseURL = "http://localhost:8080/v1";        
+        public T Post(string endpoint, object dataToBeSent, bool useAccessToken = true)
+        {            
+            try
             {
-                string exceptionMessage;
-                switch (response.StatusCode)
+                Url endpointURL = _baseURL
+                .AppendPathSegment(endpoint);
+
+                if (useAccessToken)
                 {
-                    case System.Net.HttpStatusCode.BadRequest:
-                        exceptionMessage = "La petición no pudo ser procesada debido a que tiene una estructura no válida.";
-                        break;
-                    case System.Net.HttpStatusCode.InternalServerError:
-                        exceptionMessage = "La petición no puede ser procesada en este momento. Por favor, intente más tarde,";
-                        break;
-                    default:
-                        exceptionMessage = "Ha ocurrido un error desconocido. Por favor, intente más tarde.";
-                        break;
+                    endpoint.WithOAuthBearerToken($"{Session.GetSession().AuthorizationToken}");
                 }
-                throw new NetworkRequestException(response.StatusCode, exceptionMessage);
+
+                T response = endpointURL
+                .PostJsonAsync(dataToBeSent)
+                .ReceiveJson<T>().GetAwaiter().GetResult();
+                return response;
             }
-            return response;
-        }
+            catch (FlurlHttpTimeoutException)
+            {
+                throw new TimeoutException("El servidor tardó demasiado tiempo en responder.");
+            }
+            catch (FlurlHttpException flurHTTPException) {
+                throw new NetworkRequestException(flurHTTPException.StatusCode);
+            }
+        }        
 
-        
-
-        public IRestResponse Delete(object resourceIdentifier)
+        public void Delete(object resourceIdentifier)
         {
 
             throw new NotImplementedException();
         }
 
-        public IRestResponse<T> Get(IRestRequest restRequest)
+        public T Get()
         {
             //IRestRequest request = new RestRequest(endpoint, Method.GET);
             //IRestResponse<List<T>> response = _restClient.Execute<List<T>>(request);
@@ -51,47 +51,55 @@ namespace DataLayer
             throw new NotImplementedException();
         }
 
-        public IRestResponse<List<T>> GetAll(string endpoint, IRestRequest restRequest = null)
-        {
-            IRestRequest request = new RestRequest(endpoint, Method.GET);
-            if(restRequest != null)
-            {
-                restRequest.Parameters.ForEach(param =>
-                {
-                    if(param.Type == ParameterType.QueryString)
-                    {                        
-                        request.AddQueryParameter(param.Name, param.Value.ToString());
-                    }                    
-                });
-                
-            }
+        public List<T> GetAll(string endpoint, bool useAccessToken = true, Dictionary<string, string> queryParameters = null)
+        {            
             try
             {
-                IRestResponse<List<T>> response = _restClient.Execute<List<T>>(request);
-                if (response.ResponseStatus == ResponseStatus.Error)
+                Url endpointURL = _baseURL
+                .AppendPathSegment(endpoint);
+
+                if(useAccessToken)
                 {
-                    string exceptionMessage;
-                    switch (response.StatusCode)
-                    {
-                        case System.Net.HttpStatusCode.BadRequest:
-                            exceptionMessage = "La petición no pudo ser procesada debido a que tiene una estructura no válida.";
-                            break;
-                        case System.Net.HttpStatusCode.InternalServerError:
-                            exceptionMessage = "La petición no puede ser procesada en este momento. Por favor, intente más tarde,";
-                            break;
-                        case System.Net.HttpStatusCode.OK:
-                            throw new EmptyCollectionException();
-                        default:
-                            exceptionMessage = "Ha ocurrido un error desconocido. Por favor, intente más tarde.";
-                            break;
-                    }
-                    throw new NetworkRequestException(response.StatusCode, exceptionMessage);
+                    return Url.Decode(endpointURL, true).SetQueryParams(queryParameters).WithOAuthBearerToken($"{Session.GetSession().AuthorizationToken}").GetJsonAsync<List<T>>().GetAwaiter().GetResult();                    
                 }
-                return response;
+
+                return Url.Decode(endpointURL, true).SetQueryParams(queryParameters).GetJsonAsync<List<T>>().GetAwaiter().GetResult();
+                
+
             }
-            catch (NullReferenceException)
+            catch (FlurlHttpTimeoutException)
             {
-                throw new EmptyCollectionException();
+                throw new TimeoutException("El servidor tardó demasiado tiempo en responder.");
+            }
+            catch (FlurlHttpException flurHTTPException)
+            {                
+                throw new NetworkRequestException(flurHTTPException.StatusCode);
+            }
+        }
+
+        public T GetAllWithPagination(string endpoint, bool useAccessToken = true, Dictionary<string, string> queryParameters = null)
+        {
+            try
+            {
+                Url endpointURL = _baseURL
+                .AppendPathSegment(endpoint);
+
+                if (useAccessToken)
+                {
+                    return Url.Decode(endpointURL, true).SetQueryParams(queryParameters).WithOAuthBearerToken($"{Session.GetSession().AuthorizationToken}").GetJsonAsync<T>().GetAwaiter().GetResult();
+                }
+
+                return Url.Decode(endpointURL, true).SetQueryParams(queryParameters).GetJsonAsync<T>().GetAwaiter().GetResult();
+
+
+            }
+            catch (FlurlHttpTimeoutException)
+            {
+                throw new TimeoutException("El servidor tardó demasiado tiempo en responder.");
+            }
+            catch (FlurlHttpException flurHTTPException)
+            {
+                throw new NetworkRequestException(flurHTTPException.StatusCode);
             }
         }
 
@@ -100,8 +108,55 @@ namespace DataLayer
             throw new NotImplementedException();
         }
 
-        public T Update(T entity)
+        public bool Patch(string endpoint, object dataToBeSent, bool useAccessToken = true)
         {
+            try
+            {
+                Url endpointURL = _baseURL
+                .AppendPathSegment(endpoint);
+
+                if (useAccessToken)
+                {
+                    endpointURL.WithOAuthBearerToken($"{Session.GetSession().AuthorizationToken}");
+                }
+
+                return endpointURL.PatchJsonAsync(dataToBeSent).GetAwaiter().GetResult().StatusCode == 200;
+
+            }
+            catch (FlurlHttpTimeoutException)
+            {
+                throw new TimeoutException("El servidor tardó demasiado tiempo en responder.");
+            }
+            catch (FlurlHttpException flurHTTPException)
+            {
+                throw new NetworkRequestException(flurHTTPException.StatusCode);
+            }
+            throw new NotImplementedException();
+        }
+
+        public bool Put(string endpoint, object dataToBeSent, bool useAccessToken = true)
+        {
+            try
+            {
+                Url endpointURL = _baseURL
+                .AppendPathSegment(endpoint);
+
+                if (useAccessToken)
+                {
+                    endpointURL.WithOAuthBearerToken($"{Session.GetSession().AuthorizationToken}");
+                }
+
+                return endpointURL.PutJsonAsync(dataToBeSent).GetAwaiter().GetResult().StatusCode == 200;
+
+            }
+            catch (FlurlHttpTimeoutException)
+            {
+                throw new TimeoutException("El servidor tardó demasiado tiempo en responder.");
+            }
+            catch (FlurlHttpException flurHTTPException)
+            {
+                throw new NetworkRequestException(flurHTTPException.StatusCode);
+            }
             throw new NotImplementedException();
         }
     }

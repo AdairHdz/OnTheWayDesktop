@@ -29,7 +29,7 @@ namespace BusinessLayer.Mappers
 
                 serviceProviderEntities.Add(serviceProviderEntity);
             });
-            
+
             return serviceProviderEntities;
         }
     }

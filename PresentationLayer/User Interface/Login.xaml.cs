@@ -4,6 +4,7 @@ using PresentationLayer.Helpers;
 using PresentationLayer.Mappers;
 using PresentationLayer.PresentationModels;
 using PresentationLayer.ValidationModules;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using Utils;
@@ -50,9 +51,29 @@ namespace PresentationLayer.User_Interface
                 {
                     LogUserIn();
                 }
+                catch (TimeoutException timeoutException)
+                {
+                    NotificationWindow.ShowErrorWindow("Error", timeoutException.Message);
+                }
                 catch (NetworkRequestException networkRequestException)
                 {
-                    NotificationWindow.ShowErrorWindow("Error", networkRequestException.Message);
+                    string exceptionMessage;
+                    switch(networkRequestException.StatusCode)
+                    {
+                        case 401:
+                            exceptionMessage = "La dirección de correo electrónico" +
+                            " o la contraseña que introdujo no coinciden con nuestros" +
+                            "registros en la base de datos. Por favor, verifique la información e intente de nuevo.";
+                            break;
+                        case 409:
+                        case 500:
+                            exceptionMessage = "Ha ocurrido un error en el servidor al intentar procesar la solicitud. Por favor, intente más tarde.";
+                            break;
+                        default:
+                            exceptionMessage = "Ha ocurrido un error desconocido";
+                            break;
+                    }
+                    NotificationWindow.ShowErrorWindow("Error", exceptionMessage);                                     
                 }
             }
 
@@ -61,30 +82,20 @@ namespace PresentationLayer.User_Interface
         private void LogUserIn()
         {
             User user = UserMapper.CreateUserEntityFromLogin(_loginPresentationModel);
-            bool userCouldLogIn = user.Login();
-
-            if (userCouldLogIn)
+            user.Login();
+            Session session = Session.GetSession();
+            if (session.Verified)
             {
-                Session session = Session.GetSession();
-                if (session.Verified)
-                {
-                    ServiceRequesterMenu serviceRequesterMenu = new ServiceRequesterMenu();
-                    serviceRequesterMenu.Show();
-                    Close();
-                }
-                else
-                {
-                    AccountActivation accountActivation = new AccountActivation();
-                    accountActivation.Show();
-                    Close();
-                }
+                ServiceRequesterMenu serviceRequesterMenu = new ServiceRequesterMenu();
+                serviceRequesterMenu.Show();
+                Close();
             }
             else
             {
-                NotificationWindow.ShowErrorWindow("Credenciales no válidas", "La dirección de correo electrónico" +
-                    " o la contraseña que introdujo no coinciden con nuestros" +
-                    "registros en la base de datos. Por favor, verifique la información e intente de nuevo.");
-            }        
+                AccountActivation accountActivation = new AccountActivation();
+                accountActivation.Show();
+                Close();
+            }     
         }
 
         private void ForgotPasswordButtonClicked(object sender, RoutedEventArgs e)

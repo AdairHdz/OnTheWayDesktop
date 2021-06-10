@@ -1,4 +1,6 @@
-﻿namespace DataLayer.DataTransferObjects
+﻿using System.Collections.Generic;
+
+namespace DataLayer.DataTransferObjects
 {
     public class ServiceProviderOverviewItemDTO
     {
