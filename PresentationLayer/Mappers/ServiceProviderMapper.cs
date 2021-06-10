@@ -23,5 +23,16 @@ namespace PresentationLayer.Mappers
             });
             return serviceProviderOverviewItems;
         }
+
+        public static ServiceProviderDetailPresentationModel CreateServiceProviderPresentationModelFromEntity(ServiceProvider serviceProvider)
+        {
+            ServiceProviderDetailPresentationModel serviceProviderDetailPresentationModel = new ServiceProviderDetailPresentationModel
+            {
+                FullName = serviceProvider.Names + " " + serviceProvider.Lastname,
+                AverageScore = serviceProvider.AverageScore,
+                PriceRates = PriceRateMapper.CreateListOfPriceRatePresentationModel(serviceProvider.PriceRates)
+            };
+            return serviceProviderDetailPresentationModel;
+        }
     }
 }

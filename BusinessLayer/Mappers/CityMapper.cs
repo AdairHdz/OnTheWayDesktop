@@ -22,5 +22,15 @@ namespace BusinessLayer.Mappers
 
             return citiesEntities;
         }
+
+        public static City CreateCityEntityFromCityDTO(CityDTO cityDTO)
+        {
+            City city = new City
+            {
+                ID = cityDTO.ID,
+                Name = cityDTO.Name
+            };
+            return city;
+        }
     }
 }

@@ -42,13 +42,28 @@ namespace DataLayer
             throw new NotImplementedException();
         }
 
-        public T Get()
+        public T Get(string endpoint, bool useAccessToken = true)
         {
-            //IRestRequest request = new RestRequest(endpoint, Method.GET);
-            //IRestResponse<List<T>> response = _restClient.Execute<List<T>>(request);
-            
-            
-            throw new NotImplementedException();
+            try
+            {
+                Url endpointURL = _baseURL
+                .AppendPathSegment(endpoint);
+
+                if (useAccessToken)
+                {
+                    return Url.Decode(endpointURL, true).WithOAuthBearerToken($"{Session.GetSession().AuthorizationToken}").GetJsonAsync<T>().GetAwaiter().GetResult();
+                }
+
+                return Url.Decode(endpointURL, true).GetJsonAsync<T>().GetAwaiter().GetResult();
+            }
+            catch (FlurlHttpTimeoutException)
+            {
+                throw new TimeoutException("El servidor tardó demasiado tiempo en responder.");
+            }
+            catch (FlurlHttpException flurHTTPException)
+            {
+                throw new NetworkRequestException(flurHTTPException.StatusCode);
+            }
         }
 
         public List<T> GetAll(string endpoint, bool useAccessToken = true, Dictionary<string, string> queryParameters = null)
