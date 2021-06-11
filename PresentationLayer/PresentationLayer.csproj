@@ -101,6 +101,7 @@
     <Compile Include="PresentationModels\RegistryPresentationModel.cs" />
     <Compile Include="PresentationModels\ServiceProviderDetailPresentationModel.cs" />
     <Compile Include="PresentationModels\ServiceProviderOverviewItemPresentationModel.cs" />
+    <Compile Include="PresentationModels\ServiceRequestDetailsPresentationModel.cs" />
     <Compile Include="PresentationModels\ServiceRequestHistoryPresentationModel.cs" />
     <Compile Include="PresentationModels\ServiceRequestPresentationModel.cs" />
     <Compile Include="PresentationModels\StatePresentationModel.cs" />

@@ -48,6 +48,30 @@ namespace PresentationLayer.Mappers
             return serviceRequestHistories;
         }
 
+        public static ServiceRequestDetailsPresentationModel CreateServiceRequestDetailsPresentationModelFromServiceRequestEntity(ServiceRequest serviceRequest)
+        {
+            ServiceRequestDetailsPresentationModel serviceRequestDetailsPresentationModel = new ServiceRequestDetailsPresentationModel {                
+                ID = serviceRequest.ID,
+                Date = serviceRequest.Date.ToString("yyyy-MM-dd"),
+                DeliveryAddress = CreateAddressOverview(serviceRequest.DeliveryAddress),
+                Description = serviceRequest.Description,
+                Status = CreateServiceStatus(serviceRequest.ServiceStatus),
+                Cost = serviceRequest.Cost
+            };
+            return serviceRequestDetailsPresentationModel;
+        }
+
+        private static string CreateAddressOverview(Address address)
+        {
+            string addressOverview = $"{address.Street} #{address.OutdoorNumber}";
+            if (address.IndoorNumber != null && address.IndoorNumber != "")
+            {
+                addressOverview += $", Interior {address.IndoorNumber}";
+            }
+            addressOverview += $", col. {address.Suburb}; {address.City.Name}";
+            return addressOverview;
+        }
+
         private static string CreateServiceStatus(ServiceStatus serviceStatus)
         {
             string statusName;

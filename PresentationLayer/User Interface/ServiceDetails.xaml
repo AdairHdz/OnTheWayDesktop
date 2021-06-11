@@ -9,11 +9,12 @@
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 
+        DataContext="_serviceRequest"
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="ServiceDetails" Height="650" Width="800">
+        Title="ServiceDetails" Height="650" Width="800" Loaded="WindowLoaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
@@ -79,7 +80,7 @@
                 />
 
             <TextBlock Grid.Column="1" Grid.Row="2"
-                Text="{Binding Date}"
+                Text="{Binding Date, Mode=TwoWay}"
                 x:Name="TextBlockServiceRequestDate"
                 VerticalAlignment="Center"
                 FontSize="18"                                
@@ -93,7 +94,7 @@
                 />
 
             <TextBlock Grid.Column="1" Grid.Row="4"  
-                Text="{Binding DeliveryAddress}"
+                Text="{Binding DeliveryAddress, Mode=TwoWay}"
                 VerticalAlignment="Center"
                 FontSize="18"                
                 x:Name="TextBlockServiceRequestDeliveryAddress"
@@ -107,7 +108,7 @@
                 />
 
             <TextBox Grid.Column="1" Grid.Row="6"
-            Text="{Binding Description}"
+            Text="{Binding Description, Mode=TwoWay}"
             IsReadOnly="True"
             Style="{StaticResource MaterialDesignOutlinedTextBox}"
             Height="100"
@@ -126,7 +127,7 @@
                 />
                 <Separator Width="50"/>
 
-                <materialDesign:Chip Content="{Binding ServiceStatus}" x:Name="ChipServiceRequestStatus"/>
+                <materialDesign:Chip Content="{Binding Status, Mode=TwoWay}" x:Name="ChipServiceRequestStatus"/>
             </DockPanel>
 
             <DockPanel Grid.Column="1" Grid.Row="9">
@@ -139,7 +140,7 @@
                 <Separator Width="50"/>
 
                 <TextBlock        
-                Text="{Binding Cost}"
+                Text="{Binding Cost, Mode=TwoWay}"
                 VerticalAlignment="Center"
                 FontSize="18"                
                 x:Name="TextBlockServiceRequestCost"
@@ -147,21 +148,8 @@
             </DockPanel>
         </Grid>
 
-        <DockPanel Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center">
-            <Button Width="120"
-                    x:Name="ButtonReview"
-                    Margin="10, 0, 10, 0"
-                    HorizontalAlignment="Center"
-                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                    Content="Calificar" Foreground="#FFF" Click="ReviewButtonClicked"></Button>
-            <Button Width="120"
-                    x:Name="ButtonCancel"
-                    Margin="10, 0, 10, 0"
-                    HorizontalAlignment="Center"
-                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                    Content="Cancelar" Foreground="#FFF" Click="CancelButtonClicked"></Button>
-        </DockPanel>
-        
+        <DockPanel x:Name="DockPanelButtons" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center"/>
+
 
     </Grid>
 </Window>

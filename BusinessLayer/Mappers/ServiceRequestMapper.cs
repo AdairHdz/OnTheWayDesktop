@@ -42,5 +42,22 @@ namespace BusinessLayer.Mappers
             });
             return listOfServiceRequestEntities;
         }
+
+        public static ServiceRequest CreateServiceRequestEntityFromServiceRequestDTO(ServiceRequestResponseDTO serviceRequestDTO)
+        {            
+            ServiceRequest serviceRequest = new ServiceRequest()
+            {
+                ID = serviceRequestDTO.ID,
+                Cost = serviceRequestDTO.Cost,
+                Date = DateTime.Parse(serviceRequestDTO.Date),
+                DeliveryAddress = AddressMapper.CreateAddressEntityFromAddressDetailsDTO(serviceRequestDTO.DeliveryAddress),
+                Description = serviceRequestDTO.Description,
+                KindOfService = (KindOfService)serviceRequestDTO.KindOfService,
+                ServiceStatus = (ServiceStatus)serviceRequestDTO.Status,
+                ServiceRequester = ServiceRequesterMapper.CreateServiceRequesterFromUserOverviewDTO(serviceRequestDTO.ServiceRequester),
+                ServiceProvider = ServiceProviderMapper.CreateServiceProviderFromUserOverviewDTO(serviceRequestDTO.ServiceProvider),
+            };
+            return serviceRequest;
+        }
     }
 }
