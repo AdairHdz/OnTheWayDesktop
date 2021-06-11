@@ -2,6 +2,8 @@
 using DataLayer;
 using DataLayer.DataTransferObjects;
 using System;
+using System.Collections.Generic;
+using Utils;
 
 namespace BusinessLayer.BusinessEntities
 {
@@ -22,6 +24,13 @@ namespace BusinessLayer.BusinessEntities
             ServiceRequestDTO serviceRequestDTO = ServiceRequestMapper.CreateServiceRequestDTOFromServiceRequestEntity(this);
             RestRequest<object> request = new RestRequest<object>();
             request.Post("requests", serviceRequestDTO);
+        }
+
+        public List<ServiceRequest> FindByDate(Dictionary<string, string> queryParameters)
+        {
+            RestRequest<ServiceRequestResponseDTO> request = new RestRequest<ServiceRequestResponseDTO>();
+            List<ServiceRequestResponseDTO> serviceRequests = request.GetAll($"requesters/{Session.GetSession().ID}/requests", true, queryParameters);
+            return ServiceRequestMapper.CreateServiceRequestEntitiesListFromServiceRequestDTOList(serviceRequests);            
         }
     }
 }

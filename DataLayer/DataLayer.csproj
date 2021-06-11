@@ -69,6 +69,7 @@
     <Compile Include="DataTransferObjects\ServiceProviderOverviewItemDTO.cs" />
     <Compile Include="DataTransferObjects\ServiceProviderPaginationDTO.cs" />
     <Compile Include="DataTransferObjects\ServiceRequestDTO.cs" />
+    <Compile Include="DataTransferObjects\ServiceRequestResponseDTO.cs" />
     <Compile Include="DataTransferObjects\StateDTO.cs" />
     <Compile Include="DataTransferObjects\UserDTO.cs" />
     <Compile Include="DataTransferObjects\UserOverviewDTO.cs" />

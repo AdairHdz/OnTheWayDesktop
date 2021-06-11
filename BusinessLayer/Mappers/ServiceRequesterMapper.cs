@@ -10,7 +10,7 @@ namespace BusinessLayer.Mappers
             ServiceRequester serviceRequester = new ServiceRequester
             {
                 ID = userOverviewDTO.ID,
-                Names = userOverviewDTO.Name,
+                Names = userOverviewDTO.Names,
                 Lastname = userOverviewDTO.LastName
             };
             return serviceRequester;

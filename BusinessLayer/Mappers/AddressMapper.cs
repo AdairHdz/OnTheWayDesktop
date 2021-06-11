@@ -37,5 +37,19 @@ namespace BusinessLayer.Mappers
             });
             return addressEntitiesList;
         }
+
+        public static Address CreateAddressEntityFromAddressDetailsDTO(AddressDetailsDTO addressDetailsDTO)
+        {
+            Address address = new Address
+            {
+                ID = addressDetailsDTO.ID,
+                IndoorNumber = addressDetailsDTO.IndoorNumber,
+                OutdoorNumber = addressDetailsDTO.OutdoorNumber,
+                Street = addressDetailsDTO.Street,
+                Suburb = addressDetailsDTO.Suburb,
+                City = CityMapper.CreateCityEntityFromCityDTO(addressDetailsDTO.City)
+            };
+            return address;
+        }
     }
 }

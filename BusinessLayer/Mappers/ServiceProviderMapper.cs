@@ -46,5 +46,16 @@ namespace BusinessLayer.Mappers
             };
             return serviceProvider;
         }
+
+        public static ServiceProvider CreateServiceProviderFromUserOverviewDTO(UserOverviewDTO userOverviewDTO)
+        {
+            ServiceProvider serviceProvider = new ServiceProvider
+            {
+                ID = userOverviewDTO.ID,
+                Names = userOverviewDTO.Names,
+                Lastname = userOverviewDTO.LastName
+            };
+            return serviceProvider;
+        }
     }
 }
