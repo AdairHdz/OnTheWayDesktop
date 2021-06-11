@@ -36,6 +36,10 @@ namespace PresentationLayer.User_Interface
         {
             try
             {
+                if(DatePickerServiceDate.SelectedDate == null)
+                {
+                    throw new FormatException();
+                }
                 _dateFilter = DatePickerServiceDate.SelectedDate.Value.Date;                
                 BusinessLayer.BusinessEntities.ServiceRequest serviceRequest = new BusinessLayer.BusinessEntities.ServiceRequest();
                 Dictionary<string, string> queryParameters = new Dictionary<string, string>
@@ -50,9 +54,26 @@ namespace PresentationLayer.User_Interface
             {
                 NotificationWindow.ShowErrorWindow("Fecha no válida", "Por favor, ingrese una fecha con formato válido.");
             }
-            catch(NetworkRequestException)
+            catch(NetworkRequestException networkRequestException)
             {
-                NotificationWindow.ShowErrorWindow("Fecha no válida", "Error.");
+                string exceptionMessage;
+                switch (networkRequestException.StatusCode)
+                {
+                    case 400:
+                        exceptionMessage = "Los datos que ha ingresado tienen un formato no válido. Favor de verificar e intentar de nuevo.";
+                        break;
+                    case 404:
+                        exceptionMessage = "No se encontraron solicitudes de servicio para la fecha indicada.";
+                        break;
+                    case 409:
+                    case 500:
+                        exceptionMessage = "Ha ocurrido un error en el servidor al intentar procesar su solicitud. Por favor, intente más tarde.";
+                        break;
+                    default:
+                        exceptionMessage = "Ha ocurrido un error desconocido. Por favor, intente más tarde.";
+                        break;
+                }
+                NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
             }
         }
 
