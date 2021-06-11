@@ -84,12 +84,15 @@
     </ApplicationDefinition>
     <Compile Include="Helpers\NotificationWindow.cs" />
     <Compile Include="Helpers\UserFeedback.cs" />
+    <Compile Include="Mappers\AddressMaper.cs" />
     <Compile Include="Mappers\CityMapper.cs" />
     <Compile Include="Mappers\PriceRateMapper.cs" />
     <Compile Include="Mappers\ServiceProviderMapper.cs" />
+    <Compile Include="Mappers\ServiceRequestMapper.cs" />
     <Compile Include="Mappers\StateMapper.cs" />
     <Compile Include="Mappers\UserMapper.cs" />
     <Compile Include="PresentationModels\AccountVerificationCodePresentationModel.cs" />
+    <Compile Include="PresentationModels\AddressPresentationModel.cs" />
     <Compile Include="PresentationModels\CityPresentationModel.cs" />
     <Compile Include="PresentationModels\EmailAddressPresentationModel.cs" />
     <Compile Include="PresentationModels\LoginPresentationModel.cs" />
@@ -98,9 +101,13 @@
     <Compile Include="PresentationModels\RegistryPresentationModel.cs" />
     <Compile Include="PresentationModels\ServiceProviderDetailPresentationModel.cs" />
     <Compile Include="PresentationModels\ServiceProviderOverviewItemPresentationModel.cs" />
+    <Compile Include="PresentationModels\ServiceRequestPresentationModel.cs" />
     <Compile Include="PresentationModels\StatePresentationModel.cs" />
     <Compile Include="User Interface\AccountActivation.xaml.cs">
       <DependentUpon>AccountActivation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="User Interface\AddressRegistry.xaml.cs">
+      <DependentUpon>AddressRegistry.xaml</DependentUpon>
     </Compile>
     <Compile Include="User Interface\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -133,12 +140,13 @@
       <DependentUpon>ServiceReview.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValidationModules\AccountVerificationCodeValidator.cs" />
+    <Compile Include="ValidationModules\AddressPresentationModelValidator.cs" />
     <Compile Include="ValidationModules\EmailAddressValidator.cs" />
     <Compile Include="ValidationModules\LoginPresentationModelValidator.cs" />
     <Compile Include="ValidationModules\PasswordRecoveryCodeValidator.cs" />
     <Compile Include="ValidationModules\RegistryPresentationModelValidator.cs" />
     <Compile Include="ValidationModules\ReviewValidator.cs" />
-    <Compile Include="ValidationModules\ServiceRequestValidator.cs" />
+    <Compile Include="ValidationModules\ServiceRequestPresentationModelValidator.cs" />
     <Compile Include="ValidationModules\UserLoginValidator.cs" />
     <Compile Include="ValidationModules\UserValidator.cs" />
     <Page Include="MainWindow.xaml">
@@ -154,6 +162,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="User Interface\AccountActivation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User Interface\AddressRegistry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -235,7 +247,9 @@
       <Name>Utils</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\OnTheWaySideLogo.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\OnTheWay.png" />
   </ItemGroup>

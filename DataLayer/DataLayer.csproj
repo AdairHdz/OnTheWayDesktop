@@ -52,6 +52,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataTransferObjects\AccountVerificationCodeDTO.cs" />
+    <Compile Include="DataTransferObjects\AddressDetailsDTO.cs" />
+    <Compile Include="DataTransferObjects\AddressDTO.cs" />
     <Compile Include="DataTransferObjects\CityDTO.cs" />
     <Compile Include="DataTransferObjects\EmailAddressDTO.cs" />
     <Compile Include="DataTransferObjects\EvidenceDTO.cs" />
@@ -66,6 +68,7 @@
     <Compile Include="DataTransferObjects\ServiceProviderDetailDTO.cs" />
     <Compile Include="DataTransferObjects\ServiceProviderOverviewItemDTO.cs" />
     <Compile Include="DataTransferObjects\ServiceProviderPaginationDTO.cs" />
+    <Compile Include="DataTransferObjects\ServiceRequestDTO.cs" />
     <Compile Include="DataTransferObjects\StateDTO.cs" />
     <Compile Include="DataTransferObjects\UserDTO.cs" />
     <Compile Include="DataTransferObjects\UserOverviewDTO.cs" />

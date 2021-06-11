@@ -19,7 +19,10 @@ namespace DataLayer
 
                 if (useAccessToken)
                 {
-                    endpoint.WithOAuthBearerToken($"{Session.GetSession().AuthorizationToken}");
+                    return endpointURL
+                        .WithOAuthBearerToken($"{Session.GetSession().AuthorizationToken}")
+                        .PostJsonAsync(dataToBeSent)
+                        .ReceiveJson<T>().GetAwaiter().GetResult();                        
                 }
 
                 T response = endpointURL
@@ -42,7 +45,7 @@ namespace DataLayer
             throw new NotImplementedException();
         }
 
-        public T Get(string endpoint, bool useAccessToken = true)
+        public T Get(string endpoint, bool useAccessToken = true, Dictionary<string, string> queryParameters = null)
         {
             try
             {
@@ -51,10 +54,10 @@ namespace DataLayer
 
                 if (useAccessToken)
                 {
-                    return Url.Decode(endpointURL, true).WithOAuthBearerToken($"{Session.GetSession().AuthorizationToken}").GetJsonAsync<T>().GetAwaiter().GetResult();
+                    return Url.Decode(endpointURL, true).WithOAuthBearerToken($"{Session.GetSession().AuthorizationToken}").SetQueryParams(queryParameters).GetJsonAsync<T>().GetAwaiter().GetResult();
                 }
 
-                return Url.Decode(endpointURL, true).GetJsonAsync<T>().GetAwaiter().GetResult();
+                return Url.Decode(endpointURL, true).SetQueryParams(queryParameters).GetJsonAsync<T>().GetAwaiter().GetResult();
             }
             catch (FlurlHttpTimeoutException)
             {

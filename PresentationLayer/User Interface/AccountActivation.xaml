@@ -24,7 +24,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="0" Grid.Row="0">
-            <Image Source="./images/OnTheWaySideLogo.png"></Image>
+            <Image Source="../Images/OnTheWaySideLogo.png"></Image>
         </StackPanel>
 
         <Grid Grid.Column="1">

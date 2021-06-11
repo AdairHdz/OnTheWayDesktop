@@ -5,7 +5,6 @@ using PresentationLayer.PresentationModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -55,7 +54,7 @@ namespace PresentationLayer.User_Interface
 
         private void RequestServiceButtonClicked(object sender, RoutedEventArgs e)
         {
-            ServiceRequest serviceRequest = new ServiceRequest();
+            ServiceRequest serviceRequest = new ServiceRequest(_serviceProviderID);
             serviceRequest.Show();
         }
 
@@ -86,12 +85,26 @@ namespace PresentationLayer.User_Interface
             }
             catch (NetworkRequestException networkRequestException)
             {
-                NotificationWindow.ShowErrorWindow("Error", networkRequestException.Message);
-                NavigateToServiceProvidersSearch();
-            }
-            catch (EmptyCollectionException)
-            {
-                NotificationWindow.ShowErrorWindow("Error", "No se encontró al usuario solicitado");
+                string exceptionMessage;
+                switch (networkRequestException.StatusCode)
+                {
+                    case 400:
+                        exceptionMessage = "Ha ocurrido un error al intentar procesar su solicitud. Por favor, intente más tarde.";                        
+                        break;
+                    case 404:
+                        exceptionMessage = "No se encontraron coincidencias para la información solicitada. Por favor, intente más tarde.";
+                        break;
+                    case 409:
+                        exceptionMessage = "Ha ocurrido un error al intentar procesar su solicitud. Por favor, intente más tarde.";                        
+                        break;
+                    case 500:
+                        exceptionMessage = "Ha ocurrido un error interno en el servidor. Por favor, intente más tarde.";                        
+                        break;
+                    default:
+                        exceptionMessage = "Ha ocurrido un error desconocido. Por favor, intente más tarde.";                        
+                        break;
+                }
+                NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
                 NavigateToServiceProvidersSearch();
             }
         }
@@ -187,9 +200,11 @@ namespace PresentationLayer.User_Interface
             try
             {
                 Review review = new Review();
-                Dictionary<string, string> queryParameters = new Dictionary<string, string>();
-                queryParameters["page"] = "1";
-                queryParameters["pagesize"] = "5";
+                Dictionary<string, string> queryParameters = new Dictionary<string, string>
+                {
+                    ["page"] = "1",
+                    ["pagesize"] = "5"
+                };
                 _reviews = review.FindAll(_serviceProviderID, queryParameters);
                 PrintReviews();
             }
