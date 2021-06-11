@@ -1,8 +1,10 @@
 ﻿using PresentationLayer.Helpers;
+using PresentationLayer.Mappers;
+using PresentationLayer.PresentationModels;
 using System;
 using System.Collections.Generic;
 using System.Windows;
-
+using Utils.CustomExceptions;
 
 namespace PresentationLayer.User_Interface
 {
@@ -12,45 +14,74 @@ namespace PresentationLayer.User_Interface
     public partial class ServiceHistory : Window
     {
         private DateTime _dateFilter = DateTime.Now;
-        private readonly List<BusinessLayer.BusinessEntities.ServiceRequest> _serviceRequests = new List<BusinessLayer.BusinessEntities.ServiceRequest>();
+        private List<ServiceRequestHistoryPresentationModel> _serviceRequests = new List<ServiceRequestHistoryPresentationModel>();
 
         private void DisplayData()
         {
-            //ListViewServices.Items.Clear();
-            //foreach (BusinessLayer.BusinessEntities.ServiceRequest serviceRequest in _serviceRequests)
-            //{
-            //    if(DateTime.Equals(serviceRequest.Date, _dateFilter))
-            //    {
-            //        ListViewServices.Items.Add(serviceRequest);
-            //    }                
-            //}
+            ListViewServices.Items.Clear();
+            _serviceRequests.ForEach(serviceRequestItem =>
+            {
+                ListViewServices.Items.Add(serviceRequestItem);
+            });
+            
         }
 
         public ServiceHistory()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            DataContext = _serviceRequests;
         }
 
         private void SearchButtonClicked(object sender, RoutedEventArgs e)
         {
             try
             {
-                _dateFilter = DatePickerServiceDate.SelectedDate.Value.Date;
-                //_dateFilter = _dateFilter.Date;                
-                Console.WriteLine(_dateFilter.ToString("yyyy-MM-dd"));
+                if(DatePickerServiceDate.SelectedDate == null)
+                {
+                    throw new FormatException();
+                }
+                _dateFilter = DatePickerServiceDate.SelectedDate.Value.Date;                
+                BusinessLayer.BusinessEntities.ServiceRequest serviceRequest = new BusinessLayer.BusinessEntities.ServiceRequest();
+                Dictionary<string, string> queryParameters = new Dictionary<string, string>
+                {
+                    ["date"] = _dateFilter.ToString("yyyy-MM-dd")
+                };
+                List<BusinessLayer.BusinessEntities.ServiceRequest> serviceRequests = serviceRequest.FindByDate(queryParameters);
+                _serviceRequests = ServiceRequestMapper.CreateServiceRequestHistoryPresentationModelListFromServiceRequestEntityList(serviceRequests);
                 DisplayData();
             }
             catch (FormatException)
             {
                 NotificationWindow.ShowErrorWindow("Fecha no válida", "Por favor, ingrese una fecha con formato válido.");
             }
+            catch(NetworkRequestException networkRequestException)
+            {
+                string exceptionMessage;
+                switch (networkRequestException.StatusCode)
+                {
+                    case 400:
+                        exceptionMessage = "Los datos que ha ingresado tienen un formato no válido. Favor de verificar e intentar de nuevo.";
+                        break;
+                    case 404:
+                        exceptionMessage = "No se encontraron solicitudes de servicio para la fecha indicada.";
+                        break;
+                    case 409:
+                    case 500:
+                        exceptionMessage = "Ha ocurrido un error en el servidor al intentar procesar su solicitud. Por favor, intente más tarde.";
+                        break;
+                    default:
+                        exceptionMessage = "Ha ocurrido un error desconocido. Por favor, intente más tarde.";
+                        break;
+                }
+                NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+            }
         }
 
         private void SeeDetailsButtonClicked(object sender, RoutedEventArgs e)
         {
-            BusinessLayer.BusinessEntities.ServiceRequest serviceRequest = 
-                (BusinessLayer.BusinessEntities.ServiceRequest)ListViewServices.SelectedItem;
-            ServiceDetails serviceDetails = new ServiceDetails(serviceRequest);
+            ServiceRequestHistoryPresentationModel serviceRequest = 
+                (ServiceRequestHistoryPresentationModel)ListViewServices.SelectedItem;
+            ServiceDetails serviceDetails = new ServiceDetails(serviceRequest.ID);
             serviceDetails.Show();
             Close();
         }

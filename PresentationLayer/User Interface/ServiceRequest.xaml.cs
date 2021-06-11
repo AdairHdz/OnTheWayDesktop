@@ -191,9 +191,11 @@ namespace PresentationLayer.User_Interface
 
         private void LoadActivePriceRate()
         {
-            Dictionary<string, string> queryParameters = new Dictionary<string, string>();
-            queryParameters["kindOfService"] = "" + _serviceRequestPresentationModel.KindOfService;
-            queryParameters["city"] = _serviceRequestPresentationModel.City != null ? _serviceRequestPresentationModel.City.Name : "";
+            Dictionary<string, string> queryParameters = new Dictionary<string, string>
+            {
+                ["kindOfService"] = "" + _serviceRequestPresentationModel.KindOfService,
+                ["city"] = _serviceRequestPresentationModel.City != null ? _serviceRequestPresentationModel.City.Name : ""
+            };
             PriceRate priceRate = new PriceRate();
             try
             {
