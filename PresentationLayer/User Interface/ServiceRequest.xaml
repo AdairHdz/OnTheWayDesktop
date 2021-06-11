@@ -13,97 +13,106 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="ServiceRequest" Height="630" Width="600">
-    <Grid>
+        Title="ServiceRequest" Height="730" Width="600" Loaded="WindowLoaded">
+    <Grid x:Name="FormGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="19*"/>
+            <ColumnDefinition Width="119*"/>
+            <ColumnDefinition Width="138*"/>
+            <ColumnDefinition Width="138*"/>
+            <ColumnDefinition Width="138*"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="auto"/>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="70"/>
             <RowDefinition Height="70"/>
+            <RowDefinition Height="180"/>
             <RowDefinition Height="100"/>
             <RowDefinition Height="80"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4"
+        <TextBlock Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2"
                    HorizontalAlignment="Center" VerticalAlignment="Center"
                    FontSize="25" FontWeight="SemiBold" Text="Solicitar servicio"/>
 
-        <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
-            x:Name="ComboBoxKindOfService"
+        <ComboBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"
+            x:Name="ComboBoxKindOfService"            
             Style="{StaticResource MaterialDesignFilledComboBox}"
             IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
-            materialDesign:HintAssist.Hint="Tipo de servicio" Height="50" Width="200">
-                <ComboBoxItem
-                    Content="Compra de víveres" />
-                <ComboBoxItem
-                    Content="Compra de fármacos"/>
-                <ComboBoxItem
-                    Content="Entrega"/>
+            materialDesign:HintAssist.Hint="Tipo de servicio" Height="50" Width="200" Margin="18.9,50.2,38.8,0.6" Grid.RowSpan="2" SelectionChanged="KindOfServiceComboBoxSelectionChanged">
+            <ComboBoxItem
+                    Content="Compra de víveres"
+                    Tag="0"/>
+            <ComboBoxItem
+                    Content="Compra de fármacos"
+                    Tag="1"/>
+            <ComboBoxItem
+                    Content="Entrega"
+                    Tag="2"/>
+            <ComboBoxItem
+                    Content="Otro"
+                    Tag="3"/>
         </ComboBox>
 
-        <ComboBox Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2"
-            x:Name="ComboBoxRegion"
+        <ComboBox Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2"
+            x:Name="ComboBoxCity"
+            DisplayMemberPath="Name"
             Style="{StaticResource MaterialDesignFilledComboBox}"
             IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
-            materialDesign:HintAssist.Hint="Región" Height="50" Width="200">
-            <ComboBoxItem
-                    Content="Xalapa" />
-            <ComboBoxItem
-                    Content="Veracruz"/>
-            <ComboBoxItem
-                    Content="Xico"/>
+            materialDesign:HintAssist.Hint="Ciudad" Height="50" Width="200" Margin="38.2,50.2,38.6,0.6" Grid.RowSpan="2" SelectionChanged="CityComboBoxSelectionChanged">
         </ComboBox>
 
-        <TextBlock Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4"
+        <TextBlock Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3"
                    HorizontalAlignment="Left" VerticalAlignment="Center"
-                   FontSize="20" FontWeight="SemiBold" Text="Dirección de entrega"/>
+                   FontSize="20" FontWeight="SemiBold" Text="Dirección de entrega" Margin="0,13.4,0,13"/>
 
-        <ComboBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="4"
+        <ComboBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="6"
             x:Name="ComboBoxAddress"
+            DisplayMemberPath = "AddressOverview"
             Style="{StaticResource MaterialDesignFilledComboBox}"
             IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
-            materialDesign:HintAssist.Hint="Dirección" Height="50">
-            <ComboBoxItem
-                    Content="Retorno Insurgentes #5, Col. Primaveras; Coatepec, Veracruz" />
+            materialDesign:HintAssist.Hint="Dirección" Height="50" Margin="0,11,19.6,10.2" SelectionChanged="AddressComboBoxSelectionChanged">
         </ComboBox>
 
-        <TextBlock Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="4"
+        <TextBlock Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3"
                    HorizontalAlignment="Left" VerticalAlignment="Center"
-                   FontSize="20" FontWeight="SemiBold" Text="Detalles adicionales"/>
+                   FontSize="20" FontWeight="SemiBold" Text="Detalles adicionales" Margin="0,23.8,0,23.4"/>
 
-        <TextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="4"
+        <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="6"
+            Text="{Binding AdditionalDetails, Mode=TwoWay}"
             Style="{StaticResource MaterialDesignOutlinedTextBox}"
-            Height="100"
+            x:Name="TextBoxAdditionalDetails"
+            materialDesign:HintAssist.HelperText="Máximo 255 caracteres."
+            Height="120"
             VerticalAlignment="Top"
             AcceptsReturn="True"
             TextWrapping="Wrap"
             VerticalScrollBarVisibility="Auto"
-            materialDesign:HintAssist.Hint="Detalles..."/>
-
-        <TextBlock Grid.Row="7" Grid.Column="2"
-                   HorizontalAlignment="Center" VerticalAlignment="Center"
-                   FontSize="25" FontWeight="SemiBold" Text="Total:"/>
+            materialDesign:HintAssist.Hint="Detalles..." Margin="0,80.8,19.6,0" Grid.RowSpan="2"/>
 
         <TextBlock Grid.Row="7" Grid.Column="3"
-                   HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2"
-                   FontSize="30" FontWeight="SemiBold" Text="50.00 MXN"/>
+                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                   FontSize="25" FontWeight="SemiBold" Text="Total:" Margin="38.6,25.8,38.8,25"/>
 
-        <Button Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="8"
+        <!--<TextBlock Grid.Row="7" Grid.Column="4"
+                   HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2"
+                   FontSize="30" FontWeight="SemiBold" Text="50.00 MXN" Margin="0.2,22.8,0,22"/>-->
+        <TextBox Grid.Row="7" Grid.Column="4" Height="30"
+            x:Name="TextBoxCost"
+            IsEnabled="False"
+            Text="{Binding Cost, Mode=TwoWay}"/>
+
+        <Button Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="8"
                     Width="120"
                     HorizontalAlignment="Center"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                    Content="Enviar" Foreground="#FFF"></Button>
+                    Content="Enviar" Foreground="#FFF" Margin="78.6,9,78.2,9.4" Click="SendServiceRequestButtonClicked"></Button>
     </Grid>
 </Window>

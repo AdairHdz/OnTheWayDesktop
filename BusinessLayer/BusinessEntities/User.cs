@@ -45,16 +45,20 @@ namespace BusinessLayer.BusinessEntities
 
         public bool VerifyAccount()
         {
-            AccountVerificationCodeDTO accountVerificationCodeDTO = new AccountVerificationCodeDTO();
-            accountVerificationCodeDTO.VerificationCode = this.VerificationCode;
+            AccountVerificationCodeDTO accountVerificationCodeDTO = new AccountVerificationCodeDTO
+            {
+                VerificationCode = this.VerificationCode
+            };
             var restRequest = new RestRequest<object>();
             return restRequest.Patch($"users/{Session.GetSession().UserID}/verify", accountVerificationCodeDTO);            
         }
 
         public bool RefreshVerificationCode()
         {
-            RefreshVerificationCodeDTO refreshVerificationCodeDTO = new RefreshVerificationCodeDTO();
-            refreshVerificationCodeDTO.EmailAddress = Session.GetSession().EmailAddress;
+            RefreshVerificationCodeDTO refreshVerificationCodeDTO = new RefreshVerificationCodeDTO
+            {
+                EmailAddress = Session.GetSession().EmailAddress
+            };
             var restRequest = new RestRequest<object>();
             return restRequest.Put($"users/{Session.GetSession().UserID}/verify", refreshVerificationCodeDTO);            
         }

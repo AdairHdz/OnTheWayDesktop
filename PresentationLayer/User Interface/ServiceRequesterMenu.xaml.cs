@@ -34,5 +34,12 @@ namespace PresentationLayer.User_Interface
             serviceHistory.Show();
             Close();
         }
+
+        private void RegisterAddressButtonClicked(object sender, RoutedEventArgs e)
+        {
+            AddressRegistry addressRegistry = new AddressRegistry();
+            addressRegistry.Show();
+            Close();
+        }
     }
 }

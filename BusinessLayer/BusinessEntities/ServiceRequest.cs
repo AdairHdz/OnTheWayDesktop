@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BusinessLayer.Mappers;
+using DataLayer;
+using DataLayer.DataTransferObjects;
+using System;
 
 namespace BusinessLayer.BusinessEntities
 {
@@ -13,5 +16,12 @@ namespace BusinessLayer.BusinessEntities
         public ServiceStatus ServiceStatus { get; set; }                        
         public ServiceRequester ServiceRequester { get; set; }
         public ServiceProvider ServiceProvider { get; set; }
+
+        public void Save()
+        {
+            ServiceRequestDTO serviceRequestDTO = ServiceRequestMapper.CreateServiceRequestDTOFromServiceRequestEntity(this);
+            RestRequest<object> request = new RestRequest<object>();
+            request.Post("requests", serviceRequestDTO);
+        }
     }
 }

@@ -64,12 +64,15 @@
                 materialDesign:HintAssist.Hint="Tipo de servicio" Height="50">
                 <ComboBoxItem
                     Content="Compra de víveres"
-                    Tag="1"/>
+                    Tag="0"/>
                 <ComboBoxItem
                     Content="Compra de fármacos"
-                    Tag="2"/>
+                    Tag="1"/>
                 <ComboBoxItem
                     Content="Entrega"
+                    Tag="2"/>
+                <ComboBoxItem
+                    Content="Otro"
                     Tag="3"/>
             </ComboBox>
 

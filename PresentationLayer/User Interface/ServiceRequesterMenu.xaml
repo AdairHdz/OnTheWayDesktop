@@ -12,6 +12,7 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
+        ResizeMode="NoResize"
         mc:Ignorable="d"
         Title="ServiceRequesterMenu" Height="450" Width="800">
     <Grid>
@@ -69,9 +70,9 @@
                 </Grid>
             </GroupBox>
 
-            
 
-            <GroupBox Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" Margin="50,65,-46,65">
+
+            <GroupBox Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" Margin="4,60,0,70">
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -88,6 +89,27 @@
                         </Grid.ColumnDefinitions>
                         <materialDesign:PackIcon Kind="AlignVerticalBottom" Height="35" Width="35" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <Label Content="Ver historial de servicios" Grid.Column="0" FontSize="16" Foreground="White" FontFamily="Arial" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    </Grid>
+                </Button>
+            </GroupBox>
+
+            <GroupBox Grid.Column="1" VerticalAlignment="Center" Margin="5,120,263,10" Grid.ColumnSpan="2">
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="FileChart" Height="32" Width="32" VerticalAlignment="Center" />
+                            <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Text="Direcciones" />
+                        </StackPanel>
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+                <Button Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="RegisterAddressButtonClicked" >
+                    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="250">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <materialDesign:PackIcon Kind="AlignVerticalBottom" Height="35" Width="35" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Content="Agregar una dirección" Grid.Column="0" FontSize="16" Foreground="White" FontFamily="Arial" HorizontalAlignment="Center" materialDesign:HintAssist.Hint="Registra una dirección asociada a tu cuenta para que el proveedor de servicio pueda saber cómo localizarte" VerticalAlignment="Center"></Label>
                     </Grid>
                 </Button>
             </GroupBox>

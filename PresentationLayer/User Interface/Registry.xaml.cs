@@ -43,7 +43,6 @@ namespace PresentationLayer.User_Interface
                 }
                 catch (NetworkRequestException networkRequestException)
                 {
-
                     string exceptionMessage;
                     switch (networkRequestException.StatusCode)
                     {

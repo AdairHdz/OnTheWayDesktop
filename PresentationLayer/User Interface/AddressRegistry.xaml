@@ -1,0 +1,110 @@
+﻿<Window x:Class="PresentationLayer.User_Interface.AddressRegistry"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PresentationLayer.User_Interface"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        mc:Ignorable="d"
+        Title="AddressRegistry" Height="600" Width="900">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Background="#166EE5">
+            <TextBlock Text="Registrar dirección" FontSize="25" FontWeight="Bold" Foreground="#FFF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </DockPanel>
+
+
+        <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="40" Margin="10,0"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    ToolTip="Volver" Click="BackButtonClicked">
+            <materialDesign:PackIcon Kind="ArrowLeftCircle" Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="40"/>
+        </Button>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <materialDesign:Card Grid.Column="1" Grid.ColumnSpan="3" Padding="30,10">
+                <Grid x:Name="FormGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBox Grid.Row="0" Grid.Column="0" Height="30"
+                     x:Name="TextBoxIndoorNumber"
+                     Text="{Binding IndoorNumber, Mode=TwoWay}"
+                     materialDesign:HintAssist.Hint="Número interior"
+                     materialDesign:HintAssist.HelperText="Máximo 8 caracteres. Admite números y letras"/>
+
+                    <TextBox Grid.Row="0" Grid.Column="2" Height="30"
+                     x:Name="TextBoxOutdoorNumber"
+                     Text="{Binding OutdoorNumber, Mode=TwoWay}"
+                     materialDesign:HintAssist.Hint="Número exterior"
+                     materialDesign:HintAssist.HelperText="Máximo 8 caracteres. Admite números y letras"/>
+
+                    <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Height="30"
+                     x:Name="TextBoxStreet"
+                     Text="{Binding Street, Mode=TwoWay}"
+                     materialDesign:HintAssist.Hint="Calle"
+                     materialDesign:HintAssist.HelperText="Máximo 50 caracteres"/>
+
+                    <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Height="30"
+                     x:Name="TextBoxSuburb"
+                     Text="{Binding Suburb, Mode=TwoWay}"
+                     materialDesign:HintAssist.Hint="Colonia"
+                     materialDesign:HintAssist.HelperText="Máximo 50 caracteres"/>
+                    <ComboBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Background="#DDD"
+                x:Name="ComboBoxCity"
+                Style="{StaticResource MaterialDesignFilledComboBox}"
+                IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
+                SelectedIndex="0"
+                DisplayMemberPath="Name"
+                materialDesign:HintAssist.Hint="Ciudad" Height="50"/>
+
+                    <Button Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4"
+                    Width="120"
+                    HorizontalAlignment="Center"
+                    Click="RegisterButtonClicked"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    Content="Registrar" Foreground="#FFF"></Button>
+                </Grid>
+            </materialDesign:Card>
+
+        </Grid>
+
+
+    </Grid>
+</Window>

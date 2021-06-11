@@ -21,5 +21,25 @@ namespace PresentationLayer.Mappers
             });
             return citiesPresentationModels;
         }
+
+        public static City CreateCityEntityFromCityPresentationModel(CityPresentationModel cityPresentationModel)
+        {
+            City city = new City
+            {
+                ID = cityPresentationModel.ID,
+                Name = cityPresentationModel.Name
+            };
+            return city;
+        }
+
+        public static CityPresentationModel CreateCityPresentationModelFromCityEntity(City city)
+        {
+            CityPresentationModel cityPresentationModel = new CityPresentationModel
+            {
+                ID = city.ID,
+                Name = city.Name
+            };
+            return cityPresentationModel;
+        }
     }
 }
