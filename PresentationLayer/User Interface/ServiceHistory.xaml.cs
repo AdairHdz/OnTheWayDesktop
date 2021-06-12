@@ -40,7 +40,7 @@ namespace PresentationLayer.User_Interface
                 {
                     throw new FormatException();
                 }
-                _dateFilter = DatePickerServiceDate.SelectedDate.Value.Date;                
+                _dateFilter = DatePickerServiceDate.SelectedDate.Value.Date;
                 BusinessLayer.BusinessEntities.ServiceRequest serviceRequest = new BusinessLayer.BusinessEntities.ServiceRequest();
                 Dictionary<string, string> queryParameters = new Dictionary<string, string>
                 {

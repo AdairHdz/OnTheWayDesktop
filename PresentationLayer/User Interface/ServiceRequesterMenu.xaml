@@ -34,14 +34,16 @@
 
         <Grid Grid.Row="1" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition ></ColumnDefinition>
-                <ColumnDefinition ></ColumnDefinition>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="230"></RowDefinition>
                 <RowDefinition Height="240"></RowDefinition>
             </Grid.RowDefinitions>
+            
             <GroupBox Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" >
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
@@ -72,7 +74,7 @@
 
 
 
-            <GroupBox Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" Margin="4,60,0,70">
+            <GroupBox Grid.Column="2" Grid.Row="0" VerticalAlignment="Center">
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -81,7 +83,7 @@
                         </StackPanel>
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
-                <Button Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="SeeServiceHistoryButtonClicked" >
+                <Button Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignRaisedAccentButton}" Click="SeeServiceHistoryButtonClicked" >
                     <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="250">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="250"></ColumnDefinition>
@@ -93,7 +95,7 @@
                 </Button>
             </GroupBox>
 
-            <GroupBox Grid.Column="1" VerticalAlignment="Center" Margin="5,120,263,10" Grid.ColumnSpan="2">
+            <GroupBox Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="1">
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -102,7 +104,7 @@
                         </StackPanel>
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
-                <Button Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="RegisterAddressButtonClicked" >
+                <Button Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignRaisedAccentButton}" Click="RegisterAddressButtonClicked" >
                     <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="250">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="250"></ColumnDefinition>
@@ -110,6 +112,27 @@
                         </Grid.ColumnDefinitions>
                         <materialDesign:PackIcon Kind="AlignVerticalBottom" Height="35" Width="35" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <Label Content="Agregar una dirección" Grid.Column="0" FontSize="16" Foreground="White" FontFamily="Arial" HorizontalAlignment="Center" materialDesign:HintAssist.Hint="Registra una dirección asociada a tu cuenta para que el proveedor de servicio pueda saber cómo localizarte" VerticalAlignment="Center"></Label>
+                    </Grid>
+                </Button>
+            </GroupBox>
+
+            <GroupBox Grid.Column="0" Grid.Row="1" VerticalAlignment="Top" >
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="FileChart" Height="32" Width="32" VerticalAlignment="Center" />
+                            <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Text="Estadísticas" />
+                        </StackPanel>
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+                <Button Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignRaisedAccentButton}" Click="SeeStatisticsButtonClicked" >
+                    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="250">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <materialDesign:PackIcon Kind="AlignVerticalBottom" Height="35" Width="35" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Content="Estadísticas" Grid.Column="0" FontSize="16" Foreground="White" FontFamily="Arial" HorizontalAlignment="Center" materialDesign:HintAssist.Hint="Registra una dirección asociada a tu cuenta para que el proveedor de servicio pueda saber cómo localizarte" VerticalAlignment="Center"></Label>
                     </Grid>
                 </Button>
             </GroupBox>
