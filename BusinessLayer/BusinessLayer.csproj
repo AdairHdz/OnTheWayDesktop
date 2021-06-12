@@ -68,6 +68,7 @@
     <Compile Include="BusinessEntities\KindOfService.cs" />
     <Compile Include="BusinessEntities\PriceRate.cs" />
     <Compile Include="BusinessEntities\State.cs" />
+    <Compile Include="BusinessEntities\Statistics.cs" />
     <Compile Include="BusinessEntities\UserType.cs" />
     <Compile Include="Mappers\AddressMapper.cs" />
     <Compile Include="Mappers\CityMapper.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Mappers\ServiceRequesterMapper.cs" />
     <Compile Include="Mappers\ServiceRequestMapper.cs" />
     <Compile Include="Mappers\StateMapper.cs" />
+    <Compile Include="Mappers\StatisticsMapper.cs" />
     <Compile Include="Mappers\UserMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BusinessEntities\Review.cs" />

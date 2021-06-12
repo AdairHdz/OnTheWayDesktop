@@ -41,5 +41,12 @@ namespace PresentationLayer.User_Interface
             addressRegistry.Show();
             Close();
         }
+
+        private void SeeStatisticsButtonClicked(object sender, RoutedEventArgs e)
+        {
+            ServiceRequesterStatistics serviceRequesterStatistics = new ServiceRequesterStatistics();
+            serviceRequesterStatistics.Show();
+            Close();
+        }
     }
 }

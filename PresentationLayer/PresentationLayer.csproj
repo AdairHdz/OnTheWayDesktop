@@ -49,6 +49,12 @@
     <Reference Include="Flurl.Http, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Flurl.Http.3.2.0\lib\net472\Flurl.Http.dll</HintPath>
     </Reference>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=2.0.0.2422, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.2.0.0\lib\net452\MaterialDesignColors.dll</HintPath>
     </Reference>
@@ -116,6 +122,7 @@
     <Compile Include="PresentationModels\ServiceRequestHistoryPresentationModel.cs" />
     <Compile Include="PresentationModels\ServiceRequestPresentationModel.cs" />
     <Compile Include="PresentationModels\StatePresentationModel.cs" />
+    <Compile Include="PresentationModels\StatisticsPresentationModel.cs" />
     <Compile Include="User Interface\AccountActivation.xaml.cs">
       <DependentUpon>AccountActivation.xaml</DependentUpon>
     </Compile>
@@ -151,6 +158,9 @@
     </Compile>
     <Compile Include="User Interface\ServiceRequesterMenu.xaml.cs">
       <DependentUpon>ServiceRequesterMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="User Interface\ServiceRequesterStatistics.xaml.cs">
+      <DependentUpon>ServiceRequesterStatistics.xaml</DependentUpon>
     </Compile>
     <Compile Include="User Interface\ServiceReview.xaml.cs">
       <DependentUpon>ServiceReview.xaml</DependentUpon>
@@ -222,6 +232,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="User Interface\ServiceRequesterMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User Interface\ServiceRequesterStatistics.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
