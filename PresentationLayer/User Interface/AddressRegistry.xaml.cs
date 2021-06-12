@@ -43,14 +43,33 @@ namespace PresentationLayer.User_Interface
             }
             catch (NetworkRequestException networkRequestException)
             {
-                NotificationWindow.ShowErrorWindow("Error", networkRequestException.Message);
-                NavigateToServiceRequesterMenu();
-            }
-            catch (EmptyCollectionException)
-            {
-                NotificationWindow.ShowNotificationWindow("Sin coincidencias", "Actualmente OnTheWay no cuenta con ciudades registradas en su Estado.");
-                NavigateToServiceRequesterMenu();
-            }
+                string exceptionMessage;
+                switch (networkRequestException.StatusCode)
+                {
+                    case 400:
+                        exceptionMessage = "Los datos que ha ingresado tienen un formato no válido. Favor de verificar e intentar de nuevo.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                    case 401:
+                        exceptionMessage = "Lo sentimos, su sesión ha expirado";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        GoBackToLoginView();
+                        break;
+                    case 404:
+                        exceptionMessage = "Lo sentimos, pero parece que OnTheWay no cuenta con ciudades registradas para su Estado.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                    case 409:
+                    case 500:
+                        exceptionMessage = "Ha ocurrido un error en el servidor al intentar procesar su solicitud. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                    default:
+                        exceptionMessage = "Ha ocurrido un error desconocido. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                }                
+            }            
         }
 
         private void NavigateToServiceRequesterMenu()
@@ -82,20 +101,35 @@ namespace PresentationLayer.User_Interface
                     {
                         case 400:
                             exceptionMessage = "Ha ocurrido un error al intentar procesar su solicitud. Por favor, intente más tarde.";
-                            break;                        
+                            NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                            break;
+                        case 401:
+                            exceptionMessage = "Lo sentimos, su sesión ha expirado.";
+                            NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                            GoBackToLoginView();
+                            break;
                         case 409:
                             exceptionMessage = "Ha ocurrido un error al intentar procesar su solicitud. Por favor, intente más tarde.";
+                            NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
                             break;
                         case 500:
                             exceptionMessage = "Ha ocurrido un error interno en el servidor. Por favor, intente más tarde.";
+                            NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
                             break;
                         default:
                             exceptionMessage = "Ha ocurrido un error desconocido. Por favor, intente más tarde.";
+                            NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
                             break;
-                    }
-                    NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                    }                    
                 }
             }
+        }
+
+        private void GoBackToLoginView()
+        {
+            Login login = new Login();
+            login.Show();
+            Close();
         }
 
         private void ShowFeedback(ValidationResult validationResult)

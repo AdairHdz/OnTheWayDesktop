@@ -26,6 +26,13 @@ namespace PresentationLayer.User_Interface
             InitializeComponent();
         }
 
+        private void GoBackToLoginView()
+        {
+            Login login = new Login();
+            login.Show();
+            Close();
+        }
+
         private void LoadAddresses() {
             try
             {
@@ -44,19 +51,27 @@ namespace PresentationLayer.User_Interface
                 {
                     case 400:
                         exceptionMessage = "Los datos que ha ingresado tienen un formato no válido. Favor de verificar e intentar de nuevo.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                    case 401:
+                        exceptionMessage = "Lo sentimos, su sesión ha expirado";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        GoBackToLoginView();
                         break;
                     case 404:
                         exceptionMessage = "No tiene direcciones registradas. Por favor, registre una dirección antes de solicitar un servicio.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
                         break;
                     case 409:
                     case 500:
                         exceptionMessage = "Ha ocurrido un error en el servidor al intentar procesar su solicitud. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
                         break;
                     default:
                         exceptionMessage = "Ha ocurrido un error desconocido. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
                         break;
-                }
-                NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                }                
             }            
         }
         
@@ -84,50 +99,34 @@ namespace PresentationLayer.User_Interface
                 {
                     case 400:
                         exceptionMessage = "Los datos que ha ingresado tienen un formato no válido. Favor de verificar e intentar de nuevo.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                    case 401:
+                        exceptionMessage = "Lo sentimos, su sesión ha expirado";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        GoBackToLoginView();
                         break;
                     case 404:
                         exceptionMessage = "Ocurrió un error al intentar recuperar las ciudades disponibles para OnTheWay. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
                         break;
                     case 409:
                     case 500:
                         exceptionMessage = "Ha ocurrido un error en el servidor al intentar procesar su solicitud. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
                         break;
                     default:
                         exceptionMessage = "Ha ocurrido un error desconocido. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
                         break;
-                }
-                NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                }                
             }            
         }
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                LoadAddresses();
-                LoadCities();
-            }
-            catch(NetworkRequestException networkRequestException)
-            {
-                string exceptionMessage;
-                switch (networkRequestException.StatusCode)
-                {
-                    case 400:
-                        exceptionMessage = "Los datos que ha ingresado tienen un formato no válido. Favor de verificar e intentar de nuevo.";
-                        break;
-                    case 404:
-                        exceptionMessage = "No tiene direcciones registradas. Por favor, registre una dirección antes de solicitar un servicio.";
-                        break;
-                    case 409:
-                    case 500:
-                        exceptionMessage = "Ha ocurrido un error en el servidor al intentar procesar su solicitud. Por favor, intente más tarde.";
-                        break;
-                    default:
-                        exceptionMessage = "Ha ocurrido un error desconocido. Por favor, intente más tarde.";
-                        break;
-                }
-                NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
-            }
+            LoadAddresses();
+            LoadCities();
         }
 
         private void SendServiceRequestButtonClicked(object sender, RoutedEventArgs e)
@@ -169,16 +168,23 @@ namespace PresentationLayer.User_Interface
                 {
                     case 400:
                         exceptionMessage = "Los datos que ha ingresado tienen un formato no válido. Favor de verificar e intentar de nuevo.";
-                        break;                    
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                    case 401:
+                        exceptionMessage = "Lo sentimos, su sesión ha expirado";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        GoBackToLoginView();
+                        break;
                     case 409:
                     case 500:
                         exceptionMessage = "Ha ocurrido un error en el servidor al intentar procesar su solicitud. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
                         break;
                     default:
                         exceptionMessage = "Ha ocurrido un error desconocido. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
                         break;
-                }
-                NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                }                
             }
         }
 
@@ -210,30 +216,41 @@ namespace PresentationLayer.User_Interface
                     case 400:
                         exceptionMessage = "Los datos que ha ingresado tienen un formato no válido. Favor de verificar e intentar de nuevo.";
                         NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        SetCost();
+                        break;
+                    case 401:
+                        exceptionMessage = "Lo sentimos, su sesión ha expirado";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        GoBackToLoginView();
                         break;
                     case 404:                        
                         _serviceRequestPresentationModel.Cost = 0;
+                        SetCost();
                         break;
                     case 409:
                     case 500:
                         exceptionMessage = "Ha ocurrido un error en el servidor al intentar procesar su solicitud. Por favor, intente más tarde.";
                         NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        SetCost();
                         break;
                     default:
                         exceptionMessage = "Ha ocurrido un error desconocido. Por favor, intente más tarde.";
                         NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        SetCost();
                         break;
                 }
-            }
-            finally
+            }            
+        }
+
+        private void SetCost()
+        {
+            if (_serviceRequestPresentationModel != null)
             {
-                if(_serviceRequestPresentationModel != null)
-                {
-                    TextBoxCost.Text = $"${_serviceRequestPresentationModel.Cost} MXN";
-                } else
-                {
-                    TextBoxCost.Text = "$0.00 MXN";
-                }                
+                TextBoxCost.Text = $"${_serviceRequestPresentationModel.Cost} MXN";
+            }
+            else
+            {
+                TextBoxCost.Text = "$0.00 MXN";
             }
         }
 

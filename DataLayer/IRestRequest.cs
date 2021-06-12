@@ -15,5 +15,6 @@ namespace DataLayer
         T ReadCollection(Func<T, bool> filters);
         bool Patch(string endpoint, object dataToBeSent, bool useAccessToken = true);
         bool Put(string endpoint, object dataToBeSent, bool useAccessToken = true);
+        Task LogoutAsync();
     }
 }

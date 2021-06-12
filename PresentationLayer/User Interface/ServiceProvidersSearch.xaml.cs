@@ -37,6 +37,9 @@ namespace PresentationLayer.User_Interface
             if(ServiceProvidersListView.SelectedItem != null)
             {
                 SeeDetailsButton.IsEnabled = true;
+            } else
+            {
+                SeeDetailsButton.IsEnabled = false;
             }
         }
 
@@ -74,21 +77,43 @@ namespace PresentationLayer.User_Interface
             }
             catch (NetworkRequestException networkRequestException)
             {
-                NotificationWindow.ShowErrorWindow("Error", networkRequestException.Message);
-                NavigateToServiceRequesterMenu();
-            }
-            catch (EmptyCollectionException)
-            {
-                NotificationWindow.ShowNotificationWindow("Sin coincidencias", "Actualmente OnTheWay no cuenta con ciudades registradas en su Estado.");
-                NavigateToServiceRequesterMenu();
-            }
+                string exceptionMessage;
+                switch (networkRequestException.StatusCode)
+                {
+                    case 400:
+                        exceptionMessage = "Ha ocurrido un error al intentar procesar su solicitud. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                    case 401:
+                        exceptionMessage = "Lo sentimos, su sesión ha expirado";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        GoBackToLoginView();
+                        break;
+                    case 404:
+                        exceptionMessage = "No se encontraron coincidencias para la información solicitada. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                    case 409:
+                        exceptionMessage = "Ha ocurrido un error al intentar procesar su solicitud. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                    case 500:
+                        exceptionMessage = "Ha ocurrido un error interno en el servidor. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                    default:
+                        exceptionMessage = "Ha ocurrido un error desconocido. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                }                          
+            }            
             
         }
 
-        private void NavigateToServiceRequesterMenu()
+        private void GoBackToLoginView()
         {
-            ServiceRequesterMenu serviceRequesterMenu = new ServiceRequesterMenu();
-            serviceRequesterMenu.Show();
+            Login login = new Login();
+            login.Show();
             Close();
         }
 
@@ -160,29 +185,41 @@ namespace PresentationLayer.User_Interface
                 {
                     case 400:
                         exceptionMessage = "Por favor asegúrese de haber proporcionado parámetros válidos de búsqueda.";
+                        NotifyErrorAndDisableButtons(exceptionMessage);
                         break;
                     case 401:
                         exceptionMessage = "Lo sentimos, su sesión ha caducado de forma inesperada.";
+                        GoBackToLoginView();
                         break;
                     case 404:
                         exceptionMessage = "No se encontraron proveedores de servicio para los parámetros de búsqueda especificados.";
+                        NotifyErrorAndDisableButtons(exceptionMessage);
                         break;
                     case 409:
                         exceptionMessage = "Ocurrió un problema al intentar recuperar la información solicitada. Por favor, intente más tarde.";
+                        NotifyErrorAndDisableButtons(exceptionMessage);
                         break;
                     case 500:
                         exceptionMessage = "Ha ocurrido un error en el servidor al momento de procesar la solicitud. Por favor, intente más tarde.";
+                        NotifyErrorAndDisableButtons(exceptionMessage);
                         break;
                     default:
                         exceptionMessage = "Ocurrió un error desconocido. Por favor, intente más tarde.";
+                        NotifyErrorAndDisableButtons(exceptionMessage);
                         break;
                 }
-                NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
-                StartingPageButton.IsEnabled = false;
-                PreviousPageButton.IsEnabled = false;
-                LastPageButton.IsEnabled = false;
-                NextPageButton.IsEnabled = false;
+                
             }
+        }
+
+
+        private void NotifyErrorAndDisableButtons(string exceptionMessage)
+        {
+            NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+            StartingPageButton.IsEnabled = false;
+            PreviousPageButton.IsEnabled = false;
+            LastPageButton.IsEnabled = false;
+            NextPageButton.IsEnabled = false;
         }
 
         private void WindowLoaded(object sender, RoutedEventArgs e)

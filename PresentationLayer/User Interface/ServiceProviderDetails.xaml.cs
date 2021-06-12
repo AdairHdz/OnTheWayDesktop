@@ -77,6 +77,12 @@ namespace PresentationLayer.User_Interface
             Close();
         }
 
+        private void GoBackToLoginView()
+        {
+            Login login = new Login();
+            login.Show();
+            Close();
+        }
         private void LoadServiceProviderData()
         {
             try
@@ -93,23 +99,36 @@ namespace PresentationLayer.User_Interface
                 switch (networkRequestException.StatusCode)
                 {
                     case 400:
-                        exceptionMessage = "Ha ocurrido un error al intentar procesar su solicitud. Por favor, intente más tarde.";                        
+                        exceptionMessage = "Ha ocurrido un error al intentar procesar su solicitud. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        NavigateToServiceProvidersSearch();
+                        break;
+                    case 401:
+                        exceptionMessage = "Lo sentimos, su sesión ha expirado";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);                        
+                        GoBackToLoginView();
                         break;
                     case 404:
                         exceptionMessage = "No se encontraron coincidencias para la información solicitada. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        NavigateToServiceProvidersSearch();
                         break;
                     case 409:
-                        exceptionMessage = "Ha ocurrido un error al intentar procesar su solicitud. Por favor, intente más tarde.";                        
+                        exceptionMessage = "Ha ocurrido un error al intentar procesar su solicitud. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        NavigateToServiceProvidersSearch();
                         break;
                     case 500:
-                        exceptionMessage = "Ha ocurrido un error interno en el servidor. Por favor, intente más tarde.";                        
+                        exceptionMessage = "Ha ocurrido un error interno en el servidor. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        NavigateToServiceProvidersSearch();
                         break;
                     default:
-                        exceptionMessage = "Ha ocurrido un error desconocido. Por favor, intente más tarde.";                        
+                        exceptionMessage = "Ha ocurrido un error desconocido. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        NavigateToServiceProvidersSearch();
                         break;
-                }
-                NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
-                NavigateToServiceProvidersSearch();
+                }                
             }
         }
 
@@ -125,11 +144,14 @@ namespace PresentationLayer.User_Interface
                     Margin = new Thickness(0, 0, 0, 15),
                     FontSize = 18,
                     FontWeight = FontWeights.Bold
-                };
+                };                
 
                 TextBlock price = new TextBlock
                 {
-                    Text = priceRateElement.Price.ToString()
+                    Text = $"${priceRateElement.Price} MXN",
+                    Margin = new Thickness(0, 0, 0, 15),
+                    FontSize = 18,
+                    FontWeight = FontWeights.Bold
                 };
 
                 TextBlock kindOfService = new TextBlock
@@ -186,6 +208,7 @@ namespace PresentationLayer.User_Interface
                 priceRateContainer.Children.Add(workingDaysContainer);
                 priceRateContainer.Children.Add(cityPriceRate);
                 priceRateContainer.Children.Add(shcedule);
+                priceRateContainer.Children.Add(price);
                 priceRateContainer.Children.Add(kindOfService);
                 StackPanelPriceRates.Children.Add(priceRateContainer);
 
@@ -242,7 +265,12 @@ namespace PresentationLayer.User_Interface
                 {
                     case 400:                    
                         exceptionMessage = "Ha ocurrido un error al intentar procesar su solicitud. Por favor, intente más tarde.";
+                        NotifyErrorAndDisableButtons(exceptionMessage);
+                        break;
+                    case 401:
+                        exceptionMessage = "Lo sentimos, su sesión ha expirado";
                         NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        GoBackToLoginView();
                         break;
                     case 404:
                         ReviewsStackPanel.Children.Clear();
@@ -257,22 +285,28 @@ namespace PresentationLayer.User_Interface
                         break;
                     case 409:
                         exceptionMessage = "Ha ocurrido un error al intentar procesar su solicitud. Por favor, intente más tarde.";
-                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        NotifyErrorAndDisableButtons(exceptionMessage);
                         break;
                     case 500:
                         exceptionMessage = "Ha ocurrido un error interno en el servidor. Por favor, intente más tarde.";
-                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        NotifyErrorAndDisableButtons(exceptionMessage);
                         break;
                     default:
                         exceptionMessage = "Ha ocurrido un error desconocido. Por favor, intente más tarde.";
-                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        NotifyErrorAndDisableButtons(exceptionMessage);
                         break;
                 }             
-                                StartingPageButton.IsEnabled = false;
-                PreviousPageButton.IsEnabled = false;
-                LastPageButton.IsEnabled = false;
-                NextPageButton.IsEnabled = false;
+                
             }            
+        }
+
+        private void NotifyErrorAndDisableButtons(string exceptionMessage)
+        {
+            NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+            StartingPageButton.IsEnabled = false;
+            PreviousPageButton.IsEnabled = false;
+            LastPageButton.IsEnabled = false;
+            NextPageButton.IsEnabled = false;
         }
 
         private void PrintReviews()

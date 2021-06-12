@@ -1,5 +1,7 @@
-﻿using System.Windows;
-using Utils;
+﻿using BusinessLayer.BusinessEntities;
+using System;
+using System.Windows;
+using Utils.CustomExceptions;
 
 namespace PresentationLayer.User_Interface
 {
@@ -14,11 +16,22 @@ namespace PresentationLayer.User_Interface
         }
 
         private void LogOutButtonClicked(object sender, RoutedEventArgs e)
-        {
-            Session.DeleteSession();
+        {            
+            User user = new User();            
             Login login = new Login();
-            login.Show();
-            Close();
+            try
+            {
+                user.Logout();
+            }
+            catch (NetworkRequestException)
+            {
+                Console.WriteLine("Error al hacer logout en el servidor.");
+            }
+            finally
+            {                
+                login.Show();
+                Close();
+            }            
         }
 
         private void SeeServiceProvidersButtonClicked(object sender, RoutedEventArgs e)

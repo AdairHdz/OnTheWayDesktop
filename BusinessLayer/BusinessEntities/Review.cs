@@ -19,13 +19,9 @@ namespace BusinessLayer.BusinessEntities
         public List<Evidence> Evidence { get; set; }
 
         public ReviewPaginationDTO FindAll(string serviceProviderID, Dictionary<string, string> queryParameters)
-        {
-            //List<Review> retrievedReviews;
+        {            
             RestRequest<ReviewPaginationDTO> restRequest = new RestRequest<ReviewPaginationDTO>();
-            var response = restRequest.GetAllWithPagination($"/providers/{serviceProviderID}/reviews", true, queryParameters);
-            //retrievedReviews = ReviewMapper.CreateListOfReviewEntitiesFromListOfReviewDTO(response.Data);
-            //return retrievedReviews;
-            return response;
+            return restRequest.GetAllWithPagination($"/providers/{serviceProviderID}/reviews", true, queryParameters);                        
         }
 
         public void Save()
