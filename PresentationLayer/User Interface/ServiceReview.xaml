@@ -13,8 +13,8 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="Calificar servicio" Height="650" Width="500">
-    <Grid>
+        Title="Calificar servicio" Height="750" Width="500">
+    <Grid x:Name="FormGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30"/>
             <ColumnDefinition/>
@@ -28,6 +28,7 @@
             <RowDefinition Height="250"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="100"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
@@ -43,12 +44,15 @@
             ValueChanged="BasicRatingBarValueChanged" />
 
         <TextBox Grid.Column="1" Grid.Row="3"
+                 x:Name="TextBoxTitle"
                  Text="{Binding Title, Mode=TwoWay}"
                      materialDesign:HintAssist.Hint="Título"
                      materialDesign:HintAssist.HelperText="Máximo 30 caracteres"/>
 
         <TextBox Grid.Column="1" Grid.Row="4"
-                 Text="{Binding Details, Mode=TwoWay}"
+            Text="{Binding Details, Mode=TwoWay}"
+            x:Name="TextBoxDetails"
+            materialDesign:HintAssist.HelperText="Máximo 255 caracteres"
             Style="{StaticResource MaterialDesignOutlinedTextBox}"
             Height="150"
             VerticalAlignment="Center"
@@ -61,13 +65,17 @@
                     Width="150"
                     HorizontalAlignment="Left"                
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                    Content="Adjuntar archivos" Foreground="#FFF"/>
+                    Content="Adjuntar archivos" Foreground="#FFF" Click="AddFilesButtonClicked"/>
 
-        <Button Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="7"
+        <TextBlock Grid.Column="1" Grid.Row="6" Text="Archivos adjuntos" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <StackPanel Grid.Column="1" Grid.Row="7" x:Name="StackPanelFileNames"/>
+
+        <Button Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="8"
                     Width="150"
                     HorizontalAlignment="Center"                
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                    Content="Calificar" Foreground="#FFF"/>
+                    Content="Calificar" Foreground="#FFF" Click="ReviewButtonClicked"/>
 
     </Grid>
 </Window>

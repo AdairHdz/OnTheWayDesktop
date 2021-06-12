@@ -13,6 +13,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
+        Loaded="WindowLoaded"
         Title="Registry" Height="590" ResizeMode="NoResize" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -24,7 +25,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="0" Grid.Row="0">
-            <Image Source="./images/OnTheWaySideLogo.png" Stretch="Fill" ></Image>
+            <Image Source="../Images/OnTheWaySideLogo.png" Stretch="Fill" ></Image>
         </StackPanel>
         
         <Grid Grid.Column="1">
@@ -48,7 +49,7 @@
             </Button>
             <TextBlock Grid.Column="1" Grid.Row="2" Text="Registro" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="25"/>
 
-            <Grid Grid.Column="1" Grid.Row="3">
+            <Grid x:Name="FormGrid" Grid.Column="1" Grid.Row="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="10"/>
@@ -61,19 +62,21 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-
                 <TextBox Grid.Row="0" Grid.Column="0" Height="30"
+                     x:Name="TextBoxNames"
                      materialDesign:HintAssist.Hint="Nombre(s)"
                      Text="{Binding Names, Mode=TwoWay}"
                      materialDesign:HintAssist.HelperText="Máximo 30 caracteres"/>
 
                 <TextBox Grid.Row="0" Grid.Column="2" Height="30"
+                     x:Name="TextBoxLastName"
                      materialDesign:HintAssist.Hint="Apellido(s)"
-                     Text="{Binding Lastname, Mode=TwoWay}"
+                     Text="{Binding LastName, Mode=TwoWay}"
                      materialDesign:HintAssist.HelperText="Máximo 60 caracteres"/>
 
 
                 <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Height="30"
+                     x:Name="TextBoxEmailAddress"
                      materialDesign:HintAssist.Hint="Dirección de correo electrónico"
                      Text="{Binding EmailAddress, Mode=TwoWay}"
                      materialDesign:HintAssist.HelperText="Máximo 254 caracteres"/>
@@ -83,7 +86,15 @@
                      materialDesign:HintAssist.Hint="Contraseña"
                      materialDesign:HintAssist.HelperText="Máximo 50 caracteres"/>
 
-                <Button Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3"
+                <ComboBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Background="#DDD"
+                x:Name="ComboBoxState"
+                Style="{StaticResource MaterialDesignFilledComboBox}"                
+                DisplayMemberPath="Name"
+                SelectedIndex="0"
+                materialDesign:HintAssist.Hint="Estado" Height="50">
+                </ComboBox>
+
+                <Button Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4"
                     Width="120"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     Content="Enviar" Foreground="#FFF" Click="SendButtonClicked"></Button>

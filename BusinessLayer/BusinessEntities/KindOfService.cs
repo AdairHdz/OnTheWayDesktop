@@ -2,9 +2,9 @@
 {
     public enum KindOfService
     {
-        ServicePayment,
-        DrugPurchase,
-        GroceryShopping,
-        Delivery
+        ServicePayment = 1,
+        DrugPurchase = 2,
+        GroceryShopping = 3,
+        Delivery = 4
     }
 }

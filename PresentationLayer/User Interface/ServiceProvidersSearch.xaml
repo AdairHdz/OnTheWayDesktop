@@ -13,6 +13,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
+        Loaded="WindowLoaded"
         Title="ServiceProvidersSearch" Height="550" Width="1000">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -57,38 +58,33 @@
 
             <ComboBox Grid.Row="2" Grid.Column="1" Background="#DDD"
                 x:Name="ComboBoxKindOfService"
+                SelectedIndex="0"
                 Style="{StaticResource MaterialDesignFilledComboBox}"
                 IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
                 materialDesign:HintAssist.Hint="Tipo de servicio" Height="50">
                 <ComboBoxItem
-                    Content="Compra de víveres" />
+                    Content="Compra de víveres"
+                    Tag="0"/>
                 <ComboBoxItem
-                    Content="Compra de fármacos"/>
+                    Content="Compra de fármacos"
+                    Tag="1"/>
                 <ComboBoxItem
-                    Content="Entrega"/>
+                    Content="Entrega"
+                    Tag="2"/>
+                <ComboBoxItem
+                    Content="Otro"
+                    Tag="3"/>
             </ComboBox>
 
             <ComboBox Grid.Row="2" Grid.Column="3" Background="#DDD"
-                x:Name="ComboBoxState"
-                Style="{StaticResource MaterialDesignFilledComboBox}"
-                IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
-                materialDesign:HintAssist.Hint="Estado" Height="50">
-                <ComboBoxItem
-                    Content="Veracruz" />
-            </ComboBox>
-
-            <ComboBox Grid.Row="2" Grid.Column="5" Background="#DDD"
                 x:Name="ComboBoxCity"
                 Style="{StaticResource MaterialDesignFilledComboBox}"
                 IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
+                DisplayMemberPath="Name"
                 materialDesign:HintAssist.Hint="Ciudad" Height="50">
-                <ComboBoxItem
-                    Content="Xalapa" />
-                <ComboBoxItem
-                    Content="Coatepec" />
             </ComboBox>
 
-            <Grid Grid.Column="7" Grid.Row="2">
+            <Grid Grid.Column="5" Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -110,34 +106,121 @@
                 VerticalAlignment="Top"
                 Foreground="White"
                 Minimum="1"
-                Maximum="500"
+                Maximum="100"
                 Value="1" ValueChanged="MaxPriceSliderValueChanged" />
             </Grid>
+
+            <ComboBox Grid.Row="2" Grid.Column="7" Background="#DDD"
+                x:Name="ComboBoxPageSize"                
+                Style="{StaticResource MaterialDesignFilledComboBox}"                
+                IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"                                
+                      materialDesign:HintAssist.Hint="Resultados por página"
+                materialDesign:HintAssist.HelperTextFontSize="12"
+                Height="50" SelectionChanged="PageSizeComboBoxChanged">
+                <ComboBoxItem Content="5" Tag="5"/>
+                <ComboBoxItem Content="8" Tag="8"/>
+                <ComboBoxItem Content="12" Tag="12"/>
+                <ComboBoxItem Content="15" Tag="15"/>
+            </ComboBox>
+
             <Button Grid.Column="9" Grid.Row="2"
                     Width="120"
                     HorizontalAlignment="Center"
-                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    Click="SearchButtonClicked"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}"                    
                     Content="Buscar" Foreground="#FFF"></Button>
         </Grid>
-        <ListView x:Name="ServiceProvidersListView" Grid.Column="1" Grid.Row="2" SelectionChanged="ServiceProvidersListViewSelectionChanged">
+        <ListView x:Name="ServiceProvidersListView" Grid.Column="1" Grid.Row="2" SelectionChanged="ServiceProvidersListViewSelectionChanged"  ItemsSource="{Binding _serviceProviders}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Estado" Width="auto"/>
-                    <GridViewColumn Header="Nombre" Width="300"/>
-                    <GridViewColumn Header="Calificación" Width="auto"/>
-                    <GridViewColumn Header="Tarifa" Width="auto"/>
-                    <GridViewColumn Header="Tipo de servicio" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Nombre" Width="300"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding AverageScore}" Header="Calificación" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding PriceRate}" Header="Tarifa" Width="auto"/>
                 </GridView>
             </ListView.View>
         </ListView>
+        
+        <Grid Grid.Column="1" Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
-        <Button Grid.Column="1" Grid.Row="3"
+            <StackPanel Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <DockPanel Margin="0" Width="Auto">
+                    <Button
+                    x:Name="StartingPageButton"
+                    IsEnabled="False"
+                    Width="30"
+                    Height="30"
+                    Margin="0"                    
+                    Background="White"
+                    BorderBrush="#166EE5"
+                    Foreground="#166EE5"
+                    FontWeight="Bold"
+                    Padding="5"
+                    Content="{materialDesign:PackIcon PageFirst}" Click="FirstPageButtonClicked"></Button>
+                    <Button
+                    x:Name="PreviousPageButton"
+                    IsEnabled="False"
+                    Width="30"
+                    Height="30"
+                    Margin="0"                    
+                    Background="White"
+                    BorderBrush="#166EE5"
+                    Foreground="#166EE5"
+                    FontWeight="Bold"
+                    Padding="5"
+                    Content="{materialDesign:PackIcon SkipBackward}" Click="PreviousPageButtonClicked"></Button>
+                    <Button
+                    x:Name="CurrentPageButton"
+                    HorizontalAlignment="Left"
+                    Width="30"
+                    Height="30"
+                    Margin="0"                    
+                    Background="White"
+                    BorderBrush="#166EE5"
+                    Foreground="#166EE5"                    
+                    FontWeight="Bold"
+                    Padding="5"
+                    Content="1"></Button>
+                    <Button
+                    x:Name="NextPageButton"
+                    HorizontalAlignment="Left"
+                    IsEnabled="False"
+                    Width="30"
+                    Height="30"
+                    Margin="0"                    
+                    Background="White"
+                    BorderBrush="#166EE5"
+                    Foreground="#166EE5"
+                    FontWeight="Bold"
+                    Padding="5"
+                    Content="{materialDesign:PackIcon SkipForward}" Click="NextPageButtonClicked"></Button>
+                    <Button
+                    x:Name="LastPageButton"
+                    IsEnabled="False"
+                    HorizontalAlignment="Left"
+                    Width="30"
+                    Height="30"
+                    Margin="0"                    
+                    Background="White"
+                    BorderBrush="#166EE5"
+                    Foreground="#166EE5"                    
+                    Padding="5"
+                    Content="{materialDesign:PackIcon PageLast}" Click="LastPageButtonClicked"></Button>
+                </DockPanel>
+            </StackPanel>
+            
+            <Button Grid.Column="1"
                     x:Name="SeeDetailsButton"
                     Width="120"
                     HorizontalAlignment="Center"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     IsEnabled="False"
                     Content="Ver detalles" Foreground="#FFF" Click="SeeDetailsButtonClicked"></Button>
+        </Grid>
 
     </Grid>
 </Window>

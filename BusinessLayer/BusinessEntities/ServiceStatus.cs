@@ -2,9 +2,10 @@
 {
     public enum ServiceStatus
     {
+        PendingOfAcceptance,
         Active,
         Concretized,
         Canceled,
-        PendingOfAcceptance
+        
     }
 }

@@ -12,8 +12,7 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        mc:Ignorable="d"
-        Icon="./images/OnTheWayIcon.png"
+        mc:Ignorable="d"       
         Title="Login" Height="590" ResizeMode="NoResize" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -25,7 +24,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="0" Grid.Row="0">
-            <Image Source="./images/OnTheWaySideLogo.png" Stretch="Uniform"></Image>
+            <Image Source="../Images/OnTheWaySideLogo.png" Stretch="Uniform"></Image>
         </StackPanel>
 
         <Grid Grid.Column="1">
@@ -44,7 +43,7 @@
             
             <TextBlock Grid.Column="1" Grid.Row="2" Text="Iniciar sesión" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="25"/>
 
-            <Grid Grid.Column="1" Grid.Row="3">
+            <Grid x:Name="FormGrid" Grid.Column="1" Grid.Row="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="10"/>
@@ -60,6 +59,7 @@
                 </Grid.RowDefinitions>
 
                 <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Height="30"
+                     x:Name="TextBoxEmailAddress"
                      Text="{Binding EmailAddress, Mode=TwoWay}"
                      materialDesign:HintAssist.Hint="Dirección de correo electrónico"
                      materialDesign:HintAssist.HelperText="Máximo 254 caracteres"/>

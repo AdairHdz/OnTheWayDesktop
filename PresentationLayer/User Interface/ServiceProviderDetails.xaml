@@ -13,7 +13,8 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="Detalles del proveedor" Height="950" Width="800">
+        Loaded="WindowLoaded"
+        Title="Detalles del proveedor" Height="1150" Width="650">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
@@ -21,13 +22,15 @@
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="200"/>
+            <RowDefinition Height="250"/>
             <RowDefinition Height="30"/>
             <RowDefinition/>
+            <RowDefinition Height="20"/>
             <RowDefinition Height="60"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Background="#166EE5">
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+            <Image x:Name="ServiceProviderImage" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Stretch="Fill" Margin="0,0,0.2,-6"></Image>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="20"/>
@@ -35,52 +38,59 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
                 <RowDefinition Height="70"/>
-                <RowDefinition Height="20"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="80"/>
             </Grid.RowDefinitions>
-
-            <Button Grid.Column="0" Margin="10" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="40"
+        </Grid>
+        <ScrollViewer Grid.Column="1" Grid.Row="2">
+            <Grid Grid.Column="1" Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="80"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button Grid.Column="0" Margin="10" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="40"
                     Style="{StaticResource MaterialDesignFloatingActionButton}"
                     ToolTip="Volver" Click="BackButtonClicked">
-                <materialDesign:PackIcon Kind="ArrowLeftCircle" Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="40"/>
-            </Button>
-        </Grid>
-        <Grid Grid.Column="1" Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="80"/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="80"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+                    <materialDesign:PackIcon Kind="ArrowLeftCircle" Foreground="#FFF" VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="40"/>
+                </Button>
 
-            <TextBlock Grid.Column="1" Grid.Row="0"
+                <TextBlock Grid.Column="1" Grid.Row="0"
                 TextAlignment="Center"
                 VerticalAlignment="Center"
                 FontSize="30"
                 FontWeight="Bold"
                 Text="Detalles del proveedor"/>
 
-            <TextBlock Grid.Column="1" Grid.Row="1"                
+                <TextBlock Grid.Column="1" Grid.Row="1"                
                 VerticalAlignment="Center"
                 FontSize="18"
                 FontWeight="Bold"
                 Text="Nombre:"
                 />
 
-            <TextBlock Grid.Column="1" Grid.Row="2"                
+                <TextBlock Grid.Column="1" Grid.Row="2"                
                 VerticalAlignment="Center"
                 FontSize="18"                
-                Text="Raymundo Daniel Vásquez Díaz"
+                Text="{Binding FullName, Mode=TwoWay}"
                 />
 
-            <TextBlock Grid.Column="1" Grid.Row="3"                
+                <TextBlock Grid.Column="1" Grid.Row="3"                
                 VerticalAlignment="Center"
                 FontSize="18"
                 FontWeight="Bold"
@@ -88,99 +98,138 @@
                 />
 
 
-            <materialDesign:RatingBar Grid.Column="1" Grid.Row="4"            
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            x:Name="BasicRatingBar"
-            Value="3"
-            IsReadOnly="True"
-             />
+                <materialDesign:RatingBar Grid.Column="1" Grid.Row="4"            
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    x:Name="BasicRatingBar"            
+                    IsReadOnly="True"/>
 
-            <TextBlock Grid.Column="1" Grid.Row="5"                
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                FontSize="18"
-                FontWeight="Bold"
-                Text="Reseñas:"
+                <TextBlock Grid.Column="1" Grid.Row="6"                
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    FontSize="18"
+                    FontWeight="Bold"
+                    Text="Tarifas"
                 />
 
-            <ScrollViewer Grid.Column="1" Grid.Row="6">
-                <StackPanel >
-                    <materialDesign:Card >
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <StackPanel Grid.Row="0" Margin="8 24 8 4">
-                                <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                Margin="0" Text="Muy buen servicio" FontWeight="Bold" FontSize="18"/>
-                                <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                Margin="0" Text="20/08/2021" />
-                                <Viewbox Margin="0 4 0 8" Height="20" HorizontalAlignment="Left">
-                                    <materialDesign:RatingBar Value="3" Orientation="Horizontal" Foreground="Gold" IsReadOnly="True" Margin="0" />
-                                </Viewbox>
-                                <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}"
-                                TextWrapping="Wrap"
-                                VerticalAlignment="Center"
-                                Text="Buen trato al cliente y muy rápido" />
-                            </StackPanel>
-                            <Separator Grid.Row="2" Style="{StaticResource MaterialDesignDarkSeparator}" Margin="8 0 8 0" />
-                            <Grid Grid.Row="4" Height="150">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="107*" />
-                                    <ColumnDefinition Width="485*"/>
-                                </Grid.ColumnDefinitions>
+                <ScrollViewer Grid.Column="1" Grid.Row="8">
+                    <StackPanel x:Name="StackPanelPriceRates">
 
+                    </StackPanel>
+                </ScrollViewer>
 
-                            </Grid>
-                        </Grid>
-                    </materialDesign:Card>
-                    <materialDesign:Card >
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <StackPanel Grid.Row="0" Margin="8 24 8 4">
-                                <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                Margin="0" Text="Muy buen servicio" FontWeight="Bold" FontSize="18"/>
-                                <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                Margin="0" Text="20/08/2021" />
-                                <Viewbox Margin="0 4 0 8" Height="20" HorizontalAlignment="Left">
-                                    <materialDesign:RatingBar Value="3" Orientation="Horizontal" Foreground="Gold" IsReadOnly="True" Margin="0" />
-                                </Viewbox>
-                                <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}"
-                                TextWrapping="Wrap"
-                                VerticalAlignment="Center"
-                                Text="Buen trato al cliente y muy rápido" />
-                            </StackPanel>
-                            <Separator Grid.Row="2" Style="{StaticResource MaterialDesignDarkSeparator}" Margin="8 0 8 0" />
-                            <Grid Grid.Row="4" Height="150">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="107*" />
-                                    <ColumnDefinition Width="485*"/>
-                                </Grid.ColumnDefinitions>
-
-
-                            </Grid>
-                        </Grid>
-                    </materialDesign:Card>
-                </StackPanel>
-            </ScrollViewer>
-        </Grid>
-
-        <Button Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="3"
-                    Width="150"
+                <TextBlock Grid.Column="1" Grid.Row="9"                
+                    VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                    Content="Solicitar servicio" Foreground="#FFF" Click="RequestServiceButtonClicked"></Button>
+                    FontSize="18"
+                    FontWeight="Bold"
+                    Text="Reseñas"
+                />
+
+                <Grid Grid.Column="1" Grid.Row="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <ComboBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Width="200" Background="#DDD"
+                        x:Name="ComboBoxPageSize"                
+                        Style="{StaticResource MaterialDesignFilledComboBox}"                                        
+                        IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"                                
+                        materialDesign:HintAssist.Hint="Resultados por página"
+                        materialDesign:HintAssist.HelperTextFontSize="12"
+                        Height="50" SelectionChanged="PageSizeComboBoxChanged">
+                            <ComboBoxItem Content="5" Tag="5"/>
+                            <ComboBoxItem Content="8" Tag="8"/>
+                            <ComboBoxItem Content="12" Tag="12"/>
+                            <ComboBoxItem Content="15" Tag="15"/>
+                    </ComboBox>
+
+                    <StackPanel Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <DockPanel Margin="0" Width="Auto">
+                            <Button
+                    x:Name="StartingPageButton"
+                    IsEnabled="False"
+                    Width="30"
+                    Height="30"
+                    Margin="0"                    
+                    Background="White"
+                    BorderBrush="#166EE5"
+                    Foreground="#166EE5"
+                    FontWeight="Bold"
+                    Padding="5"
+                    Content="{materialDesign:PackIcon PageFirst}" Click="FirstPageButtonClicked"></Button>
+                            <Button
+                    x:Name="PreviousPageButton"
+                    IsEnabled="False"
+                    Width="30"
+                    Height="30"
+                    Margin="0"                    
+                    Background="White"
+                    BorderBrush="#166EE5"
+                    Foreground="#166EE5"
+                    FontWeight="Bold"
+                    Padding="5"
+                    Content="{materialDesign:PackIcon SkipBackward}" Click="PreviousPageButtonClicked"></Button>
+                            <Button
+                    x:Name="CurrentPageButton"
+                    HorizontalAlignment="Left"
+                    Width="30"
+                    Height="30"
+                    Margin="0"                    
+                    Background="White"
+                    BorderBrush="#166EE5"
+                    Foreground="#166EE5"                    
+                    FontWeight="Bold"
+                    Padding="5"
+                    Content="1"></Button>
+                            <Button
+                    x:Name="NextPageButton"
+                    HorizontalAlignment="Left"
+                    IsEnabled="False"
+                    Width="30"
+                    Height="30"
+                    Margin="0"                    
+                    Background="White"
+                    BorderBrush="#166EE5"
+                    Foreground="#166EE5"
+                    FontWeight="Bold"
+                    Padding="5"
+                    Content="{materialDesign:PackIcon SkipForward}" Click="NextPageButtonClicked"></Button>
+                            <Button
+                    x:Name="LastPageButton"
+                    IsEnabled="False"
+                    HorizontalAlignment="Left"
+                    Width="30"
+                    Height="30"
+                    Margin="0"                    
+                    Background="White"
+                    BorderBrush="#166EE5"
+                    Foreground="#166EE5"                    
+                    Padding="5"
+                    Content="{materialDesign:PackIcon PageLast}" Click="LastPageButtonClicked"></Button>
+                        </DockPanel>
+                    </StackPanel>
+
+                </Grid>                
+
+                <ScrollViewer Grid.Column="1" Grid.Row="11">
+                    <StackPanel x:Name="ReviewsStackPanel">
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </ScrollViewer>
+
+        <Button Width="150" Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="4"
+                HorizontalAlignment="Center"
+                Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                Content="Solicitar servicio" Foreground="#FFF" Click="RequestServiceButtonClicked"></Button>
+        
 
     </Grid>
 </Window>

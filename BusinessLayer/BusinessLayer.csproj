@@ -31,8 +31,28 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BCrypt.Net-Next, Version=4.0.2.0, Culture=neutral, PublicKeyToken=1e11be04b6288443, processorArchitecture=MSIL">
+      <HintPath>..\packages\BCrypt.Net-Next.4.0.2\lib\net472\BCrypt.Net-Next.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=106.11.7.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.11.7\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,9 +64,23 @@
     <Compile Include="BusinessEntities\Address.cs" />
     <Compile Include="BusinessEntities\City.cs" />
     <Compile Include="BusinessEntities\DayOfWeek.cs" />
+    <Compile Include="BusinessEntities\Evidence.cs" />
     <Compile Include="BusinessEntities\KindOfService.cs" />
     <Compile Include="BusinessEntities\PriceRate.cs" />
+    <Compile Include="BusinessEntities\State.cs" />
+    <Compile Include="BusinessEntities\Statistics.cs" />
     <Compile Include="BusinessEntities\UserType.cs" />
+    <Compile Include="Mappers\AddressMapper.cs" />
+    <Compile Include="Mappers\CityMapper.cs" />
+    <Compile Include="Mappers\LoginMapper.cs" />
+    <Compile Include="Mappers\PriceRateMapper.cs" />
+    <Compile Include="Mappers\ReviewMapper.cs" />
+    <Compile Include="Mappers\ServiceProviderMapper.cs" />
+    <Compile Include="Mappers\ServiceRequesterMapper.cs" />
+    <Compile Include="Mappers\ServiceRequestMapper.cs" />
+    <Compile Include="Mappers\StateMapper.cs" />
+    <Compile Include="Mappers\StatisticsMapper.cs" />
+    <Compile Include="Mappers\UserMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BusinessEntities\Review.cs" />
     <Compile Include="BusinessEntities\ServiceProvider.cs" />
@@ -55,5 +89,20 @@
     <Compile Include="BusinessEntities\ServiceStatus.cs" />
     <Compile Include="BusinessEntities\User.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataLayer\DataLayer.csproj">
+      <Project>{BFE149C7-C71A-4084-83A1-EF787A0A68BC}</Project>
+      <Name>DataLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{477AB00A-04CC-4207-BFC9-DF131BEF79CA}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

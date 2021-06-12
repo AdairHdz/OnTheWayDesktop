@@ -1,7 +1,10 @@
-﻿using System;
+﻿using PresentationLayer.Helpers;
+using PresentationLayer.Mappers;
+using PresentationLayer.PresentationModels;
+using System;
 using System.Collections.Generic;
 using System.Windows;
-
+using Utils.CustomExceptions;
 
 namespace PresentationLayer.User_Interface
 {
@@ -11,131 +14,89 @@ namespace PresentationLayer.User_Interface
     public partial class ServiceHistory : Window
     {
         private DateTime _dateFilter = DateTime.Now;
-        private readonly List<BusinessLayer.BusinessEntities.ServiceRequest> _serviceRequests = new List<BusinessLayer.BusinessEntities.ServiceRequest>
-            {
-                new BusinessLayer.BusinessEntities.ServiceRequest
-                {
-                    KindOfService = BusinessLayer.BusinessEntities.KindOfService.Delivery,
-                    Cost = 80,
-                    ServiceStatus = BusinessLayer.BusinessEntities.ServiceStatus.Active,
-                    ServiceProvider = new BusinessLayer.BusinessEntities.ServiceProvider
-                    {
-                        Names = "Pedro",
-                        Lastname = "Pérez"
-                    },
-                    Date = new DateTime(2021, 08, 20),
-                    Description = "Necesito que entregue un pastel en 1ra de Morelos #22, Colonia Centro. Pase a recoger el pastel a mi dirección",
-                    DeliveryAddress = new BusinessLayer.BusinessEntities.Address
-                    {
-                        IndoorNumber = 0,
-                        OutdoorNumber = 5,
-                        PostalCode = "91569",
-                        Street = "Insurgentes",
-                        Suburb = "Primaveras",
-                    }
-                },
-                new BusinessLayer.BusinessEntities.ServiceRequest
-                {
-                    KindOfService = BusinessLayer.BusinessEntities.KindOfService.DrugPurchase,
-                    Cost = 50,
-                    ServiceStatus = BusinessLayer.BusinessEntities.ServiceStatus.Canceled,
-                    ServiceProvider = new BusinessLayer.BusinessEntities.ServiceProvider
-                    {
-                        Names = "Ricardo",
-                        Lastname = "Palacios"
-                    },
-                    Date = new DateTime(2021, 08, 20),
-                    Description = "1 caja de ibuprofeno y 2 curitas",
-                    DeliveryAddress = new BusinessLayer.BusinessEntities.Address
-                    {
-                        IndoorNumber = 0,
-                        OutdoorNumber = 5,
-                        PostalCode = "91569",
-                        Street = "Insurgentes",
-                        Suburb = "Primaveras",
-                    }
-                },
-                new BusinessLayer.BusinessEntities.ServiceRequest
-                {
-                    KindOfService = BusinessLayer.BusinessEntities.KindOfService.Delivery,
-                    Cost = 40,
-                    ServiceStatus = BusinessLayer.BusinessEntities.ServiceStatus.Concretized,
-                    ServiceProvider = new BusinessLayer.BusinessEntities.ServiceProvider
-                    {
-                        Names = "Juan",
-                        Lastname = "Gutiérrez"
-                    },
-                    Date = new DateTime(2021, 08, 21),
-                    Description = "Necesito que entregue una blusa y una bolsa en el crucero. Por favor recoja las prendas en mi dirección",
-                    DeliveryAddress = new BusinessLayer.BusinessEntities.Address
-                    {
-                        IndoorNumber = 0,
-                        OutdoorNumber = 5,
-                        PostalCode = "91569",
-                        Street = "Insurgentes",
-                        Suburb = "Primaveras",
-                    }
-                },
-                new BusinessLayer.BusinessEntities.ServiceRequest
-                {
-                    KindOfService = BusinessLayer.BusinessEntities.KindOfService.GroceryShopping,
-                    Cost = 100,
-                    ServiceStatus = BusinessLayer.BusinessEntities.ServiceStatus.PendingOfAcceptance,
-                    ServiceProvider = new BusinessLayer.BusinessEntities.ServiceProvider
-                    {
-                        Names = "Adair",
-                        Lastname = "Hernández"
-                    },
-                    Date = new DateTime(2021, 08, 21),
-                    Description = "6 cajas de leche Lala y 1kg de manzanas",
-                    DeliveryAddress = new BusinessLayer.BusinessEntities.Address
-                    {
-                        IndoorNumber = 0,
-                        OutdoorNumber = 5,
-                        PostalCode = "91569",
-                        Street = "Insurgentes",
-                        Suburb = "Primaveras",
-                    }
-                }
-
-            };
+        private List<ServiceRequestHistoryPresentationModel> _serviceRequests = new List<ServiceRequestHistoryPresentationModel>();
 
         private void DisplayData()
         {
             ListViewServices.Items.Clear();
-            foreach (BusinessLayer.BusinessEntities.ServiceRequest serviceRequest in _serviceRequests)
+            _serviceRequests.ForEach(serviceRequestItem =>
             {
-                if(DateTime.Equals(serviceRequest.Date, _dateFilter))
-                {
-                    ListViewServices.Items.Add(serviceRequest);
-                }                
-            }
+                ListViewServices.Items.Add(serviceRequestItem);
+            });
+            
         }
 
         public ServiceHistory()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            DataContext = _serviceRequests;
         }
 
         private void SearchButtonClicked(object sender, RoutedEventArgs e)
         {
             try
             {
-                _dateFilter = DatePickerServiceDate.SelectedDate.Value;
-                _dateFilter = _dateFilter.Date;
+                if(DatePickerServiceDate.SelectedDate == null)
+                {
+                    throw new FormatException();
+                }
+                _dateFilter = DatePickerServiceDate.SelectedDate.Value.Date;
+                BusinessLayer.BusinessEntities.ServiceRequest serviceRequest = new BusinessLayer.BusinessEntities.ServiceRequest();
+                Dictionary<string, string> queryParameters = new Dictionary<string, string>
+                {
+                    ["date"] = _dateFilter.ToString("yyyy-MM-dd")
+                };
+                List<BusinessLayer.BusinessEntities.ServiceRequest> serviceRequests = serviceRequest.FindByDate(queryParameters);
+                _serviceRequests = ServiceRequestMapper.CreateServiceRequestHistoryPresentationModelListFromServiceRequestEntityList(serviceRequests);
                 DisplayData();
             }
             catch (FormatException)
             {
-
+                NotificationWindow.ShowErrorWindow("Fecha no válida", "Por favor, ingrese una fecha con formato válido.");
             }
+            catch(NetworkRequestException networkRequestException)
+            {
+                string exceptionMessage;
+                switch (networkRequestException.StatusCode)
+                {
+                    case 400:
+                        exceptionMessage = "Los datos que ha ingresado tienen un formato no válido. Favor de verificar e intentar de nuevo.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                    case 401:
+                        exceptionMessage = "Lo sentimos, su sesión ha expirado";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        GoBackToLoginView();
+                        break;
+                    case 404:
+                        exceptionMessage = "No se encontraron solicitudes de servicio para la fecha indicada.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                    case 409:
+                    case 500:
+                        exceptionMessage = "Ha ocurrido un error en el servidor al intentar procesar su solicitud. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                    default:
+                        exceptionMessage = "Ha ocurrido un error desconocido. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                }                
+            }
+        }
+
+        private void GoBackToLoginView()
+        {
+            Login login = new Login();
+            login.Show();
+            Close();
         }
 
         private void SeeDetailsButtonClicked(object sender, RoutedEventArgs e)
         {
-            BusinessLayer.BusinessEntities.ServiceRequest serviceRequest = 
-                (BusinessLayer.BusinessEntities.ServiceRequest)ListViewServices.SelectedItem;
-            ServiceDetails serviceDetails = new ServiceDetails(serviceRequest);
+            ServiceRequestHistoryPresentationModel serviceRequest = 
+                (ServiceRequestHistoryPresentationModel)ListViewServices.SelectedItem;
+            ServiceDetails serviceDetails = new ServiceDetails(serviceRequest.ID);
             serviceDetails.Show();
             Close();
         }

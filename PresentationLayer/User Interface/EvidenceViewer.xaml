@@ -1,0 +1,12 @@
+﻿<Window x:Class="PresentationLayer.User_Interface.EvidenceViewer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PresentationLayer.User_Interface"
+        mc:Ignorable="d"
+        Title="EvidenceViewer" Height="400" Width="400" Loaded="WindowLoaded">
+    <Grid>
+        <MediaElement x:Name="MediaPlayer" LoadedBehavior="Manual" MouseUp="MediaElementWasClicked"/>
+    </Grid>
+</Window>

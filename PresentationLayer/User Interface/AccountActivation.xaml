@@ -24,7 +24,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="0" Grid.Row="0">
-            <Image Source="./images/OnTheWaySideLogo.png"></Image>
+            <Image Source="../Images/OnTheWaySideLogo.png"></Image>
         </StackPanel>
 
         <Grid Grid.Column="1">
@@ -48,7 +48,7 @@
             </Button>
             <TextBlock Grid.Column="1" Grid.Row="2" Text="Activar cuenta" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="25"/>
 
-            <Grid Grid.Column="1" Grid.Row="3">
+            <Grid x:Name="FormGrid" Grid.Column="1" Grid.Row="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="10"/>
@@ -62,8 +62,9 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Height="30"
+                <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding VerificationCode, Mode=TwoWay}" Grid.ColumnSpan="3" Height="30"
                      materialDesign:HintAssist.Hint="Código de verificación"
+                     x:Name="TextBoxVerificationCode"
                      materialDesign:HintAssist.HelperText="8 dígitos"/>
 
                 <Button Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3"
@@ -74,7 +75,7 @@
                 <Button Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4"
                     Width="150"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                    Content="Reenviar código" Foreground="#FFF"></Button>
+                    Content="Reenviar código" Foreground="#FFF" Click="RefreshCodeButtonClicked"></Button>
             </Grid>
 
         </Grid>
