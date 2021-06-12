@@ -43,11 +43,20 @@
     <Reference Include="FluentValidation, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentValidation.10.0.4\lib\netstandard2.0\FluentValidation.dll</HintPath>
     </Reference>
+    <Reference Include="Flurl, Version=3.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Flurl.3.0.2\lib\net472\Flurl.dll</HintPath>
+    </Reference>
+    <Reference Include="Flurl.Http, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Flurl.Http.3.2.0\lib\net472\Flurl.Http.dll</HintPath>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=2.0.0.2422, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.2.0.0\lib\net452\MaterialDesignColors.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignThemes.Wpf, Version=4.0.0.2422, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.4.0.0\lib\net452\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -87,6 +96,7 @@
     <Compile Include="Mappers\AddressMaper.cs" />
     <Compile Include="Mappers\CityMapper.cs" />
     <Compile Include="Mappers\PriceRateMapper.cs" />
+    <Compile Include="Mappers\ReviewMapper.cs" />
     <Compile Include="Mappers\ServiceProviderMapper.cs" />
     <Compile Include="Mappers\ServiceRequestMapper.cs" />
     <Compile Include="Mappers\StateMapper.cs" />
@@ -99,6 +109,7 @@
     <Compile Include="PresentationModels\PasswordRecoveryCodePresentationModel.cs" />
     <Compile Include="PresentationModels\PriceRatePresentationModel.cs" />
     <Compile Include="PresentationModels\RegistryPresentationModel.cs" />
+    <Compile Include="PresentationModels\ReviewPresentationModel.cs" />
     <Compile Include="PresentationModels\ServiceProviderDetailPresentationModel.cs" />
     <Compile Include="PresentationModels\ServiceProviderOverviewItemPresentationModel.cs" />
     <Compile Include="PresentationModels\ServiceRequestDetailsPresentationModel.cs" />
@@ -110,6 +121,9 @@
     </Compile>
     <Compile Include="User Interface\AddressRegistry.xaml.cs">
       <DependentUpon>AddressRegistry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="User Interface\EvidenceViewer.xaml.cs">
+      <DependentUpon>EvidenceViewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="User Interface\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -168,6 +182,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="User Interface\AddressRegistry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User Interface\EvidenceViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

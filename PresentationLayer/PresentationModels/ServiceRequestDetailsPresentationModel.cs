@@ -8,5 +8,6 @@
         public string Description { get; set; }
         public string Status { get; set; }
         public double Cost { get; set; }
+        public string ServiceProviderID { get; set; }
     }
 }

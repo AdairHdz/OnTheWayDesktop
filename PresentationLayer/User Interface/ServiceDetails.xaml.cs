@@ -34,6 +34,7 @@ namespace PresentationLayer.User_Interface
             if (_serviceRequest.Status.Equals("Pendiente de aceptación"))
             {                                
                 CreateButton("Cancelar", CancelButtonClicked);
+                CreateButton("Calificar", ReviewButtonClicked);
             }
             else if (_serviceRequest.Status.Equals("Completado"))
             {
@@ -78,8 +79,8 @@ namespace PresentationLayer.User_Interface
 
         private void ReviewButtonClicked(object sender, RoutedEventArgs e)
         {
-            //ServiceReview serviceReview = new ServiceReview(_serviceRequest);
-            //serviceReview.Show();
+            ServiceReview serviceReview = new ServiceReview(_serviceRequest.ServiceProviderID);
+            serviceReview.Show();
         }
 
         private void BackButtonClicked(object sender, RoutedEventArgs e)

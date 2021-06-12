@@ -1,7 +1,9 @@
 ﻿using Flurl;
 using Flurl.Http;
+using Flurl.Http.Content;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using Utils;
 using Utils.CustomExceptions;
 
@@ -37,7 +39,29 @@ namespace DataLayer
             catch (FlurlHttpException flurHTTPException) {
                 throw new NetworkRequestException(flurHTTPException.StatusCode);
             }
-        }        
+        }
+
+        public async System.Threading.Tasks.Task PostFilesAsync(string endpoint, List<string> filePaths, bool useAccessToken = true)
+        {            
+            try
+            {
+                var multipartContent = new CapturedMultipartContent();                                                                      
+                filePaths.ForEach(filePath =>
+                {                                        
+                    multipartContent.AddFile("upload[]", filePath);                    
+                });                                                
+                var resp = await _baseURL.AppendPathSegment(endpoint).WithOAuthBearerToken($"{Session.GetSession().AuthorizationToken}")
+                    .PostAsync(multipartContent);
+            }            
+            catch (FlurlHttpTimeoutException)
+            {
+                throw new TimeoutException("El servidor tardó demasiado tiempo en responder.");
+            }
+            catch (FlurlHttpException flurHTTPException)
+            {
+                throw new NetworkRequestException(flurHTTPException.StatusCode);
+            }                                                
+        }
 
         public void Delete(object resourceIdentifier)
         {

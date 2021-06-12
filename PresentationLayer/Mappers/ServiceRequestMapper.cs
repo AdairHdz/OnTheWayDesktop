@@ -56,7 +56,8 @@ namespace PresentationLayer.Mappers
                 DeliveryAddress = CreateAddressOverview(serviceRequest.DeliveryAddress),
                 Description = serviceRequest.Description,
                 Status = CreateServiceStatus(serviceRequest.ServiceStatus),
-                Cost = serviceRequest.Cost
+                Cost = serviceRequest.Cost,           
+                ServiceProviderID = serviceRequest.ServiceProvider.ID
             };
             return serviceRequestDetailsPresentationModel;
         }
