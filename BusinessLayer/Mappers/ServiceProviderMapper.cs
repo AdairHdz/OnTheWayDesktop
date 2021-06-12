@@ -7,10 +7,10 @@ namespace BusinessLayer.Mappers
     public class ServiceProviderMapper
     {
 
-        public static List<ServiceProvider> CreateListOfServiceProviderFromServiceProviderOverviewItemDTO(List<ServiceProviderOverviewItemDTO> serviceProviders)
+        public static List<ServiceProvider> CreateListOfServiceProviderFromServiceProviderOverviewItemDTO(ServiceProviderPaginationDTO serviceProviderPaginationDTO)
         {
             List<ServiceProvider> serviceProviderEntities = new List<ServiceProvider>();
-            serviceProviders.ForEach(serviceProviderDTO =>
+            serviceProviderPaginationDTO.Data.ForEach(serviceProviderDTO =>
             {
                 ServiceProvider serviceProviderEntity = new ServiceProvider
                 {

@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.BusinessEntities;
+using DataLayer.DataTransferObjects;
 using PresentationLayer.Helpers;
 using PresentationLayer.Mappers;
 using PresentationLayer.PresentationModels;
@@ -21,10 +22,13 @@ namespace PresentationLayer.User_Interface
     {
         private string _serviceProviderID;
         private ServiceProviderDetailPresentationModel _serviceProviderDetails = new ServiceProviderDetailPresentationModel();
-        private List<Review> _reviews;
+        private ReviewPaginationDTO _reviews;
+        private int _page = 1;
+        private int _pagesize;
         public ServiceProviderDetails(string serviceProviderID)
         {
             _serviceProviderID = serviceProviderID;
+            _pagesize = 5;
             InitializeComponent();
         }
 
@@ -197,15 +201,38 @@ namespace PresentationLayer.User_Interface
 
         private void LoadReviews()
         {
+            ReviewsStackPanel.Children.Clear();
             try
             {
                 Review review = new Review();
                 Dictionary<string, string> queryParameters = new Dictionary<string, string>
                 {
-                    ["page"] = "1",
-                    ["pagesize"] = "5"
+                    ["page"] = _page.ToString(),
+                    ["pagesize"] = _pagesize.ToString()
                 };
                 _reviews = review.FindAll(_serviceProviderID, queryParameters);
+                if (_reviews.Page > 1)
+                {
+                    StartingPageButton.IsEnabled = true;
+                    PreviousPageButton.IsEnabled = true;
+                }
+                else
+                {
+                    StartingPageButton.IsEnabled = false;
+                    PreviousPageButton.IsEnabled = false;
+                }
+
+
+                if (_reviews.Page < _reviews.Pages)
+                {
+                    LastPageButton.IsEnabled = true;
+                    NextPageButton.IsEnabled = true;
+                }
+                else
+                {
+                    LastPageButton.IsEnabled = false;
+                    NextPageButton.IsEnabled = false;
+                }
                 PrintReviews();
             }
             catch (NetworkRequestException networkRequestException)
@@ -218,6 +245,7 @@ namespace PresentationLayer.User_Interface
                         NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
                         break;
                     case 404:
+                        ReviewsStackPanel.Children.Clear();
                         TextBlock noReviewsNotification = new TextBlock
                         {
                             Text = "Este proveedor de servicio aún no tiene reseñas",
@@ -239,13 +267,19 @@ namespace PresentationLayer.User_Interface
                         exceptionMessage = "Ha ocurrido un error desconocido. Por favor, intente más tarde.";
                         NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
                         break;
-                }                                
+                }             
+                                StartingPageButton.IsEnabled = false;
+                PreviousPageButton.IsEnabled = false;
+                LastPageButton.IsEnabled = false;
+                NextPageButton.IsEnabled = false;
             }            
         }
 
         private void PrintReviews()
         {
-            _reviews.ForEach(reviewElement =>
+            ReviewsStackPanel.Children.Clear();
+            CurrentPageButton.Content = _reviews.Page;
+            _reviews.Data.ForEach(reviewElement =>
             {
                 StackPanel stackPanel = new StackPanel
                 {
@@ -274,7 +308,7 @@ namespace PresentationLayer.User_Interface
 
                 TextBlock serviceRequesterName = new TextBlock
                 {
-                    Text = reviewElement.ServiceRequester.Names + " " + reviewElement.ServiceRequester.Lastname,
+                    Text = reviewElement.ServiceRequester.Names + " " + reviewElement.ServiceRequester.LastName,
                     FontSize = 12,
                     Foreground = new SolidColorBrush(Colors.DarkGray)
                 };
@@ -289,30 +323,31 @@ namespace PresentationLayer.User_Interface
                     Margin = new Thickness(0, 30, 0, 30)
                 };
 
-                reviewElement.Evidence.ForEach(evidenceElement =>
+                if(reviewElement.Evidence != null)
                 {
-                    TextBlock buttonTextBlock = new TextBlock()
+                    reviewElement.Evidence.ForEach(evidenceElement =>
                     {
-                        Text = evidenceElement.Name,
-                        TextAlignment = TextAlignment.Center,
-                        TextWrapping = TextWrapping.Wrap
-                    };
-                    Button evidenceButton = new Button
-                    {
-                        Content = buttonTextBlock,
-                        Foreground = new SolidColorBrush(Colors.White),
-                        MaxWidth = 180,
-                        HorizontalAlignment = HorizontalAlignment.Left,
-                        Margin = new Thickness(0, 0, 5, 0),
-                        Tag = evidenceElement.Link
+                        TextBlock buttonTextBlock = new TextBlock()
+                        {
+                            Text = evidenceElement.Name,
+                            TextAlignment = TextAlignment.Center,
+                            TextWrapping = TextWrapping.Wrap
+                        };
+                        Button evidenceButton = new Button
+                        {
+                            Content = buttonTextBlock,
+                            Foreground = new SolidColorBrush(Colors.White),
+                            MaxWidth = 180,
+                            HorizontalAlignment = HorizontalAlignment.Left,
+                            Margin = new Thickness(0, 0, 5, 0),
+                            Tag = evidenceElement.Link
 
-                    };
-                    evidenceButton.Click += NavigateToEvidenceWindow;
-                    reviewEvidence.Children.Add(evidenceButton);
-                });
-
-                stackPanel.Children.Add(reviewEvidence);
-
+                        };
+                        evidenceButton.Click += NavigateToEvidenceWindow;
+                        reviewEvidence.Children.Add(evidenceButton);
+                    });
+                    stackPanel.Children.Add(reviewEvidence);                   
+                }
                 ReviewsStackPanel.Children.Add(stackPanel);
             });
         }
@@ -323,5 +358,38 @@ namespace PresentationLayer.User_Interface
             EvidenceViewer evidenceViewer = new EvidenceViewer(linkOfEvidence);
             evidenceViewer.Show();
         }
-    }
+
+        private void FirstPageButtonClicked(object sender, RoutedEventArgs e)
+        {
+            _page = 1;
+            LoadReviews();
+
+        }
+
+        private void PreviousPageButtonClicked(object sender, RoutedEventArgs e)
+        {
+            _page--;
+            LoadReviews();
+
+        }
+
+        private void NextPageButtonClicked(object sender, RoutedEventArgs e)
+        {
+            _page++;
+            LoadReviews();
+
+        }
+
+        private void LastPageButtonClicked(object sender, RoutedEventArgs e)
+        {
+            _page = _reviews.Pages;
+            LoadReviews();
+        }
+
+        private void PageSizeComboBoxChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _pagesize = int.Parse(((ComboBoxItem)ComboBoxPageSize.SelectedItem).Tag.ToString());
+            LoadReviews();
+        }
+    }    
 }

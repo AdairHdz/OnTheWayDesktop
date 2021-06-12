@@ -14,15 +14,15 @@ namespace BusinessLayer.BusinessEntities
         public List<City> Cities { get; set; }
         public List<ServiceRequest> ServiceRequests { get; set; }
 
-        public List<ServiceProvider> FindMatches(Dictionary<string, string> queryParameters)
+        public ServiceProviderPaginationDTO FindMatches(Dictionary<string, string> queryParameters)
         {
 
             IRestRequest<ServiceProviderPaginationDTO> request = new RestRequest<ServiceProviderPaginationDTO>();
             ServiceProviderPaginationDTO response = request.GetAllWithPagination($"providers", true, queryParameters);
 
-            List<ServiceProvider> serviceProviders =
-                ServiceProviderMapper.CreateListOfServiceProviderFromServiceProviderOverviewItemDTO(response.Data);
-            return serviceProviders;            
+            //List<ServiceProvider> serviceProviders =
+            //    ServiceProviderMapper.CreateListOfServiceProviderFromServiceProviderOverviewItemDTO(response.Data);
+            return response;
         }
 
         public ServiceProvider Find(string serviceProviderID)
