@@ -18,13 +18,10 @@ namespace BusinessLayer.BusinessEntities
         public ServiceRequester ServiceRequester { get; set; }
         public List<Evidence> Evidence { get; set; }
 
-        public List<Review> FindAll(string serviceProviderID, Dictionary<string, string> queryParameters)
-        {
-            List<Review> retrievedReviews;
+        public ReviewPaginationDTO FindAll(string serviceProviderID, Dictionary<string, string> queryParameters)
+        {            
             RestRequest<ReviewPaginationDTO> restRequest = new RestRequest<ReviewPaginationDTO>();
-            var response = restRequest.GetAllWithPagination($"/providers/{serviceProviderID}/reviews", true, queryParameters);
-            retrievedReviews = ReviewMapper.CreateListOfReviewEntitiesFromListOfReviewDTO(response.Data);
-            return retrievedReviews;
+            return restRequest.GetAllWithPagination($"/providers/{serviceProviderID}/reviews", true, queryParameters);                        
         }
 
         public void Save()

@@ -30,7 +30,7 @@ namespace BusinessLayer.Mappers
         private static List<Evidence> CreateListOfEvidence(List<EvidenceResponseDTO> listEvidenceDTO)
         {
             List<Evidence> listOfEvidence = new List<Evidence>();
-            if(listEvidenceDTO.Count > 0)
+            if(listEvidenceDTO != null)
             {
                 listEvidenceDTO.ForEach(evidenceElement =>
                 {

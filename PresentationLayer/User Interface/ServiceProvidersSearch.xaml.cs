@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.BusinessEntities;
+using DataLayer.DataTransferObjects;
 using PresentationLayer.Helpers;
 using PresentationLayer.Mappers;
 using PresentationLayer.PresentationModels;
@@ -16,11 +17,13 @@ namespace PresentationLayer.User_Interface
     /// </summary>
     public partial class ServiceProvidersSearch : Window
     {
-        private List<ServiceProviderOverviewItemPresentationModel> _serviceProviders;
+        private ServiceProviderOverviewPaginationPresentationModel _serviceProviders;
+        private int _page = 1;
+        private int _pagesize;
         public ServiceProvidersSearch()
         {
             InitializeComponent();
-            _serviceProviders = new List<ServiceProviderOverviewItemPresentationModel>();
+            _serviceProviders = new ServiceProviderOverviewPaginationPresentationModel();
         }
 
         private void MaxPriceSliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -34,6 +37,9 @@ namespace PresentationLayer.User_Interface
             if(ServiceProvidersListView.SelectedItem != null)
             {
                 SeeDetailsButton.IsEnabled = true;
+            } else
+            {
+                SeeDetailsButton.IsEnabled = false;
             }
         }
 
@@ -71,25 +77,63 @@ namespace PresentationLayer.User_Interface
             }
             catch (NetworkRequestException networkRequestException)
             {
-                NotificationWindow.ShowErrorWindow("Error", networkRequestException.Message);
-                NavigateToServiceRequesterMenu();
-            }
-            catch (EmptyCollectionException)
-            {
-                NotificationWindow.ShowNotificationWindow("Sin coincidencias", "Actualmente OnTheWay no cuenta con ciudades registradas en su Estado.");
-                NavigateToServiceRequesterMenu();
-            }
+                string exceptionMessage;
+                switch (networkRequestException.StatusCode)
+                {
+                    case 400:
+                        exceptionMessage = "Ha ocurrido un error al intentar procesar su solicitud. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                    case 401:
+                        exceptionMessage = "Lo sentimos, su sesión ha expirado";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        GoBackToLoginView();
+                        break;
+                    case 404:
+                        exceptionMessage = "No se encontraron coincidencias para la información solicitada. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                    case 409:
+                        exceptionMessage = "Ha ocurrido un error al intentar procesar su solicitud. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                    case 500:
+                        exceptionMessage = "Ha ocurrido un error interno en el servidor. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                    default:
+                        exceptionMessage = "Ha ocurrido un error desconocido. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                }                          
+            }            
             
         }
 
-        private void NavigateToServiceRequesterMenu()
+        private void GoBackToLoginView()
         {
-            ServiceRequesterMenu serviceRequesterMenu = new ServiceRequesterMenu();
-            serviceRequesterMenu.Show();
+            Login login = new Login();
+            login.Show();
             Close();
         }
 
         private void SearchButtonClicked(object sender, RoutedEventArgs e)
+        {
+            try
+            {                
+                if(_pagesize == 0)
+                {
+                    throw new ArgumentNullException();
+                }
+                LoadServiceProviders();
+            }
+            catch(ArgumentNullException)
+            {
+                NotificationWindow.ShowErrorWindow("Error", "Por favor seleccione el número de página.");
+            }            
+        }
+
+        private void LoadServiceProviders()
         {
             ServiceProvidersListView.Items.Clear();
             ServiceProvider serviceProvider = new ServiceProvider();
@@ -101,48 +145,115 @@ namespace PresentationLayer.User_Interface
             queryParameters["maxPriceRate"] = maxPriceRate;
             queryParameters["city"] = cityName;
             queryParameters["kindOfService"] = kindOfService;
-            queryParameters["page"] = "1";
-            queryParameters["pagesize"] = "10";
+            queryParameters["page"] = _page.ToString();
+            queryParameters["pagesize"] = _pagesize.ToString();
             try
             {
-                _serviceProviders = ServiceProviderMapper.CreateListOfServiceProviderOverviewItemDTO(serviceProvider.FindMatches(queryParameters));
-                _serviceProviders.ForEach(serviceProviderModel =>
+                ServiceProviderPaginationDTO serviceProviderPaginationDTO = serviceProvider.FindMatches(queryParameters);
+                _serviceProviders = ServiceProviderMapper.CreateListOfServiceProviderOverviewPagination(serviceProviderPaginationDTO);
+                _serviceProviders.ServiceProvidersOverview.ForEach(serviceProviderModel =>
                 {
                     ServiceProvidersListView.Items.Add(serviceProviderModel);
                 });
+
+                CurrentPageButton.Content = _serviceProviders.Page;
+                if (_serviceProviders.Page > 1)
+                {
+                    StartingPageButton.IsEnabled = true;
+                    PreviousPageButton.IsEnabled = true;
+                } else
+                {
+                    StartingPageButton.IsEnabled = false;
+                    PreviousPageButton.IsEnabled = false;
+                }
+                
+
+                if(_serviceProviders.Page < _serviceProviders.Pages) {
+                    LastPageButton.IsEnabled = true;
+                    NextPageButton.IsEnabled = true;
+                }
+                else
+                {
+                    LastPageButton.IsEnabled = false;
+                    NextPageButton.IsEnabled = false;
+                }
             }
-            catch(NetworkRequestException networkRequestException)
+            catch (NetworkRequestException networkRequestException)
             {
                 string exceptionMessage = "";
-                switch(networkRequestException.StatusCode)
+                switch (networkRequestException.StatusCode)
                 {
                     case 400:
                         exceptionMessage = "Por favor asegúrese de haber proporcionado parámetros válidos de búsqueda.";
+                        NotifyErrorAndDisableButtons(exceptionMessage);
                         break;
                     case 401:
                         exceptionMessage = "Lo sentimos, su sesión ha caducado de forma inesperada.";
+                        GoBackToLoginView();
                         break;
                     case 404:
                         exceptionMessage = "No se encontraron proveedores de servicio para los parámetros de búsqueda especificados.";
+                        NotifyErrorAndDisableButtons(exceptionMessage);
                         break;
                     case 409:
                         exceptionMessage = "Ocurrió un problema al intentar recuperar la información solicitada. Por favor, intente más tarde.";
+                        NotifyErrorAndDisableButtons(exceptionMessage);
                         break;
                     case 500:
                         exceptionMessage = "Ha ocurrido un error en el servidor al momento de procesar la solicitud. Por favor, intente más tarde.";
+                        NotifyErrorAndDisableButtons(exceptionMessage);
                         break;
                     default:
                         exceptionMessage = "Ocurrió un error desconocido. Por favor, intente más tarde.";
+                        NotifyErrorAndDisableButtons(exceptionMessage);
                         break;
                 }
-                NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                
             }
-                      
+        }
+
+
+        private void NotifyErrorAndDisableButtons(string exceptionMessage)
+        {
+            NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+            StartingPageButton.IsEnabled = false;
+            PreviousPageButton.IsEnabled = false;
+            LastPageButton.IsEnabled = false;
+            NextPageButton.IsEnabled = false;
         }
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
             LoadCities();
+        }
+
+        private void FirstPageButtonClicked(object sender, RoutedEventArgs e)
+        {
+            _page = 1;
+            LoadServiceProviders();
+        }
+
+        private void PreviousPageButtonClicked(object sender, RoutedEventArgs e)
+        {
+            _page--;
+            LoadServiceProviders();
+        }
+
+        private void NextPageButtonClicked(object sender, RoutedEventArgs e)
+        {
+            _page++;
+            LoadServiceProviders();
+        }
+
+        private void LastPageButtonClicked(object sender, RoutedEventArgs e)
+        {
+            _page = _serviceProviders.Pages;
+            LoadServiceProviders();
+        }
+
+        private void PageSizeComboBoxChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _pagesize = int.Parse(((ComboBoxItem)ComboBoxPageSize.SelectedItem).Tag.ToString());
         }
     }
 }

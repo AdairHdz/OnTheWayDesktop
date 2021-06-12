@@ -1,7 +1,6 @@
 ﻿using BusinessLayer.Mappers;
 using DataLayer;
 using DataLayer.DataTransferObjects;
-using RestSharp;
 using System.Collections.Generic;
 
 namespace BusinessLayer.BusinessEntities

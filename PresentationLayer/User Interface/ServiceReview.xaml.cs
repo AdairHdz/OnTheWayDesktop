@@ -44,19 +44,64 @@ namespace PresentationLayer.User_Interface
             ShowFeedback(validationResult);         
             if(validationResult.IsValid)
             {
-                _ = SaveReviewAsync();                
+                SaveReview();
+                if(_review.Evidence.Count > 0)
+                {
+                    _ = SaveReviewEvidenceAsync();
+                }                
             }
 
         }
 
-        private async Task SaveReviewAsync()
+        private void GoBackToLoginView()
+        {
+            Login login = new Login();
+            login.Show();
+            Close();
+        }
+
+        private async Task SaveReviewEvidenceAsync()
+        {
+            try
+            {
+                Review review = ReviewMapper.CreateReviewEntityFromReviewPresentationModel(_review);
+                await review.SaveReviewFilesAsync();
+            }
+            catch (NetworkRequestException networkRequestException)
+            {
+                string exceptionMessage;
+                switch (networkRequestException.StatusCode)
+                {
+                    case 400:
+                        exceptionMessage = "La evidencia no pudo ser guardada debido a que poseía uno o más archivos con formato no válido.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                    case 401:
+                        exceptionMessage = "Lo sentimos, su sesión ha expirado";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        GoBackToLoginView();
+                        break;
+                    case 409:
+                    case 500:
+                        exceptionMessage = "Ha ocurrido un error en el servidor al intentar procesar la evidencia que proporcionó. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                    default:
+                        exceptionMessage = "Ha ocurrido un error desconocido al intentar guardar la evidencia. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                }                
+            }
+        }
+
+        private void SaveReview()
         {
             Review review = ReviewMapper.CreateReviewEntityFromReviewPresentationModel(_review);
             try
             {
-                review.Save();
-                await review.SaveReviewFilesAsync();
+                review.Save();                
                 NotificationWindow.ShowNotificationWindow("Operación exitosa", "Su reseña se ha publicado correctamente.");
+                Close();
             }
             catch (NetworkRequestException networkRequestException)
             {
@@ -65,16 +110,23 @@ namespace PresentationLayer.User_Interface
                 {
                     case 400:
                         exceptionMessage = "La petición tienen un formato no válido. Favor de verificar e intentar de nuevo.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                    case 401:
+                        exceptionMessage = "Lo sentimos, su sesión ha expirado";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        GoBackToLoginView();
                         break;
                     case 409:
                     case 500:
                         exceptionMessage = "Ha ocurrido un error en el servidor al intentar procesar su solicitud. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
                         break;
                     default:
                         exceptionMessage = "Ha ocurrido un error desconocido. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
                         break;
-                }
-                NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                }                
             }
         }
 

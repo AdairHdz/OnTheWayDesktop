@@ -85,5 +85,11 @@ namespace BusinessLayer.BusinessEntities
             return restRequest.Put($"users/recoveryCode", emailAddressDTO);            
         }
 
+        public void Logout()
+        {
+            var restRequest = new RestRequest<object>();
+            _ = restRequest.LogoutAsync();
+        }
+
     }
 }
