@@ -57,6 +57,7 @@
     <Compile Include="DataTransferObjects\CityDTO.cs" />
     <Compile Include="DataTransferObjects\EmailAddressDTO.cs" />
     <Compile Include="DataTransferObjects\EvidenceDTO.cs" />
+    <Compile Include="DataTransferObjects\EvidenceResponseDTO.cs" />
     <Compile Include="DataTransferObjects\LinksDTO.cs" />
     <Compile Include="DataTransferObjects\LoginDTO.cs" />
     <Compile Include="DataTransferObjects\LoginResponseDTO.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="DataTransferObjects\PriceRateDTO.cs" />
     <Compile Include="DataTransferObjects\RefreshVerificationCodeDTO.cs" />
     <Compile Include="DataTransferObjects\ReviewDTO.cs" />
+    <Compile Include="DataTransferObjects\ReviewResponseDTO.cs" />
     <Compile Include="DataTransferObjects\ReviewPaginationDTO.cs" />
     <Compile Include="DataTransferObjects\ServiceProviderDetailDTO.cs" />
     <Compile Include="DataTransferObjects\ServiceProviderOverviewItemDTO.cs" />

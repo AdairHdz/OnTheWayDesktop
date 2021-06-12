@@ -293,7 +293,7 @@ namespace PresentationLayer.User_Interface
                 {
                     TextBlock buttonTextBlock = new TextBlock()
                     {
-                        Text = evidenceElement,
+                        Text = evidenceElement.Name,
                         TextAlignment = TextAlignment.Center,
                         TextWrapping = TextWrapping.Wrap
                     };
@@ -301,10 +301,10 @@ namespace PresentationLayer.User_Interface
                     {
                         Content = buttonTextBlock,
                         Foreground = new SolidColorBrush(Colors.White),
-                        MaxWidth = 100,
+                        MaxWidth = 180,
                         HorizontalAlignment = HorizontalAlignment.Left,
                         Margin = new Thickness(0, 0, 5, 0),
-                        Tag = evidenceElement
+                        Tag = evidenceElement.Link
 
                     };
                     evidenceButton.Click += NavigateToEvidenceWindow;
@@ -319,10 +319,9 @@ namespace PresentationLayer.User_Interface
 
         void NavigateToEvidenceWindow(object sender, RoutedEventArgs e)
         {
-            string idOfEvidence = ((Button)sender).Tag.ToString();
-            NotificationWindow.ShowNotificationWindow("ID", idOfEvidence);
-            //EvidenceViewer evidenceViewer = new EvidenceViewer();
-            //evidenceViewer.Show();
+            string linkOfEvidence = ((Button)sender).Tag.ToString();
+            EvidenceViewer evidenceViewer = new EvidenceViewer(linkOfEvidence);
+            evidenceViewer.Show();
         }
     }
 }

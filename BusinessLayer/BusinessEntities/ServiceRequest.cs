@@ -32,5 +32,12 @@ namespace BusinessLayer.BusinessEntities
             List<ServiceRequestResponseDTO> serviceRequests = request.GetAll($"requesters/{Session.GetSession().ID}/requests", true, queryParameters);
             return ServiceRequestMapper.CreateServiceRequestEntitiesListFromServiceRequestDTOList(serviceRequests);            
         }
+
+        public ServiceRequest FindByID(string serviceRequestID)
+        {            
+            RestRequest<ServiceRequestResponseDTO> request = new RestRequest<ServiceRequestResponseDTO>();
+            ServiceRequestResponseDTO serviceRequestDTO = request.Get($"requests/{serviceRequestID}");
+            return ServiceRequestMapper.CreateServiceRequestEntityFromServiceRequestDTO(serviceRequestDTO);            
+        }
     }
 }
