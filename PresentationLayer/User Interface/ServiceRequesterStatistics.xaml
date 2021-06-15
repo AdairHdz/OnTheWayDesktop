@@ -93,7 +93,7 @@
                 </lvc:CartesianChart.AxisX>
             </lvc:CartesianChart>
 
-            <lvc:PieChart Grid.Column="1" x:Name="PieChart" Grid.Row="1" LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}">
+            <lvc:PieChart Grid.Column="1" Hoverable="True" x:Name="PieChart" Grid.Row="1" LegendLocation="Bottom" DataTooltip="{x:Null}">
                 
             </lvc:PieChart>
 

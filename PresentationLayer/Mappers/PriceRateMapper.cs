@@ -29,7 +29,7 @@ namespace PresentationLayer.Mappers
         {
             string kindOfServiceName;
             switch (kindOfService)
-            {
+            {                
                 case KindOfService.ServicePayment:
                     kindOfServiceName = "Pago de servicios";
                     break;

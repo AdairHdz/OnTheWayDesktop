@@ -39,5 +39,15 @@ namespace BusinessLayer.BusinessEntities
             ServiceRequestResponseDTO serviceRequestDTO = request.Get($"requests/{serviceRequestID}");
             return ServiceRequestMapper.CreateServiceRequestEntityFromServiceRequestDTO(serviceRequestDTO);            
         }
+
+        public void UpdateStatus(string serviceRequestID, int serviceStatus)
+        {
+            RestRequest<object> request = new RestRequest<object>();
+            ServiceRequestStatusDTO serviceRequestStatusDTO = new ServiceRequestStatusDTO
+            {
+                ServiceStatus = serviceStatus
+            };
+            request.Patch($"requests/{serviceRequestID}", serviceRequestStatusDTO);
+        }
     }
 }

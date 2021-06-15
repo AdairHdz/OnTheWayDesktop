@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.BusinessEntities;
 using DataLayer.DataTransferObjects;
+using Flurl;
 using PresentationLayer.Helpers;
 using PresentationLayer.Mappers;
 using PresentationLayer.PresentationModels;
@@ -39,14 +40,10 @@ namespace PresentationLayer.User_Interface
             string path = System.IO.Path.Combine(root, @"..\..\Images\OnTheWay.png");            
                         
             BitmapImage image = new BitmapImage();
-            image.BeginInit();
-            image.UriSource = new Uri("http://192.168.100.41:8080/images/82e49b2e-cff5-46cb-8f4f-de932cbb6cbf/OnTheWayIcon.png");
-            if(image.SourceRect.IsEmpty)
-            {
-                image.UriSource = new Uri(path);
-            }
+            image.BeginInit();            
+            image.UriSource = new Uri(Url.Combine("http://localhost:8080/images", $"{_serviceProviderID}/{_serviceProviderDetails.ProfileImage}"));            
             image.EndInit();
-            ServiceProviderImage.Source = image;            
+            ServiceProviderImage.Source = image; 
         }
 
         private void BackButtonClicked(object sender, RoutedEventArgs e)

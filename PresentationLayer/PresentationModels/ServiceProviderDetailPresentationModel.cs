@@ -7,5 +7,6 @@ namespace PresentationLayer.PresentationModels
         public string FullName { get; set; }
         public int AverageScore { get; set; }
         public List<PriceRatePresentationModel> PriceRates { get; set; }
+        public string ProfileImage { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using PresentationLayer.Helpers;
+﻿using BusinessLayer.BusinessEntities;
+using PresentationLayer.Helpers;
 using PresentationLayer.Mappers;
 using PresentationLayer.PresentationModels;
 using System.Windows;
@@ -33,20 +34,23 @@ namespace PresentationLayer.User_Interface
         {
             if (_serviceRequest.Status.Equals("Pendiente de aceptación"))
             {                                
-                CreateButton("Cancelar", CancelButtonClicked);
-                CreateButton("Calificar", ReviewButtonClicked);
+                CreateButton("Cancelar", CancelButtonClicked);                
             }
             else if (_serviceRequest.Status.Equals("Completado"))
             {
                 CreateButton("Calificar", ReviewButtonClicked);
-            }            
+            }
+            else if(_serviceRequest.Status.Equals("Activo"))
+            {
+                CreateButton("Marcar como completado", MarkServiceAsCompletedButtonClicked, 250);
+            }
         }
 
-        private void CreateButton(string buttonText, RoutedEventHandler eventHandler)
+        private void CreateButton(string buttonText, RoutedEventHandler eventHandler, int width = 120)
         {
             Button button = new Button
             {
-                Width = 120,
+                Width = width,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 Margin = new Thickness(10, 0, 10, 0),
                 Content = buttonText,
@@ -85,6 +89,11 @@ namespace PresentationLayer.User_Interface
 
         private void BackButtonClicked(object sender, RoutedEventArgs e)
         {
+            NavigateToServiceHistory();
+        }
+
+        private void NavigateToServiceHistory()
+        {
             ServiceHistory serviceHistory = new ServiceHistory();
             serviceHistory.Show();
             Close();
@@ -92,11 +101,51 @@ namespace PresentationLayer.User_Interface
 
         private void CancelButtonClicked(object sender, RoutedEventArgs e)
         {
-            ServiceHistory serviceHistory = new ServiceHistory();
-            serviceHistory.Show();
-            Close();
+            UpdateServiceStatus((int)ServiceStatus.Canceled);
+            NotificationWindow.ShowNotificationWindow("Solicitud cancelada", "La solicitud de servicio ha sido cancelada");
+            NavigateToServiceHistory();
         }
 
+        private void UpdateServiceStatus(int serviceStatus)
+        {
+            try
+            {
+                BusinessLayer.BusinessEntities.ServiceRequest serviceRequest = new BusinessLayer.BusinessEntities.ServiceRequest();
+                serviceRequest.UpdateStatus(_serviceRequestID, serviceStatus);
+            }
+            catch (NetworkRequestException networkRequestException)
+            {
+                string exceptionMessage;
+                switch (networkRequestException.StatusCode)
+                {
+                    case 400:
+                        exceptionMessage = "Los datos que ha ingresado tienen un formato no válido. Favor de verificar e intentar de nuevo.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                    case 401:
+                        exceptionMessage = "Lo sentimos, su sesión ha expirado";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        GoBackToLoginView();
+                        break;                                            
+                    case 409:
+                    case 500:
+                        exceptionMessage = "Ha ocurrido un error en el servidor al intentar procesar su solicitud. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                    default:
+                        exceptionMessage = "Ha ocurrido un error desconocido. Por favor, intente más tarde.";
+                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
+                        break;
+                }
+            }
+        }
+
+        private void MarkServiceAsCompletedButtonClicked(object sender, RoutedEventArgs e)
+        {
+            UpdateServiceStatus((int)ServiceStatus.Concretized);
+            NotificationWindow.ShowNotificationWindow("Solicitud completada", "La solicitud de servicio ha sido marcada como cancelada");
+            NavigateToServiceHistory();
+        }
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
             try
