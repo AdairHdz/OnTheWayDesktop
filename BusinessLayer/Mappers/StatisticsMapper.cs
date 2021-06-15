@@ -45,27 +45,27 @@ namespace BusinessLayer.Mappers
         private static List<RequestedServicesPerWeekday> CreateListOfRequestedServicesPerWeekday(List<RequestedServicesPerWeekdayDTO> requestedServicesPerWeekdayDTOs)
         {
             List<RequestedServicesPerWeekday> requestedServicesPerWeekdays = new List<RequestedServicesPerWeekday>();
-            List<int> weekdays = new List<int> { 1, 2, 3, 4, 5, 6, 7 };
-            requestedServicesPerWeekdayDTOs.ForEach(requestedService =>
-            {
- 
-                weekdays.Remove(requestedService.Weekday);
-;
-                requestedServicesPerWeekdays.Add(new RequestedServicesPerWeekday
-                {
-                    Weekday = requestedService.Weekday,
-                    RequestedServices = requestedService.RequestedServices
-                });
-            });
+            List<int> weekdays = new List<int> { 0, 1, 2, 3, 4, 5, 6 };            
 
-            weekdays.ForEach(element =>
+            weekdays.ForEach(weekday =>
             {
-                requestedServicesPerWeekdays.Add(new RequestedServicesPerWeekday
+                var requestedServiceInWeekday = new RequestedServicesPerWeekday
                 {
-                    Weekday = element,
+                    Weekday = weekday,
                     RequestedServices = 0
+                };
+
+                requestedServicesPerWeekdayDTOs.ForEach(requestedService =>
+                {
+                    if(requestedService.Weekday == weekday)
+                    {
+                        requestedServiceInWeekday.RequestedServices = requestedService.RequestedServices;
+                    }
                 });
-            });
+
+                requestedServicesPerWeekdays.Add(requestedServiceInWeekday);                
+
+            });            
             return requestedServicesPerWeekdays;
         }
     }

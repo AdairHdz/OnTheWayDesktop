@@ -45,10 +45,10 @@ namespace PresentationLayer.User_Interface
             if(validationResult.IsValid)
             {
                 SaveReview();
-                if(_review.Evidence.Count > 0)
-                {
-                    _ = SaveReviewEvidenceAsync();
-                }                
+                //if(_review.Evidence.Count > 0)
+                //{
+                //    _ = SaveReviewEvidenceAsync();
+                //}                
             }
 
         }
@@ -99,7 +99,8 @@ namespace PresentationLayer.User_Interface
             Review review = ReviewMapper.CreateReviewEntityFromReviewPresentationModel(_review);
             try
             {
-                review.Save();                
+                review.Save();
+                _ = review.SaveReviewFilesAsync();
                 NotificationWindow.ShowNotificationWindow("Operación exitosa", "Su reseña se ha publicado correctamente.");
                 Close();
             }

@@ -49,7 +49,8 @@ namespace PresentationLayer.Mappers
             {
                 FullName = serviceProvider.Names + " " + serviceProvider.Lastname,
                 AverageScore = serviceProvider.AverageScore,
-                PriceRates = PriceRateMapper.CreateListOfPriceRatePresentationModel(serviceProvider.PriceRates)
+                PriceRates = PriceRateMapper.CreateListOfPriceRatePresentationModel(serviceProvider.PriceRates),
+                ProfileImage = serviceProvider.ProfileImage
             };
             return serviceProviderDetailPresentationModel;
         }

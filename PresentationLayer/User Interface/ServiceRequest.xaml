@@ -48,17 +48,20 @@
             IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
             materialDesign:HintAssist.Hint="Tipo de servicio" Height="50" Width="200" Margin="18.9,50.2,38.8,0.6" Grid.RowSpan="2" SelectionChanged="KindOfServiceComboBoxSelectionChanged">
             <ComboBoxItem
-                    Content="Compra de víveres"
+                    Content="Pago de servicios"
                     Tag="0"/>
             <ComboBoxItem
                     Content="Compra de fármacos"
                     Tag="1"/>
             <ComboBoxItem
-                    Content="Entrega"
+                    Content="Compra de víveres"
                     Tag="2"/>
             <ComboBoxItem
-                    Content="Otro"
+                    Content="Entrega"
                     Tag="3"/>
+            <ComboBoxItem
+                    Content="Otro"
+                    Tag="4"/>
         </ComboBox>
 
         <ComboBox Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2"

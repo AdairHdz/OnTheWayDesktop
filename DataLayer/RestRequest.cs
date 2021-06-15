@@ -219,10 +219,9 @@ namespace DataLayer
                     {
                         Session.GetSession().AuthorizationToken = RefreshTokenAsync();
                     }
-                    endpointURL.WithOAuthBearerToken($"{Session.GetSession().AuthorizationToken}");
+                    return endpointURL.WithOAuthBearerToken($"{Session.GetSession().AuthorizationToken}").PatchJsonAsync(dataToBeSent).GetAwaiter().GetResult().StatusCode == 200;
                 }
-
-                return endpointURL.PatchJsonAsync(dataToBeSent).GetAwaiter().GetResult().StatusCode == 200;
+                return endpointURL.PatchJsonAsync(dataToBeSent).GetAwaiter().GetResult().StatusCode == 200;                
 
             }
             catch (FlurlHttpTimeoutException)

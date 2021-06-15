@@ -10,5 +10,6 @@ namespace DataLayer.DataTransferObjects
         public string EmailAddress { get; set; }
         public int AverageScore { get; set; }
         public List<PriceRateDTO> PriceRates { get; set; }
+        public string ProfileImage { get; set; }
     }
 }

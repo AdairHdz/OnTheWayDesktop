@@ -42,7 +42,8 @@ namespace BusinessLayer.Mappers
                 Lastname = serviceProviderDetailDTO.LastName,
                 EmailAddress = serviceProviderDetailDTO.EmailAddress,
                 AverageScore = serviceProviderDetailDTO.AverageScore,
-                PriceRates = PriceRateMapper.CreateListOfPriceRatesFromListOfPriceRatesDTO(serviceProviderDetailDTO.PriceRates)
+                PriceRates = PriceRateMapper.CreateListOfPriceRatesFromListOfPriceRatesDTO(serviceProviderDetailDTO.PriceRates),
+                ProfileImage = serviceProviderDetailDTO.ProfileImage
             };
             return serviceProvider;
         }
