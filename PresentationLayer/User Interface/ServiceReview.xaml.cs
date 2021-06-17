@@ -44,11 +44,7 @@ namespace PresentationLayer.User_Interface
             ShowFeedback(validationResult);         
             if(validationResult.IsValid)
             {
-                SaveReview();
-                //if(_review.Evidence.Count > 0)
-                //{
-                //    _ = SaveReviewEvidenceAsync();
-                //}                
+                SaveReview();                         
             }
 
         }

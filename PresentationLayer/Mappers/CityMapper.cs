@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace PresentationLayer.Mappers
 {
-    public class CityMapper
+    public static class CityMapper
     {
         public static List<CityPresentationModel> CreateListOfCityPresentationModels(List<City> cities)
         {

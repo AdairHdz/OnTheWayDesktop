@@ -37,7 +37,7 @@ namespace PresentationLayer.User_Interface
         {            
             Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
             var root = Directory.GetCurrentDirectory();
-            string path = System.IO.Path.Combine(root, @"..\..\Images\OnTheWay.png");            
+            System.IO.Path.Combine(root, @"..\..\Images\OnTheWay.png"); 
                         
             BitmapImage image = new BitmapImage();
             image.BeginInit();            
@@ -163,7 +163,7 @@ namespace PresentationLayer.User_Interface
                     FontWeight = FontWeights.Bold,
                 };
 
-                DockPanel workingDaysContainer = new DockPanel()
+                DockPanel workingDaysContainer = new DockPanel
                 {
                     HorizontalAlignment = HorizontalAlignment.Left,
                     Margin = new Thickness(0, 0, 0, 10),
@@ -325,7 +325,7 @@ namespace PresentationLayer.User_Interface
                     Margin = new Thickness(0, 0, 0, 10)
                 };
 
-                MaterialDesignThemes.Wpf.RatingBar ratingBar = new MaterialDesignThemes.Wpf.RatingBar()
+                MaterialDesignThemes.Wpf.RatingBar ratingBar = new MaterialDesignThemes.Wpf.RatingBar
                 {
                     Value = reviewElement.Score,
                     Foreground = new SolidColorBrush(Colors.Gold),
@@ -358,7 +358,7 @@ namespace PresentationLayer.User_Interface
                 {
                     reviewElement.Evidence.ForEach(evidenceElement =>
                     {
-                        TextBlock buttonTextBlock = new TextBlock()
+                        TextBlock buttonTextBlock = new TextBlock
                         {
                             Text = evidenceElement.Name,
                             TextAlignment = TextAlignment.Center,

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PresentationLayer.Mappers
 {
-    public class ServiceProviderMapper
+    public static class ServiceProviderMapper
     {
         public static ServiceProviderOverviewPaginationPresentationModel CreateListOfServiceProviderOverviewPagination(ServiceProviderPaginationDTO serviceProviderPaginationDTO)
         {

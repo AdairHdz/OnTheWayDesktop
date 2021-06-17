@@ -3,7 +3,7 @@ using PresentationLayer.PresentationModels;
 
 namespace PresentationLayer.Mappers
 {
-    public class UserMapper
+    public static class UserMapper
     {
         public static User CreateUserEntityFromLogin(LoginPresentationModel loginPresentationModel)
         {

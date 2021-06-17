@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PresentationLayer.Mappers
 {
-    public class AddressMapper
+    public static class AddressMapper
     {
         public static Address CreateAddressEntity(AddressPresentationModel addressPresentationModel)
         {

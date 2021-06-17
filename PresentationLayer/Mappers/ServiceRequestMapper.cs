@@ -4,24 +4,24 @@ using System.Collections.Generic;
 
 namespace PresentationLayer.Mappers
 {
-    public class ServiceRequestMapper
+    public static class ServiceRequestMapper
     {
         public static ServiceRequest CreateServiceRequestEntityFromServiceRequestPresentationModel(ServiceRequestPresentationModel serviceRequestPresentationModel)
         {
-            ServiceRequest serviceRequest = new ServiceRequest()
+            ServiceRequest serviceRequest = new ServiceRequest
             {
                 Cost = serviceRequestPresentationModel.Cost,
                 Description = serviceRequestPresentationModel.AdditionalDetails,
                 KindOfService = (KindOfService)serviceRequestPresentationModel.KindOfService,
-                ServiceProvider = new ServiceProvider()
+                ServiceProvider = new ServiceProvider
                 {
                     ID = serviceRequestPresentationModel.ServiceProviderID
                 },
-                ServiceRequester = new ServiceRequester()
+                ServiceRequester = new ServiceRequester
                 {
                     ID = serviceRequestPresentationModel.ServiceRequesterID
                 },
-                DeliveryAddress = new Address()
+                DeliveryAddress = new Address
                 {
                     ID = serviceRequestPresentationModel.Address.ID
                 }
@@ -50,7 +50,8 @@ namespace PresentationLayer.Mappers
 
         public static ServiceRequestDetailsPresentationModel CreateServiceRequestDetailsPresentationModelFromServiceRequestEntity(ServiceRequest serviceRequest)
         {
-            ServiceRequestDetailsPresentationModel serviceRequestDetailsPresentationModel = new ServiceRequestDetailsPresentationModel {                
+            ServiceRequestDetailsPresentationModel serviceRequestDetailsPresentationModel = new ServiceRequestDetailsPresentationModel
+            {                
                 ID = serviceRequest.ID,
                 Date = serviceRequest.Date.ToString("yyyy-MM-dd"),
                 DeliveryAddress = CreateAddressOverview(serviceRequest.DeliveryAddress),
