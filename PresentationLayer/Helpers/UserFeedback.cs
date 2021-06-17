@@ -13,8 +13,7 @@ namespace PresentationLayer.Helpers
         private IList<ValidationFailure> _validationFailures;
 
         public IList<Control> ControlsToBePaintedInGreen
-        {
-            private set { }
+        {            
             get
             {
                 return _controlsToBePaintedInGreen;

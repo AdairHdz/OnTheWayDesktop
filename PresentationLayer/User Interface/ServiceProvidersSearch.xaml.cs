@@ -92,11 +92,7 @@ namespace PresentationLayer.User_Interface
                     case 404:
                         exceptionMessage = "No se encontraron coincidencias para la información solicitada. Por favor, intente más tarde.";
                         NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
-                        break;
-                    case 409:
-                        exceptionMessage = "Ha ocurrido un error al intentar procesar su solicitud. Por favor, intente más tarde.";
-                        NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
-                        break;
+                        break;                    
                     case 500:
                         exceptionMessage = "Ha ocurrido un error interno en el servidor. Por favor, intente más tarde.";
                         NotificationWindow.ShowErrorWindow("Error", exceptionMessage);
