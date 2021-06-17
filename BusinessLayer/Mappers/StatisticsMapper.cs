@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BusinessLayer.Mappers
 {
-    public class StatisticsMapper
+    public static class StatisticsMapper
     {
         public static Statistics CreateStatisticsEntityFromStatisticsDTO(StatisticsResponseDTO statisticsResponseDTO)
         {

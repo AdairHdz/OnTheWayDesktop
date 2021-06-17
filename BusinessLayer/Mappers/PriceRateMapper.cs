@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace BusinessLayer.Mappers
 {
-    public class PriceRateMapper
+    public static class PriceRateMapper
     {
         public static PriceRate CreatePriceRateFromPriceRateDTO(PriceRateDTO priceRateDTO)
         {

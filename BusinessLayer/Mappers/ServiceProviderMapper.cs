@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BusinessLayer.Mappers
 {
-    public class ServiceProviderMapper
+    public static class ServiceProviderMapper
     {
 
         public static List<ServiceProvider> CreateListOfServiceProviderFromServiceProviderOverviewItemDTO(ServiceProviderPaginationDTO serviceProviderPaginationDTO)
