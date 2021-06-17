@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BusinessLayer.Mappers
 {
-    public class ReviewMapper
+    public static class ReviewMapper
     {
         public static List<Review> CreateListOfReviewEntitiesFromListOfReviewDTO(List<ReviewResponseDTO> reviewDTOs)
         {

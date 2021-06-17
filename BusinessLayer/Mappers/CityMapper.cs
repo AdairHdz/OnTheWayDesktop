@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BusinessLayer.Mappers
 {
-    public class CityMapper
+    public static class CityMapper
     {
         public static List<City> CreateListOfCityEntitiesFromListOfCityDTO(List<CityDTO> citiesDTOList)
         {

@@ -3,7 +3,7 @@ using DataLayer.DataTransferObjects;
 
 namespace BusinessLayer.Mappers
 {
-    public class ServiceRequesterMapper
+    public static class ServiceRequesterMapper
     {
         public static ServiceRequester CreateServiceRequesterFromUserOverviewDTO(UserOverviewDTO userOverviewDTO)
         {

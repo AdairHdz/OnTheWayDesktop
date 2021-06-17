@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BusinessLayer.Mappers
 {
-    public class AddressMapper
+    public static class AddressMapper
     {
         public static AddressDTO CreateAddressDTOFromEntity(Address address)
         {

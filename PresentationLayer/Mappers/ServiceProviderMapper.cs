@@ -12,7 +12,7 @@ namespace PresentationLayer.Mappers
             ServiceProviderOverviewPaginationPresentationModel serviceProviderOverviewPaginationPresentationModel =
                 new ServiceProviderOverviewPaginationPresentationModel
                 {
-                    Links = new LinksPresentationModel()
+                    Links = new LinksPresentationModel
                     {
                         First = serviceProviderPaginationDTO.Links.First,
                         Last = serviceProviderPaginationDTO.Links.Last,
