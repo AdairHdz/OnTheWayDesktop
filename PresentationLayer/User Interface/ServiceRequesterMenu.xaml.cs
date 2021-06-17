@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.BusinessEntities;
+using PresentationLayer.Helpers;
 using System;
 using System.Windows;
 using Utils.CustomExceptions;
@@ -25,7 +26,7 @@ namespace PresentationLayer.User_Interface
             }
             catch (NetworkRequestException)
             {
-                Console.WriteLine("Error al hacer logout en el servidor.");
+                NotificationWindow.ShowNotificationWindow("Cierre de sesión", "Cerrando sesión...");
             }
             finally
             {                
