@@ -45,7 +45,7 @@ namespace BusinessLayer.Mappers
 
         public static ServiceRequest CreateServiceRequestEntityFromServiceRequestDTO(ServiceRequestResponseDTO serviceRequestDTO)
         {            
-            ServiceRequest serviceRequest = new ServiceRequest()
+            ServiceRequest serviceRequest = new ServiceRequest
             {
                 ID = serviceRequestDTO.ID,
                 Cost = serviceRequestDTO.Cost,

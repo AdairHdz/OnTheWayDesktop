@@ -98,7 +98,7 @@ namespace DataLayer
                 {                                        
                     multipartContent.AddFile("upload[]", filePath);                    
                 });                                                
-                var resp = await _baseURL.AppendPathSegment(endpoint).WithOAuthBearerToken($"{Session.GetSession().AuthorizationToken}")
+                _ = await _baseURL.AppendPathSegment(endpoint).WithOAuthBearerToken($"{Session.GetSession().AuthorizationToken}")
                     .PostAsync(multipartContent);
             }            
             catch (FlurlHttpTimeoutException)

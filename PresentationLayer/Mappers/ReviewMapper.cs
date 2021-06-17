@@ -3,7 +3,7 @@ using PresentationLayer.PresentationModels;
 
 namespace PresentationLayer.Mappers
 {
-    public class ReviewMapper
+    public static class ReviewMapper
     {
         public static Review CreateReviewEntityFromReviewPresentationModel(ReviewPresentationModel reviewPresentationModel)
         {

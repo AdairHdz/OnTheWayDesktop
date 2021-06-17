@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace PresentationLayer.Mappers
 {
-    public class StateMapper
+    public static class StateMapper
     {
         public static List<StatePresentationModel> CreateListOfStatePrecentationModel(List<State> statesList)
         {

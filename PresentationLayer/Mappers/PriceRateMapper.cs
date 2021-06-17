@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace PresentationLayer.Mappers
 {
-    public class PriceRateMapper
+    public static class PriceRateMapper
     {
         public static List<PriceRatePresentationModel> CreateListOfPriceRatePresentationModel(List<PriceRate> priceRates)
         {

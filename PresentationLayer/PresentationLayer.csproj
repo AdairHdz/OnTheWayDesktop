@@ -166,6 +166,9 @@
     <Compile Include="User Interface\ServiceReview.xaml.cs">
       <DependentUpon>ServiceReview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="User Interface\VideoPlayer.xaml.cs">
+      <DependentUpon>VideoPlayer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ValidationModules\AccountVerificationCodeValidator.cs" />
     <Compile Include="ValidationModules\AddressPresentationModelValidator.cs" />
     <Compile Include="ValidationModules\EmailAddressValidator.cs" />
@@ -241,6 +244,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="User Interface\ServiceReview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User Interface\VideoPlayer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
