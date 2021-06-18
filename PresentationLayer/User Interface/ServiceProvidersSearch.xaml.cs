@@ -164,7 +164,7 @@ namespace PresentationLayer.User_Interface
                 }
                 
 
-                if(_serviceProviders.Page < _serviceProviders.Pages) {
+                if((_serviceProviders.Page * _serviceProviders.PerPage) - _serviceProviders.Total < 0) {
                     LastPageButton.IsEnabled = true;
                     NextPageButton.IsEnabled = true;
                 }

@@ -20,7 +20,7 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
-        <MediaElement LoadedBehavior="Manual" x:Name="Video" Grid.Row="0" Source="http://localhost:8080/reviews/9cfa3e1a-96e0-474a-9741-d808b6ed4a4a/video.mp4" MediaEnded="VideoEnded"/>
+        <MediaElement LoadedBehavior="Manual" x:Name="Video" Grid.Row="0" MediaEnded="VideoEnded"/>
         
 
         <Grid Grid.Row="2" Background="#166EE5">

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Flurl;
+using System.Windows;
 
 namespace PresentationLayer.User_Interface
 {
@@ -8,9 +9,10 @@ namespace PresentationLayer.User_Interface
     public partial class VideoPlayer : Window
     {
         private bool _isPaused;        
-        public VideoPlayer()
+        public VideoPlayer(string videoLink)
         {
-            InitializeComponent();            
+            InitializeComponent();
+            Video.Source = new System.Uri(Url.Combine("http://localhost:8080/", $"{videoLink}"));
             Video.Play();                
             _isPaused = false;                                    
         }

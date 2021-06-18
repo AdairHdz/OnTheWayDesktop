@@ -20,8 +20,9 @@ namespace PresentationLayer.Mappers
                         Prev = serviceProviderPaginationDTO.Links.Prev
                     },
                     Total = serviceProviderPaginationDTO.Total,
-                    Page = serviceProviderPaginationDTO.Page,
-                    Pages = serviceProviderPaginationDTO.Pages,                    
+                    Page = serviceProviderPaginationDTO.Page,                    
+                    PerPage = serviceProviderPaginationDTO.PerPage,
+                    Pages = (serviceProviderPaginationDTO.Total + serviceProviderPaginationDTO.PerPage - 1) / serviceProviderPaginationDTO.PerPage,
                 };
             
             List<ServiceProviderOverviewItemPresentationModel> serviceProviderOverviewItems = new List<ServiceProviderOverviewItemPresentationModel>();

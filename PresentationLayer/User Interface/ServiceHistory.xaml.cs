@@ -96,9 +96,17 @@ namespace PresentationLayer.User_Interface
         {
             ServiceRequestHistoryPresentationModel serviceRequest = 
                 (ServiceRequestHistoryPresentationModel)ListViewServices.SelectedItem;
-            ServiceDetails serviceDetails = new ServiceDetails(serviceRequest.ID);
-            serviceDetails.Show();
-            Close();
+            if(serviceRequest != null)
+            {
+                ServiceDetails serviceDetails = new ServiceDetails(serviceRequest.ID);
+                serviceDetails.Show();
+                Close();
+            }
+            else
+            {
+                NotificationWindow.ShowErrorWindow("Error", "Por favor, seleccione un servicio para proceder.");
+            }
+            
         }
 
         private void BackButtonClicked(object sender, RoutedEventArgs e)
