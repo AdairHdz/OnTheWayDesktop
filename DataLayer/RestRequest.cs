@@ -12,7 +12,7 @@ namespace DataLayer
 {
     public class RestRequest<T> : IRestRequest<T> where T : class
     {
-        private readonly string _baseURL = "http://localhost:8080/v1";        
+        private readonly string _baseURL = "http://localhost:8080/v1.0.0";        
         public T Post(string endpoint, object dataToBeSent, bool useAccessToken = true)
         {            
             try

@@ -29,7 +29,7 @@ namespace PresentationLayer.User_Interface
         public ServiceProviderDetails(string serviceProviderID)
         {
             _serviceProviderID = serviceProviderID;
-            _pagesize = 5;
+            _pagesize = 2;
             InitializeComponent();
         }
 
@@ -37,11 +37,19 @@ namespace PresentationLayer.User_Interface
         {            
             Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
             var root = Directory.GetCurrentDirectory();
-            System.IO.Path.Combine(root, @"..\..\Images\OnTheWay.png"); 
+            string path = System.IO.Path.Combine(root, @"..\..\Images\OnTheWay.png"); 
                         
             BitmapImage image = new BitmapImage();
-            image.BeginInit();            
-            image.UriSource = new Uri(Url.Combine("http://localhost:8080/images", $"{_serviceProviderID}/{_serviceProviderDetails.ProfileImage}"));            
+            image.BeginInit();     
+            if(_serviceProviderDetails.ProfileImage != null && _serviceProviderDetails.ProfileImage != "")
+            {
+                image.UriSource = new Uri(Url.Combine("http://localhost:8080/images", $"{_serviceProviderID}/{_serviceProviderDetails.ProfileImage}"));                
+            }
+            else
+            {
+                image.UriSource = new Uri(path);
+            }
+            
             image.EndInit();
             ServiceProviderImage.Source = image; 
         }
@@ -231,6 +239,7 @@ namespace PresentationLayer.User_Interface
                     ["pagesize"] = _pagesize.ToString()
                 };
                 _reviews = review.FindAll(_serviceProviderID, queryParameters);
+                _reviews.Pages = (_reviews.Total + _reviews.PerPage - 1) / _reviews.PerPage;
                 if (_reviews.Page > 1)
                 {
                     StartingPageButton.IsEnabled = true;
@@ -386,8 +395,19 @@ namespace PresentationLayer.User_Interface
         void NavigateToEvidenceWindow(object sender, RoutedEventArgs e)
         {
             string linkOfEvidence = ((Button)sender).Tag.ToString();
-            EvidenceViewer evidenceViewer = new EvidenceViewer(linkOfEvidence);
-            evidenceViewer.Show();
+            string fileExtension = System.IO.Path.GetExtension(linkOfEvidence);
+            Console.WriteLine(fileExtension);
+            if(fileExtension == ".mp4")
+            {
+                VideoPlayer videoPlayer = new VideoPlayer(linkOfEvidence);
+                videoPlayer.Show();                
+            }
+            else
+            {
+                EvidenceViewer evidenceViewer = new EvidenceViewer(linkOfEvidence);
+                evidenceViewer.Show();
+            }
+            
         }
 
         private void FirstPageButtonClicked(object sender, RoutedEventArgs e)

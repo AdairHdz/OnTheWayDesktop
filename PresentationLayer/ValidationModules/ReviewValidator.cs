@@ -7,11 +7,11 @@ namespace PresentationLayer.ValidationModules
     {
         public ReviewValidator()
         {
-            RuleFor(review => review.Details).Matches("^[A-z0-9 ]{0,255}$")
+            RuleFor(review => review.Details).MaximumLength(255)
                 .WithState(review => "TextBoxDetails");
             RuleFor(review => review.Title)
                 .NotEmpty().WithState(review => "TextBoxTitle")
-                .Matches("^[A-z0-9 ]{1,30}$").WithState(review => "TextBoxTitle");
+                .MaximumLength(30).WithState(review => "TextBoxTitle");
             RuleFor(review => review.Score).InclusiveBetween(1, 5);
         }
     }

@@ -143,7 +143,7 @@ namespace PresentationLayer.User_Interface
         private void MarkServiceAsCompletedButtonClicked(object sender, RoutedEventArgs e)
         {
             UpdateServiceStatus((int)ServiceStatus.Concretized);
-            NotificationWindow.ShowNotificationWindow("Solicitud completada", "La solicitud de servicio ha sido marcada como cancelada");
+            NotificationWindow.ShowNotificationWindow("Solicitud completada", "La solicitud de servicio ha sido marcada como completada");
             NavigateToServiceHistory();
         }
         private void WindowLoaded(object sender, RoutedEventArgs e)

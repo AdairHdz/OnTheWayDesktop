@@ -206,7 +206,8 @@ namespace PresentationLayer.User_Interface
             try
             {
                 PriceRate activePriceRate = priceRate.GetActivePriceRate(_serviceProviderID, queryParameters);
-                _serviceRequestPresentationModel.Cost = activePriceRate.Price;                
+                _serviceRequestPresentationModel.Cost = activePriceRate.Price;
+                TextBoxCost.Text = $"${activePriceRate.Price} MXN";
             }
             catch (NetworkRequestException networkRequestException)
             {

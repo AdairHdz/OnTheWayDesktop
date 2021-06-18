@@ -136,6 +136,8 @@ namespace PresentationLayer.User_Interface
 
         private void AddFilesButtonClicked(object sender, RoutedEventArgs e)
         {
+            StackPanelFileNames.Children.Clear();
+            _review.Evidence.Clear();
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Multimedia (*.PNG;*.JPG;*.JPEG;MP4)|*.PNG;*.JPG;*.JPEG;*.mp4";
             openFileDialog.Multiselect = true;
